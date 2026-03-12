@@ -333,3 +333,32 @@
   - None specific to this milestone.
 - Next stage:
   - v2.0.0 release docs and finalization.
+
+## v2.0.0 - 2026-03-11
+- Completed:
+  - Implemented player UX feedback package:
+    - 1-second full-screen round result flash.
+    - Single-page detailed instruction panel with full power-up documentation.
+    - De-emphasized bottom game feed.
+    - Red top push alerts for affected players on impacting power-ups.
+  - Updated power-up gameplay behavior:
+    - Speed Searcher extended to 60 seconds.
+  - Implemented admin bank-selection system:
+    - persisted file-bank selection state.
+    - backend bank list/selection APIs.
+    - live alphabetical checkbox selector with Add All / Clear All.
+    - next-round-only application of mid-game selection changes.
+  - Added admin lobby usability guardrails:
+    - explicit top-field labels.
+    - no-question start guardrails.
+  - Hardened round pipeline handling for live question-pool updates.
+  - Expanded README with beginner GitHub Releases download instructions and updated gameplay/admin docs.
+- Build artifacts:
+  - `quiztik-server-local-v2.0.0.zip`
+- Test status:
+  - `cargo check` passes.
+  - Build and artifact verification scripts pass.
+- Known issues:
+  - None release-blocking.
+- Next stage:
+  - Post-2.0 polish and additional gameplay features.

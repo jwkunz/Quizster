@@ -4,6 +4,20 @@ Quiztik is a local-network (LAN) multiplayer quiz game.
 
 One person (the admin/host) runs the server on their computer. Everyone else joins from their phone or computer browser by scanning a QR code or opening a URL.
 
+## New to GitHub? How to Download Quiztik
+
+If you have never used GitHub before, follow these exact steps:
+
+1. Go to the Quiztik repository page in your browser.
+2. On the right side, find the **Releases** section and click the latest release version.
+3. Scroll to **Assets** and click to expand it.
+4. Download the zip that matches your computer:
+   - Windows: `quiztik-server-x86_64-pc-windows-msvc-vX.Y.Z.zip`
+   - macOS (Apple Silicon): `quiztik-server-aarch64-apple-darwin-vX.Y.Z.zip`
+   - Linux: `quiztik-server-x86_64-unknown-linux-gnu-vX.Y.Z.zip`
+5. Wait for download to finish, then unzip/extract the file.
+6. Open the extracted folder and run the server executable inside.
+
 ## What You Download
 
 You only need **one zip file**:
@@ -31,6 +45,7 @@ No separate player or admin app download is needed.
 6. In admin page:
    - create/update room
    - login as admin
+   - select question bank files (if desired)
    - start game
 7. Ask players to scan the **Player Join QR** shown at top of admin page.
 8. Players open on phones and join with room code + display name.
@@ -55,9 +70,13 @@ After opening admin page:
    - number of rounds
 3. Click **Create/Update Room**.
 4. Click **Admin Login**.
-5. Add questions (guided form) or import JSON question packs.
-6. Click **Start Game**.
-7. Watch player join activity and leaderboard live.
+5. Optional: choose question banks in **Question Bank Files**.
+   - Default is all bank files off.
+   - Use checkboxes, **Add All Banks**, or **Clear All Banks**.
+   - Changes during a game apply from the next round onward.
+6. Add manual questions (guided form) or import JSON packs (manual pool).
+7. Click **Start Game**.
+8. Watch player join activity and leaderboard live.
 
 ## Player Experience
 
@@ -66,6 +85,8 @@ Players open the hosted player page from QR/URL and can:
 - join by room code + name
 - answer timed questions
 - use one-time power-ups
+- see a full instruction page with detailed power-up explanations
+- get red top alerts when other players trigger power-ups that affect them
 - see score updates and round progress
 
 No install needed on player devices; modern mobile browsers are enough.
@@ -76,7 +97,12 @@ Question bank JSON files live under:
 
 - `assets/questions/`
 
-On server startup, Quiztik rebuilds the active runtime bank from `assets/questions/*.json`.
+File-bank behavior:
+
+- File-bank list is read from `assets/questions/*.json`.
+- Bank file selection is persisted on the server.
+- Default first-run bank selection is all-off.
+- Effective playable pool = selected file-bank questions + manual/imported questions.
 
 Question format per item:
 
@@ -105,6 +131,12 @@ Open admin page manually on host machine:
 - `http://127.0.0.1:8080/admin`
 
 Then use the QR code at the top of admin page to let players join.
+
+## Gameplay Notes
+
+- End-of-round result graphics flash full-screen for 1 second.
+- `Speed Searcher` now provides a 60-second exclusive answer window.
+- Affected-player power-up alerts appear as red push banners at top of player screen.
 
 ## Troubleshooting
 
