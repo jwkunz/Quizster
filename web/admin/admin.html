@@ -132,7 +132,7 @@
         </div>
       </div>
       <div class="row">
-        <input id="serverUrl" value="http://localhost:8080" style="min-width:260px" />
+        <input id="serverUrl" style="min-width:260px" />
         <input id="roomCode" value="QUIZTIK" placeholder="Room code" />
         <input id="passcode" value="quiztik-admin" placeholder="Admin passcode" />
         <input id="rounds" type="number" min="1" value="10" style="max-width:110px" />
@@ -205,7 +205,7 @@
   </div>
 
   <script>
-    let serverUrl = "http://localhost:8080";
+    let serverUrl = window.location.origin || "http://localhost:8080";
     let adminId = null;
     let ws;
 
@@ -218,9 +218,18 @@
 
     async function refreshServerInfo() {
       try {
+        const manual = el("serverUrl").value.trim();
+        if (manual) {
+          serverUrl = manual;
+        }
+        if (!el("serverUrl").value) {
+          el("serverUrl").value = serverUrl;
+        }
         const res = await fetch(`${serverUrl}/api/server_info`);
         if (!res.ok) return;
         const info = await res.json();
+        serverUrl = `http://${info.host_ip}:${info.port}`;
+        el("serverUrl").value = serverUrl;
         el("joinUrl").value = info.player_url;
         el("joinQr").src = `${serverUrl}/api/qr.svg?text=${encodeURIComponent(info.player_url)}`;
       } catch (_e) {}

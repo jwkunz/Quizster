@@ -12,10 +12,8 @@ STAGE_DIR="$DIST_DIR/stage"
 SKIP_SERVER_BUILD="${SKIP_SERVER_BUILD:-0}"
 
 rm -rf "$DIST_DIR"
-mkdir -p "$DIST_DIR" "$STAGE_DIR/server" "$STAGE_DIR/player" "$STAGE_DIR/admin"
+mkdir -p "$DIST_DIR" "$STAGE_DIR/server"
 mkdir -p "$STAGE_DIR/server/assets/images" "$STAGE_DIR/server/assets/questions"
-mkdir -p "$STAGE_DIR/player/assets/images"
-mkdir -p "$STAGE_DIR/admin/assets/images" "$STAGE_DIR/admin/questions"
 
 if [[ "$TARGET" == "local" ]]; then
   if [[ "$SKIP_SERVER_BUILD" != "1" ]]; then
@@ -47,17 +45,13 @@ TXT
   fi
 fi
 
-cp web/player/player.html "$STAGE_DIR/player/player.html"
-cp web/admin/admin.html "$STAGE_DIR/admin/admin.html"
-cp -R assets/images/. "$STAGE_DIR/player/assets/images/" 2>/dev/null || true
-cp -R assets/images/. "$STAGE_DIR/admin/assets/images/" 2>/dev/null || true
+mkdir -p "$STAGE_DIR/server/web/player" "$STAGE_DIR/server/web/admin"
+cp web/player/player.html "$STAGE_DIR/server/web/player/player.html"
+cp web/admin/admin.html "$STAGE_DIR/server/web/admin/admin.html"
 cp -R assets/images/. "$STAGE_DIR/server/assets/images/" 2>/dev/null || true
-cp -R assets/questions/. "$STAGE_DIR/admin/questions/" 2>/dev/null || true
 cp -R assets/questions/. "$STAGE_DIR/server/assets/questions/" 2>/dev/null || true
 
 (cd "$STAGE_DIR/server" && zip -qr "$DIST_DIR/quiztik-server-${TARGET}-v${VERSION}.zip" .)
-(cd "$STAGE_DIR/player" && zip -qr "$DIST_DIR/quiztik-player-v${VERSION}.zip" .)
-(cd "$STAGE_DIR/admin" && zip -qr "$DIST_DIR/quiztik-admin-v${VERSION}.zip" .)
 
 rm -rf "$STAGE_DIR"
 ls -1 "$DIST_DIR"

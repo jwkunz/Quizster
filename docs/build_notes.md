@@ -145,3 +145,20 @@
   - Host IP detection may require manual override on unusual network setups.
 - Next stage:
   - UX polish and broader integration coverage.
+
+## v0.9.0 - 2026-03-11
+- Completed:
+  - Switched release model to server-only distribution zips.
+  - Updated server zip contents to include hosted admin/player web files plus image and question assets.
+  - Added automatic admin browser launch from server executable startup.
+  - Made web server URL fields dynamic so they default to the running server address.
+  - Removed `integration_test_launch.sh`.
+- Build artifacts:
+  - `quiztik-server-local-v0.9.0.zip`
+- Test status:
+  - `cargo check` passes.
+  - `scripts/verify_artifacts.sh` passes for local build.
+- Known issues:
+  - None specific to this stage.
+- Next stage:
+  - Documentation expansion for non-technical server admins.

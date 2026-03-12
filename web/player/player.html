@@ -143,7 +143,7 @@
         <h1>Quiztik Player</h1>
       </div>
       <div class="row">
-        <input id="serverUrl" placeholder="Server URL" value="http://localhost:8080" style="min-width:260px;" />
+        <input id="serverUrl" placeholder="Server URL" style="min-width:260px;" />
         <input id="roomCode" placeholder="Room Code" value="QUIZTIK" />
         <input id="displayName" placeholder="Display Name" />
         <button id="joinBtn">Join Game</button>
@@ -214,7 +214,7 @@
 
     let ws;
     let state = null;
-    let serverUrl = "http://localhost:8080";
+    let serverUrl = window.location.origin || "http://localhost:8080";
     let playerId = null;
     let wizardIndex = 0;
     let mixedMode = false;
@@ -231,6 +231,19 @@
       content.innerHTML = `<div class="wizard-step">Step ${wizardIndex + 1}/${wizardSteps.length}: ${wizardSteps[wizardIndex]}</div>`;
       el("wizardPrev").disabled = wizardIndex === 0;
       el("wizardNext").textContent = wizardIndex === wizardSteps.length - 1 ? "Finish" : "Next";
+    }
+
+    async function refreshServerUrl() {
+      const manual = el("serverUrl")?.value?.trim();
+      serverUrl = manual || window.location.origin || serverUrl;
+      try {
+        const res = await fetch(`${serverUrl}/api/server_info`);
+        if (res.ok) {
+          const info = await res.json();
+          serverUrl = `http://${info.host_ip}:${info.port}`;
+        }
+      } catch (_e) {}
+      el("serverUrl").value = serverUrl;
     }
 
     function setPanelsJoined(isJoined) {
@@ -402,6 +415,7 @@
     }
 
     el("joinBtn").onclick = joinGame;
+    el("serverUrl").onchange = () => { serverUrl = el("serverUrl").value.trim(); };
     el("openTutorialBtn").onclick = () => { el("wizardPanel").classList.remove("hidden"); renderWizard(); };
     el("wizardPrev").onclick = () => { wizardIndex = Math.max(0, wizardIndex - 1); renderWizard(); };
     el("wizardNext").onclick = () => {
@@ -417,6 +431,7 @@
       el("wizardPanel").classList.add("hidden");
       ws?.send(JSON.stringify({ action: "tutorial_seen", tutorial_seen: true }));
     };
+    refreshServerUrl();
   </script>
 </body>
 </html>

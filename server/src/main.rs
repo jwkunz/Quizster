@@ -1,5 +1,5 @@
 use axum::{
-    extract::{ws::Message, Path, Query, State, WebSocketUpgrade},
+    extract::{ws::Message, Path as AxPath, Query, State, WebSocketUpgrade},
     http::header,
     response::{Html, IntoResponse},
     routing::{get, post},
@@ -16,7 +16,7 @@ use std::{
     env,
     fs,
     net::{SocketAddr, UdpSocket},
-    path::PathBuf,
+    path::{Path as FsPath, PathBuf},
     sync::Arc,
     time::{Duration, Instant},
 };
@@ -35,6 +35,7 @@ struct AppState {
     player_join_url: Arc<String>,
     host_ip: Arc<String>,
     port: u16,
+    runtime_root: Arc<PathBuf>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -255,7 +256,8 @@ async fn main() {
     let host_ip = detect_lan_ip().unwrap_or_else(|| "127.0.0.1".to_string());
     let player_join_url = format!("http://{}:{}/player", host_ip, port);
 
-    let data_dir = PathBuf::from("data");
+    let runtime_root = runtime_root_dir();
+    let data_dir = runtime_root.join("data");
     let _ = fs::create_dir_all(&data_dir);
     let questions = load_questions(&data_dir);
 
@@ -266,8 +268,10 @@ async fn main() {
         player_join_url: Arc::new(player_join_url),
         host_ip: Arc::new(host_ip),
         port,
+        runtime_root: Arc::new(runtime_root.clone()),
     };
 
+    let assets_dir = runtime_root.join("assets");
     let app = Router::new()
         .route("/", get(root))
         .route("/health", get(health))
@@ -283,14 +287,18 @@ async fn main() {
         .route("/api/admin/start", post(start_game))
         .route("/api/state/:client_id", get(get_state))
         .route("/ws/:client_id", get(ws_handler))
-        .nest_service("/assets", ServeDir::new("assets"))
+        .nest_service("/assets", ServeDir::new(assets_dir))
         .with_state(state);
 
     tracing::info!("Quiztik server listening on {}", addr);
+    tracing::info!("Player join URL: http://{}:{}/player", detect_lan_ip().unwrap_or_else(|| "127.0.0.1".to_string()), port);
 
     let listener = tokio::net::TcpListener::bind(addr)
         .await
         .expect("failed to bind listener");
+
+    maybe_open_admin_browser(port);
+
     axum::serve(listener, app)
         .await
         .expect("server execution failed");
@@ -300,12 +308,12 @@ async fn root() -> Json<Value> {
     Json(json!({"service": "quiztik-server", "version": env!("CARGO_PKG_VERSION")}))
 }
 
-async fn player_page() -> Html<String> {
-    Html(fs::read_to_string("web/player/player.html").unwrap_or_else(|_| "Missing player.html".to_string()))
+async fn player_page(State(state): State<AppState>) -> Html<String> {
+    Html(read_web_html(&state.runtime_root, "player"))
 }
 
-async fn admin_page() -> Html<String> {
-    Html(fs::read_to_string("web/admin/admin.html").unwrap_or_else(|_| "Missing admin.html".to_string()))
+async fn admin_page(State(state): State<AppState>) -> Html<String> {
+    Html(read_web_html(&state.runtime_root, "admin"))
 }
 
 async fn health() -> Json<HealthResponse> {
@@ -521,13 +529,13 @@ async fn start_game(
     (axum::http::StatusCode::OK, Json(json!({"ok": true})))
 }
 
-async fn get_state(State(state): State<AppState>, Path(client_id): Path<String>) -> Json<Value> {
+async fn get_state(State(state): State<AppState>, AxPath(client_id): AxPath<String>) -> Json<Value> {
     Json(build_state_snapshot(&state, &client_id).await)
 }
 
 async fn ws_handler(
     ws: WebSocketUpgrade,
-    Path(client_id): Path<String>,
+    AxPath(client_id): AxPath<String>,
     State(state): State<AppState>,
 ) -> impl IntoResponse {
     ws.on_upgrade(move |socket| handle_socket(socket, state, client_id))
@@ -1019,7 +1027,11 @@ async fn is_admin(state: &AppState, client_id: &str) -> bool {
 fn load_questions(data_dir: &PathBuf) -> Vec<Question> {
     // Always rebuild the active runtime bank from assets on startup.
     // data/questions.json is treated as persisted runtime output, not the source of truth.
-    let asset_questions = load_asset_question_banks();
+    let runtime_root = data_dir
+        .parent()
+        .map(FsPath::to_path_buf)
+        .unwrap_or_else(|| PathBuf::from("."));
+    let asset_questions = load_asset_question_banks(&runtime_root);
     if !asset_questions.is_empty() {
         save_questions(data_dir, &asset_questions);
         return asset_questions;
@@ -1056,8 +1068,8 @@ fn load_questions(data_dir: &PathBuf) -> Vec<Question> {
     defaults
 }
 
-fn load_asset_question_banks() -> Vec<Question> {
-    let dir = PathBuf::from("assets/questions");
+fn load_asset_question_banks(runtime_root: &FsPath) -> Vec<Question> {
+    let dir = runtime_root.join("assets/questions");
     if !dir.exists() {
         return Vec::new();
     }
@@ -1130,6 +1142,36 @@ fn append_history(data_dir: &PathBuf, entry: HistoryEntry) {
     if let Ok(serialized) = serde_json::to_string_pretty(&history) {
         let _ = fs::write(path, serialized);
     }
+}
+
+fn runtime_root_dir() -> PathBuf {
+    if let Ok(cwd) = env::current_dir() {
+        if cwd.join("web").exists() && cwd.join("assets").exists() {
+            return cwd;
+        }
+    }
+    if let Ok(exe) = env::current_exe() {
+        if let Some(parent) = exe.parent() {
+            return parent.to_path_buf();
+        }
+    }
+    PathBuf::from(".")
+}
+
+fn read_web_html(runtime_root: &FsPath, role: &str) -> String {
+    let path = runtime_root.join("web").join(role).join(format!("{}.html", role));
+    fs::read_to_string(path).unwrap_or_else(|_| format!("Missing {}.html", role))
+}
+
+fn maybe_open_admin_browser(port: u16) {
+    if env::var("QUIZTIK_OPEN_BROWSER")
+        .map(|v| v == "0" || v.eq_ignore_ascii_case("false"))
+        .unwrap_or(false)
+    {
+        return;
+    }
+    let url = format!("http://127.0.0.1:{}/admin", port);
+    let _ = webbrowser::open(&url);
 }
 
 fn detect_lan_ip() -> Option<String> {

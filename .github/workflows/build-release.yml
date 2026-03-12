@@ -45,15 +45,3 @@ jobs:
         with:
           name: quiztik-server-${{ matrix.target }}
           path: dist/quiztik-server-${{ matrix.target }}-*.zip
-
-      - name: Upload player artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: quiztik-player-${{ matrix.target }}
-          path: dist/quiztik-player-*.zip
-
-      - name: Upload admin artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: quiztik-admin-${{ matrix.target }}
-          path: dist/quiztik-admin-*.zip
