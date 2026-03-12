@@ -208,9 +208,9 @@
           <h2>Import JSON Question Pack</h2>
           <textarea id="importJson" placeholder='[{"prompt":"...","options":["a","b","c","d"],"correct_index":0,"points":100}]'></textarea>
           <div class="row" style="margin-top:.5rem">
-            <label><input id="mergeImport" type="checkbox" /> Merge with existing bank</label>
+            <button id="importBtn">Import Pack As...</button>
+            <button id="exportCurrentPackBtn">Export Current Bank as Pack</button>
           </div>
-          <button id="importBtn">Import Pack</button>
         </div>
       </div>
 
@@ -444,16 +444,58 @@
     async function importPack() {
       try {
         const questions = JSON.parse(el("importJson").value);
-        const merge = el("mergeImport").checked;
-        const res = await fetch(`${serverUrl}/api/admin/questions/import`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ admin_id: adminId, questions, merge })
-        });
-        feed(res.ok ? (merge ? "Merged question pack." : "Imported question pack (replaced).") : "Import failed.");
+        const mode = window.prompt(
+          "Import Pack As...\nType 'merge' to add to current bank in play.\nType 'filter' to add as a selectable file bank.",
+          "merge"
+        );
+        if (!mode) return;
+        const normalized = mode.trim().toLowerCase();
+        if (normalized === "merge") {
+          const res = await fetch(`${serverUrl}/api/admin/questions/import`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ admin_id: adminId, questions, merge: true })
+          });
+          feed(res.ok ? "Merged question pack into current bank in play." : "Import failed.");
+        } else if (normalized === "filter") {
+          const bankName = window.prompt("Name for this selectable bank file:", "imported_pack");
+          const res = await fetch(`${serverUrl}/api/admin/questions/import_bank`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ admin_id: adminId, questions, bank_name: bankName || "imported_pack" })
+          });
+          if (res.ok) {
+            const data = await res.json().catch(() => ({}));
+            feed(`Imported pack as selectable bank: ${data.bank_file || "imported_pack.json"}.`);
+            await loadBanks();
+          } else {
+            feed("Import as selectable bank failed.");
+          }
+        } else {
+          feed("Import canceled. Use 'merge' or 'filter'.");
+        }
       } catch {
         feed("Invalid JSON pack.");
       }
+    }
+
+    async function exportCurrentPack() {
+      if (!adminId) return;
+      const res = await fetch(`${serverUrl}/api/admin/questions/current_pack?admin_id=${encodeURIComponent(adminId)}`);
+      if (!res.ok) {
+        feed("Export failed.");
+        return;
+      }
+      const payload = await res.text();
+      const blob = new Blob([payload], { type: "application/json" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "quiztik-current-bank-pack.json";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(link.href);
+      feed("Exported current bank pack.");
     }
 
     el("createRoomBtn").onclick = createRoom;
@@ -462,6 +504,7 @@
     el("nextRoundBtn").onclick = () => ws?.send(JSON.stringify({ action: "admin_next_round" }));
     el("addQuestionBtn").onclick = addQuestion;
     el("importBtn").onclick = importPack;
+    el("exportCurrentPackBtn").onclick = exportCurrentPack;
     el("addAllBanksBtn").onclick = async () => {
       selectedBanks = new Set(availableBanks);
       renderBankList();

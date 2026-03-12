@@ -1,6 +1,6 @@
 use axum::{
     extract::{ws::Message, Path as AxPath, Query, State, WebSocketUpgrade},
-    http::header,
+    http::{header, StatusCode},
     response::{Html, IntoResponse},
     routing::{get, post},
     Json, Router,
@@ -281,6 +281,13 @@ struct ImportQuestionsRequest {
 }
 
 #[derive(Deserialize)]
+struct ImportPackAsBankRequest {
+    admin_id: String,
+    questions: Vec<Question>,
+    bank_name: Option<String>,
+}
+
+#[derive(Deserialize)]
 struct StartGameRequest {
     admin_id: String,
     total_rounds: usize,
@@ -318,6 +325,11 @@ struct ServerInfoResponse {
 #[derive(Deserialize)]
 struct QrQuery {
     text: String,
+}
+
+#[derive(Deserialize)]
+struct ExportPackQuery {
+    admin_id: String,
 }
 
 #[tokio::main]
@@ -369,6 +381,8 @@ async fn main() {
         .route("/api/join", post(join_room))
         .route("/api/admin/questions/add", post(add_question))
         .route("/api/admin/questions/import", post(import_questions))
+        .route("/api/admin/questions/import_bank", post(import_questions_as_bank))
+        .route("/api/admin/questions/current_pack", get(export_current_pack))
         .route("/api/admin/question_banks", get(get_question_banks))
         .route("/api/admin/question_banks/selection", post(set_question_bank_selection))
         .route("/api/admin/start", post(start_game))
@@ -593,6 +607,79 @@ async fn import_questions(
 
     broadcast_state(&state).await;
     (axum::http::StatusCode::OK, Json(json!({"ok": true})))
+}
+
+async fn import_questions_as_bank(
+    State(state): State<AppState>,
+    Json(req): Json<ImportPackAsBankRequest>,
+) -> impl IntoResponse {
+    if !is_admin(&state, &req.admin_id).await {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
+    }
+    if req.questions.is_empty() {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
+    }
+    for q in &req.questions {
+        if q.options.len() != 4 || q.correct_index > 3 || q.points == 0 {
+            return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_question_in_pack"})));
+        }
+    }
+
+    let bank_name = sanitized_bank_name(req.bank_name.as_deref());
+    let target_path = state.runtime_root.join("assets/questions").join(&bank_name);
+    let _ = fs::create_dir_all(state.runtime_root.join("assets/questions"));
+
+    let mut imported = Vec::with_capacity(req.questions.len());
+    for mut q in req.questions {
+        q.id = Uuid::new_v4().to_string();
+        imported.push(q);
+    }
+
+    let serialized = match serde_json::to_string_pretty(&imported) {
+        Ok(v) => v,
+        Err(_) => return (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"error": "serialize_failed"}))),
+    };
+    if fs::write(&target_path, serialized).is_err() {
+        return (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"error": "write_failed"})));
+    }
+
+    {
+        let mut game = state.game.lock().await;
+        game.file_question_banks
+            .insert(bank_name.clone(), imported);
+        // Do not auto-select this bank; it becomes available in filter only.
+        game.rebuild_effective_question_pool();
+        game.reflow_future_rounds_after_pool_change();
+    }
+
+    broadcast_state(&state).await;
+    (
+        StatusCode::OK,
+        Json(json!({"ok": true, "bank_file": bank_name})),
+    )
+}
+
+async fn export_current_pack(
+    State(state): State<AppState>,
+    Query(query): Query<ExportPackQuery>,
+) -> impl IntoResponse {
+    if !is_admin(&state, &query.admin_id).await {
+        return (
+            StatusCode::UNAUTHORIZED,
+            [(header::CONTENT_TYPE, "application/json")],
+            "{\"error\":\"admin_required\"}".to_string(),
+        );
+    }
+
+    let payload = {
+        let game = state.game.lock().await;
+        serde_json::to_string_pretty(&game.questions).unwrap_or_else(|_| "[]".to_string())
+    };
+    (
+        StatusCode::OK,
+        [(header::CONTENT_TYPE, "application/json")],
+        payload,
+    )
 }
 
 async fn get_question_banks(State(state): State<AppState>) -> Json<Value> {
@@ -1209,7 +1296,7 @@ async fn is_admin(state: &AppState, client_id: &str) -> bool {
 }
 
 fn load_manual_questions(data_dir: &PathBuf) -> Vec<Question> {
-    let file = data_dir.join("questions.json");
+    let file = data_dir.join("manual_questions.json");
     if let Ok(raw) = fs::read_to_string(&file) {
         if let Ok(questions) = serde_json::from_str::<Vec<Question>>(&raw) {
             return questions;
@@ -1304,10 +1391,25 @@ fn save_selected_bank_files(data_dir: &PathBuf, selected_files: &HashSet<String>
 
 fn save_manual_questions(data_dir: &PathBuf, questions: &[Question]) {
     let _ = fs::create_dir_all(data_dir);
-    let path = data_dir.join("questions.json");
+    let path = data_dir.join("manual_questions.json");
     if let Ok(serialized) = serde_json::to_string_pretty(questions) {
         let _ = fs::write(path, serialized);
     }
+}
+
+fn sanitized_bank_name(input: Option<&str>) -> String {
+    let raw = input.unwrap_or("imported_pack");
+    let mut slug = raw
+        .trim()
+        .to_lowercase()
+        .chars()
+        .map(|c| if c.is_ascii_alphanumeric() { c } else { '_' })
+        .collect::<String>();
+    slug = slug.trim_matches('_').to_string();
+    if slug.is_empty() {
+        slug = "imported_pack".to_string();
+    }
+    format!("{}.json", slug)
 }
 
 fn append_history(data_dir: &PathBuf, entry: HistoryEntry) {
