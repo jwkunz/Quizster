@@ -175,6 +175,21 @@
       font-size: 1.2rem;
       font-weight: bold;
     }
+    .impact-alert {
+      position: fixed;
+      top: 0.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1100;
+      background: #8f1010;
+      color: #fff;
+      border: 1px solid #d13d3d;
+      box-shadow: 0 0 18px #d13d3d66;
+      padding: 0.65rem 1rem;
+      border-radius: 10px;
+      font-weight: bold;
+      max-width: 92vw;
+    }
   </style>
 </head>
 <body>
@@ -258,6 +273,7 @@
       <div class="flash-text" id="resultFlashText"></div>
     </div>
   </div>
+  <div id="impactAlert" class="impact-alert hidden"></div>
 
   <script>
     const powerUps = [
@@ -275,6 +291,7 @@
     let playerId = null;
     let mixedMode = false;
     let resultFlashTimer = null;
+    let impactAlertTimer = null;
 
     const el = (id) => document.getElementById(id);
     const log = (msg) => {
@@ -398,6 +415,13 @@
             const p = msg.payload;
             mixedMode = p.powerup === "mix_master" ? true : mixedMode;
             log(`${p.player_id} activated ${p.powerup}`);
+            if ((p.affected_players || []).includes(playerId)) {
+              const banner = el("impactAlert");
+              banner.textContent = p.alert_message || `${p.powerup} is affecting you this round.`;
+              banner.classList.remove("hidden");
+              if (impactAlertTimer) clearTimeout(impactAlertTimer);
+              impactAlertTimer = setTimeout(() => banner.classList.add("hidden"), 2400);
+            }
           } else if (msg.event === "round_result") {
             log(`Round ${msg.payload.round_number} complete. Correct answer index: ${msg.payload.correct_index}`);
             mixedMode = false;

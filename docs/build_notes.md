@@ -251,3 +251,19 @@
   - None specific to this milestone.
 - Next stage:
   - Speed Searcher 60-second update and affected-player red push alerts.
+
+## v1.3.0 - 2026-03-11
+- Completed:
+  - Increased Speed Searcher exclusive answer window from 30s to 60s.
+  - Added affected-player alert metadata to `powerup_activated` events.
+  - Added red top push-banner alerts in player UI for affected players.
+  - Added affected-player alert coverage for Mix Master, Speed Searcher, Super Spliter, and Great Gambler.
+- Build artifacts:
+  - `quiztik-server-local-v1.3.0.zip`
+- Test status:
+  - `cargo check` passes.
+  - Build and artifact verification scripts pass.
+- Known issues:
+  - None specific to this milestone.
+- Next stage:
+  - Backend question bank selection API with persisted selection state.

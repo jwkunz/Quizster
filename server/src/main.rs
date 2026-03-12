@@ -661,6 +661,8 @@ async fn submit_answer(state: &AppState, client_id: &str, choice_index: usize) {
 
 async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
     let (notify, powerup_payload);
+    let mut affected_players: Vec<String> = Vec::new();
+    let mut alert_message: Option<String> = None;
 
     {
         let mut game = state.game.lock().await;
@@ -679,6 +681,13 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
 
         player.used_powerups.insert(powerup.clone());
 
+        let connected_other_players: Vec<String> = game
+            .players
+            .values()
+            .filter(|p| p.connected && p.id != client_id)
+            .map(|p| p.id.clone())
+            .collect();
+
         let round = match game.current_round.as_mut() {
             Some(r) => r,
             None => return,
@@ -688,13 +697,17 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
             PowerUp::MixMaster => {
                 round.mix_master_owner = Some(client_id.to_string());
                 powerup_payload = Some(json!({"active": true}));
+                affected_players = connected_other_players;
+                alert_message = Some("Mix Master is active: your answer text/order may be scrambled.".to_string());
             }
             PowerUp::SpeedSearcher => {
                 round.speed_searcher_owner = Some(client_id.to_string());
-                round.answer_window_secs = 30;
+                round.answer_window_secs = 60;
                 round.started_at = Instant::now();
-                round.deadline = round.started_at + Duration::from_secs(30);
-                powerup_payload = Some(json!({"owner": client_id, "seconds": 30}));
+                round.deadline = round.started_at + Duration::from_secs(60);
+                powerup_payload = Some(json!({"owner": client_id, "seconds": 60}));
+                affected_players = connected_other_players;
+                alert_message = Some("Speed Searcher activated: you are locked out until the 60s window ends.".to_string());
             }
             PowerUp::DoubleDowner => {
                 round.double_downers.insert(client_id.to_string());
@@ -710,10 +723,19 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
                     .filter(|i| *i != round.question.correct_index)
                     .collect();
                 let random_incorrect = *incorrects.choose(&mut rng).unwrap_or(&incorrects[0]);
-                round
-                    .super_spliter_targets
-                    .insert(client_id.to_string(), (round.question.correct_index, random_incorrect));
-                powerup_payload = Some(json!({"target": client_id}));
+                for target_id in &connected_other_players {
+                    round
+                        .super_spliter_targets
+                        .insert(target_id.clone(), (round.question.correct_index, random_incorrect));
+                }
+                powerup_payload = Some(json!({"targets": connected_other_players}));
+                affected_players = game
+                    .players
+                    .values()
+                    .filter(|p| p.connected && p.id != client_id)
+                    .map(|p| p.id.clone())
+                    .collect();
+                alert_message = Some("Super Spliter activated: your choices were reduced this round.".to_string());
             }
             PowerUp::GreatGambler => {
                 if round.great_gambler_factor.is_none() {
@@ -722,6 +744,8 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
                     round.great_gambler_factor = Some(factor);
                 }
                 powerup_payload = Some(json!({"factor": round.great_gambler_factor}));
+                affected_players = connected_other_players;
+                alert_message = Some("Great Gambler activated: round scoring will be multiplied.".to_string());
             }
         }
 
@@ -734,7 +758,9 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
             "payload": {
                 "player_id": client_id,
                 "powerup": powerup,
-                "details": powerup_payload
+                "details": powerup_payload,
+                "affected_players": affected_players,
+                "alert_message": alert_message
             }
         });
         broadcast_json(state, message).await;
