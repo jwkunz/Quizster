@@ -1,5 +1,6 @@
 use axum::{
-    extract::{ws::Message, Path, State, WebSocketUpgrade},
+    extract::{ws::Message, Path, Query, State, WebSocketUpgrade},
+    http::header,
     response::{Html, IntoResponse},
     routing::{get, post},
     Json, Router,
@@ -12,8 +13,9 @@ use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::{
     collections::{HashMap, HashSet},
+    env,
     fs,
-    net::SocketAddr,
+    net::{SocketAddr, UdpSocket},
     path::PathBuf,
     sync::Arc,
     time::{Duration, Instant},
@@ -30,6 +32,9 @@ struct AppState {
     game: Arc<Mutex<GameState>>,
     clients: Arc<Mutex<HashMap<String, mpsc::UnboundedSender<Message>>>>,
     data_dir: Arc<PathBuf>,
+    player_join_url: Arc<String>,
+    host_ip: Arc<String>,
+    port: u16,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -222,9 +227,33 @@ struct HealthResponse {
     timestamp: String,
 }
 
+#[derive(Serialize)]
+struct ServerInfoResponse {
+    host_ip: String,
+    port: u16,
+    player_url: String,
+    admin_url: String,
+}
+
+#[derive(Deserialize)]
+struct QrQuery {
+    text: String,
+}
+
 #[tokio::main]
 async fn main() {
     tracing_subscriber::fmt().with_env_filter("info").init();
+
+    let host = env::var("QUIZTIK_HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
+    let port = env::var("QUIZTIK_PORT")
+        .ok()
+        .and_then(|v| v.parse::<u16>().ok())
+        .unwrap_or(8080);
+    let addr: SocketAddr = format!("{}:{}", host, port)
+        .parse()
+        .unwrap_or_else(|_| SocketAddr::from(([0, 0, 0, 0], 8080)));
+    let host_ip = detect_lan_ip().unwrap_or_else(|| "127.0.0.1".to_string());
+    let player_join_url = format!("http://{}:{}/player", host_ip, port);
 
     let data_dir = PathBuf::from("data");
     let _ = fs::create_dir_all(&data_dir);
@@ -234,6 +263,9 @@ async fn main() {
         game: Arc::new(Mutex::new(GameState::new(questions))),
         clients: Arc::new(Mutex::new(HashMap::new())),
         data_dir: Arc::new(data_dir),
+        player_join_url: Arc::new(player_join_url),
+        host_ip: Arc::new(host_ip),
+        port,
     };
 
     let app = Router::new()
@@ -241,6 +273,8 @@ async fn main() {
         .route("/health", get(health))
         .route("/player", get(player_page))
         .route("/admin", get(admin_page))
+        .route("/api/server_info", get(server_info))
+        .route("/api/qr.svg", get(qr_svg))
         .route("/api/admin/create_room", post(create_room))
         .route("/api/admin/login", post(admin_login))
         .route("/api/join", post(join_room))
@@ -252,7 +286,6 @@ async fn main() {
         .nest_service("/assets", ServeDir::new("assets"))
         .with_state(state);
 
-    let addr = SocketAddr::from(([0, 0, 0, 0], 8080));
     tracing::info!("Quiztik server listening on {}", addr);
 
     let listener = tokio::net::TcpListener::bind(addr)
@@ -281,6 +314,35 @@ async fn health() -> Json<HealthResponse> {
         service: "quiztik-server",
         timestamp: Utc::now().to_rfc3339(),
     })
+}
+
+async fn server_info(State(state): State<AppState>) -> Json<ServerInfoResponse> {
+    let player_url = state.player_join_url.as_ref().clone();
+    let host_ip = state.host_ip.as_ref().clone();
+    let port = state.port;
+
+    Json(ServerInfoResponse {
+        host_ip: host_ip.clone(),
+        port,
+        admin_url: format!("http://{}:{}/admin", host_ip, port),
+        player_url,
+    })
+}
+
+async fn qr_svg(Query(query): Query<QrQuery>) -> impl IntoResponse {
+    let Ok(code) = qrcode::QrCode::new(query.text.as_bytes()) else {
+        return (
+            [(header::CONTENT_TYPE, "text/plain; charset=utf-8")],
+            "Failed to generate QR".to_string(),
+        );
+    };
+    let image = code
+        .render::<qrcode::render::svg::Color<'_>>()
+        .min_dimensions(280, 280)
+        .dark_color(qrcode::render::svg::Color("#00f6ff"))
+        .light_color(qrcode::render::svg::Color("#090909"))
+        .build();
+    ([(header::CONTENT_TYPE, "image/svg+xml")], image)
 }
 
 async fn create_room(
@@ -1068,6 +1130,13 @@ fn append_history(data_dir: &PathBuf, entry: HistoryEntry) {
     if let Ok(serialized) = serde_json::to_string_pretty(&history) {
         let _ = fs::write(path, serialized);
     }
+}
+
+fn detect_lan_ip() -> Option<String> {
+    let socket = UdpSocket::bind("0.0.0.0:0").ok()?;
+    socket.connect("8.8.8.8:80").ok()?;
+    let local = socket.local_addr().ok()?;
+    Some(local.ip().to_string())
 }
 
 fn calculate_correct_score(points: u32, elapsed_secs: f64, total_secs: f64, doubled: bool) -> f64 {

@@ -128,3 +128,20 @@
   - None specific to this stage.
 - Next stage:
   - Continued gameplay polish and feature expansion.
+
+## v0.8.0 - 2026-03-11
+- Completed:
+  - Added admin-side Player Join QR panel that encodes the LAN player URL.
+  - Added server endpoints: `/api/server_info` and `/api/qr.svg`.
+  - Added host IP detection and env-configurable host/port for LAN URL generation.
+  - Ensured phones can open `/player` directly from QR URL without manual web app download.
+- Build artifacts:
+  - `quiztik-server-local-v0.8.0.zip`
+  - `quiztik-player-v0.8.0.zip`
+  - `quiztik-admin-v0.8.0.zip`
+- Test status:
+  - `cargo check` passes.
+- Known issues:
+  - Host IP detection may require manual override on unusual network setups.
+- Next stage:
+  - UX polish and broader integration coverage.

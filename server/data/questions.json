@@ -1,0 +1,28 @@
+[
+  {
+    "id": "a813f886-7f06-4649-92f1-6c777e325b25",
+    "prompt": "What language is Quiztik server written in?",
+    "options": [
+      "Go",
+      "Rust",
+      "Python",
+      "Java"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3c1b8122-2815-4f5d-be77-a08bf52539bf",
+    "prompt": "How many seconds is the default answer timeout?",
+    "options": [
+      "10",
+      "15",
+      "20",
+      "30"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  }
+]

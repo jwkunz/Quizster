@@ -89,6 +89,28 @@
       border: 1px solid #313131;
       background: #0a0a0a;
     }
+    .qr-panel {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      gap: 0.8rem;
+      align-items: center;
+      border: 1px solid #2f2f2f;
+      border-radius: 12px;
+      padding: 0.6rem;
+      background: #0f0f0f;
+      margin-bottom: 0.6rem;
+    }
+    .qr-panel img {
+      width: 160px;
+      height: 160px;
+      border: 1px solid #313131;
+      border-radius: 10px;
+      background: #090909;
+    }
+    @media (max-width: 700px) {
+      .qr-panel { grid-template-columns: 1fr; }
+      .qr-panel img { margin: 0 auto; }
+    }
   </style>
 </head>
 <body>
@@ -97,6 +119,17 @@
       <div class="brand">
         <img class="brand-logo" src="assets/images/Quiztik_logo.png" alt="Quiztik logo" />
         <h1>Quiztik Admin Console</h1>
+      </div>
+      <div class="qr-panel">
+        <img id="joinQr" alt="Player join QR code" />
+        <div>
+          <h2 style="margin-top:0;">Player Join QR</h2>
+          <div class="status">Players can scan this code to open the hosted player page directly.</div>
+          <div class="row" style="margin-top:.5rem;">
+            <input id="joinUrl" readonly style="min-width:280px; width:100%;" />
+            <button id="copyJoinUrlBtn">Copy URL</button>
+          </div>
+        </div>
       </div>
       <div class="row">
         <input id="serverUrl" value="http://localhost:8080" style="min-width:260px" />
@@ -183,6 +216,16 @@
       el("feed").prepend(line);
     };
 
+    async function refreshServerInfo() {
+      try {
+        const res = await fetch(`${serverUrl}/api/server_info`);
+        if (!res.ok) return;
+        const info = await res.json();
+        el("joinUrl").value = info.player_url;
+        el("joinQr").src = `${serverUrl}/api/qr.svg?text=${encodeURIComponent(info.player_url)}`;
+      } catch (_e) {}
+    }
+
     function connectWs() {
       ws = new WebSocket(serverUrl.replace("http", "ws") + `/ws/${adminId}`);
       ws.onmessage = (ev) => {
@@ -212,6 +255,7 @@
 
     async function createRoom() {
       serverUrl = el("serverUrl").value.trim();
+      await refreshServerInfo();
       const payload = {
         admin_passcode: el("passcode").value.trim(),
         total_rounds: Number(el("rounds").value || "10")
@@ -227,6 +271,7 @@
 
     async function login() {
       serverUrl = el("serverUrl").value.trim();
+      await refreshServerInfo();
       const res = await fetch(`${serverUrl}/api/admin/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -294,6 +339,18 @@
     el("nextRoundBtn").onclick = () => ws?.send(JSON.stringify({ action: "admin_next_round" }));
     el("addQuestionBtn").onclick = addQuestion;
     el("importBtn").onclick = importPack;
+    el("serverUrl").onchange = refreshServerInfo;
+    el("copyJoinUrlBtn").onclick = async () => {
+      const text = el("joinUrl").value.trim();
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        feed("Copied player join URL.");
+      } catch (_e) {
+        feed("Could not copy URL; copy manually from the field.");
+      }
+    };
+    refreshServerInfo();
   </script>
 </body>
 </html>

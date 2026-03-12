@@ -1,0 +1,4942 @@
+[
+  {
+    "id": "1771d729-1784-4f98-aa46-fd1860287a34",
+    "prompt": "Which document first established the principle that government derives its authority from the consent of the governed?",
+    "options": [
+      "The Articles of Confederation",
+      "The Declaration of Independence",
+      "The Bill of Rights",
+      "The Federalist Papers"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2cfc46d5-1322-4002-b668-af4e2cd74043",
+    "prompt": "Which weakness of the Articles of Confederation was most responsible for the call to create the U.S. Constitution?",
+    "options": [
+      "Lack of a national military",
+      "No power for Congress to tax",
+      "No national currency",
+      "Weak judicial system"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "48fd557f-a951-4afb-a278-89a0103c7844",
+    "prompt": "Which compromise during the Constitutional Convention determined representation in Congress?",
+    "options": [
+      "Missouri Compromise",
+      "Great Compromise",
+      "Three-Fifths Compromise",
+      "Connecticut Agreement"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ba786e93-ebbe-4d0d-b96e-131a66b94a88",
+    "prompt": "Which event demonstrated the weaknesses of the Articles of Confederation and helped lead to the Constitutional Convention?",
+    "options": [
+      "Bacon’s Rebellion",
+      "Shays’ Rebellion",
+      "Whiskey Rebellion",
+      "Pontiac’s Rebellion"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4c49fcc0-8552-4b8e-9e47-0dc166c1eba4",
+    "prompt": "What was the main purpose of the Federalist Papers?",
+    "options": [
+      "To explain the Constitution and encourage its ratification",
+      "To oppose the Constitution",
+      "To outline foreign policy strategies",
+      "To organize political parties"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "24da9cc0-f989-4319-814c-98d5c259bd66",
+    "prompt": "Which Supreme Court case established the principle of judicial review?",
+    "options": [
+      "McCulloch v. Maryland",
+      "Marbury v. Madison",
+      "Gibbons v. Ogden",
+      "Dred Scott v. Sandford"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f095c7dc-f0fa-4e11-959e-4ee45e4a60b0",
+    "prompt": "Which purchase doubled the size of the United States in 1803?",
+    "options": [
+      "Florida Purchase",
+      "Louisiana Purchase",
+      "Oregon Treaty",
+      "Mexican Cession"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "296855cb-d0d0-4bdf-b7bc-d438b480df5e",
+    "prompt": "The Monroe Doctrine (1823) primarily warned which nations against further colonization in the Americas?",
+    "options": [
+      "Asian nations",
+      "European powers",
+      "African kingdoms",
+      "Middle Eastern empires"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "eb49ecbe-8509-4d26-a7af-37f30e6ee4fd",
+    "prompt": "Which belief supported the expansion of the United States across North America during the 1800s?",
+    "options": [
+      "Popular Sovereignty",
+      "Manifest Destiny",
+      "Mercantilism",
+      "Isolationism"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "46b14c09-0d20-4e51-b308-bb6840bf2246",
+    "prompt": "Which compromise admitted Missouri as a slave state and Maine as a free state?",
+    "options": [
+      "Compromise of 1850",
+      "Missouri Compromise",
+      "Kansas-Nebraska Act",
+      "Wilmot Proviso"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2618e4f9-6d8e-4c59-b255-12de7b9e8aed",
+    "prompt": "Which abolitionist publication was written by William Lloyd Garrison?",
+    "options": [
+      "The Liberator",
+      "Common Sense",
+      "The Crisis",
+      "Uncle Tom’s Cabin"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "1db97531-f345-46ea-b862-c5b536180a53",
+    "prompt": "Which event is generally considered the beginning of the Civil War?",
+    "options": [
+      "Battle of Antietam",
+      "Attack on Fort Sumter",
+      "Battle of Gettysburg",
+      "Emancipation Proclamation"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "662172c3-56a0-4d2c-9cb8-892b66987fc1",
+    "prompt": "Which amendment abolished slavery in the United States?",
+    "options": [
+      "13th Amendment",
+      "14th Amendment",
+      "15th Amendment",
+      "12th Amendment"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2ce1bba3-1ec5-460f-ae26-76c236b56896",
+    "prompt": "During Reconstruction, what was the primary goal of the Freedmen’s Bureau?",
+    "options": [
+      "Provide assistance to former slaves and poor whites",
+      "Enforce military rule in the South",
+      "Expand voting rights to women",
+      "Promote western settlement"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "fdb893e8-711e-4356-b009-52e239664ed6",
+    "prompt": "Which industrialist was known for building a major steel company using vertical integration?",
+    "options": [
+      "John D. Rockefeller",
+      "Andrew Carnegie",
+      "Cornelius Vanderbilt",
+      "J.P. Morgan"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "6ed67efd-c0f4-4ed5-b2bc-12f42e3b85a0",
+    "prompt": "Which progressive reform introduced the direct election of U.S. senators?",
+    "options": [
+      "16th Amendment",
+      "17th Amendment",
+      "18th Amendment",
+      "19th Amendment"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4c557e07-8ce4-433c-9b33-786faeb09565",
+    "prompt": "Which event directly caused the United States to enter World War I in 1917?",
+    "options": [
+      "Zimmerman Telegram and unrestricted submarine warfare",
+      "Attack on Pearl Harbor",
+      "Russian Revolution",
+      "Treaty of Versailles"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c3a9ed2f-a30d-42dd-bea2-31cf1dd53701",
+    "prompt": "Which New Deal program provided jobs through public works projects?",
+    "options": [
+      "Social Security Administration",
+      "Works Progress Administration",
+      "Federal Reserve",
+      "Securities and Exchange Commission"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a7b205ae-4ec3-4f76-8345-a67f2c197a1a",
+    "prompt": "Which Cold War policy aimed to prevent the spread of communism?",
+    "options": [
+      "Appeasement",
+      "Containment",
+      "Isolationism",
+      "Detente"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "23f94e9f-07d1-42d6-aff5-98ed39b9ac08",
+    "prompt": "Which landmark Supreme Court decision declared racial segregation in public schools unconstitutional?",
+    "options": [
+      "Plessy v. Ferguson",
+      "Brown v. Board of Education",
+      "Roe v. Wade",
+      "Miranda v. Arizona"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "1663823b-172e-48a1-b1db-4d0f4abc4724",
+    "prompt": "Who delivered the famous 'I Have a Dream' speech during the March on Washington in 1963?",
+    "options": [
+      "Malcolm X",
+      "Martin Luther King Jr.",
+      "Frederick Douglass",
+      "Jesse Jackson"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "1f44e9c9-dfe4-4c3e-9a58-34a200b83c40",
+    "prompt": "Who was the first African American to serve as President of the United States?",
+    "options": [
+      "Barack Obama",
+      "Colin Powell",
+      "Thurgood Marshall",
+      "Jesse Jackson"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7e47d97f-9efa-4da3-ac0f-f14c693ece3f",
+    "prompt": "Who was the famous conductor of the Underground Railroad who helped enslaved people escape to freedom?",
+    "options": [
+      "Harriet Tubman",
+      "Sojourner Truth",
+      "Ida B. Wells",
+      "Phillis Wheatley"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "9f0a913d-0fad-4df6-92c7-8e5bb31d38ad",
+    "prompt": "Which Supreme Court case declared racial segregation in public schools unconstitutional?",
+    "options": [
+      "Plessy v. Ferguson",
+      "Brown v. Board of Education",
+      "Dred Scott v. Sandford",
+      "Miranda v. Arizona"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "668e9c9d-8470-4899-98d2-63fa1e51c04c",
+    "prompt": "Who was the first African American woman to travel into space?",
+    "options": [
+      "Mae Jemison",
+      "Katherine Johnson",
+      "Shirley Jackson",
+      "Guion Bluford"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ca5d5984-413a-4da5-8f50-5797b2af30f5",
+    "prompt": "Which abolitionist and writer escaped slavery and became a leading voice against it?",
+    "options": [
+      "Frederick Douglass",
+      "Booker T. Washington",
+      "W.E.B. Du Bois",
+      "Marcus Garvey"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c2e45a5e-7a66-4fe4-807e-36d25b55ec4e",
+    "prompt": "Who refused to give up her seat on a Montgomery bus in 1955, helping spark the Civil Rights Movement?",
+    "options": [
+      "Rosa Parks",
+      "Ella Baker",
+      "Fannie Lou Hamer",
+      "Angela Davis"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "b964f052-bdfb-4bd6-b6e2-2bbbd3ca2703",
+    "prompt": "Which African American leader founded the Tuskegee Institute and promoted vocational education?",
+    "options": [
+      "W.E.B. Du Bois",
+      "Booker T. Washington",
+      "Frederick Douglass",
+      "James Baldwin"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a25881da-b27b-4800-a6ef-cfcacc552b65",
+    "prompt": "Who was the first African American justice appointed to the U.S. Supreme Court?",
+    "options": [
+      "Clarence Thomas",
+      "Thurgood Marshall",
+      "Constance Baker Motley",
+      "Colin Powell"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c66030b0-9100-43ef-98d2-b3a30a2954bb",
+    "prompt": "Which movement in the 1920s celebrated African American culture, art, and literature in New York City?",
+    "options": [
+      "Civil Rights Movement",
+      "Harlem Renaissance",
+      "Black Power Movement",
+      "Pan-African Movement"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8d327b15-7f5c-47cf-ad3d-6acd051542a5",
+    "prompt": "Who was a prominent civil rights leader and co-founder of the NAACP?",
+    "options": [
+      "W.E.B. Du Bois",
+      "Langston Hughes",
+      "Malcolm X",
+      "Medgar Evers"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f42c5699-df0f-4f24-952a-4e06162aa745",
+    "prompt": "Which African American scientist helped calculate orbital mechanics for NASA's space missions?",
+    "options": [
+      "Mae Jemison",
+      "Katherine Johnson",
+      "Dorothy Vaughan",
+      "Annie Easley"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "67ecbb48-17e4-448b-b7c4-db10bccc108e",
+    "prompt": "Who was the leader of the Nation of Islam known for advocating Black empowerment in the 1960s?",
+    "options": [
+      "Martin Luther King Jr.",
+      "Malcolm X",
+      "Bayard Rustin",
+      "John Lewis"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ad7615c9-8d41-4b89-b990-09205da1945a",
+    "prompt": "Which poet was a leading figure of the Harlem Renaissance and wrote 'The Negro Speaks of Rivers'?",
+    "options": [
+      "Langston Hughes",
+      "Maya Angelou",
+      "James Baldwin",
+      "Paul Laurence Dunbar"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0e9763e2-8794-4c9f-a917-d431787fedf1",
+    "prompt": "Who was the first African American Major League Baseball player in the modern era?",
+    "options": [
+      "Satchel Paige",
+      "Jackie Robinson",
+      "Hank Aaron",
+      "Willie Mays"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e22c7a59-396b-4b3c-a9b5-a457b7120456",
+    "prompt": "Which famous speech begins with the line 'Four score and seven years ago' and was delivered during the Civil War?",
+    "options": [
+      "Emancipation Proclamation",
+      "Gettysburg Address",
+      "I Have a Dream",
+      "Atlanta Compromise"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "fc7c54eb-898f-4139-ab1f-fa288215eb4d",
+    "prompt": "Which African American inventor improved the traffic signal and invented the gas mask?",
+    "options": [
+      "George Washington Carver",
+      "Garrett Morgan",
+      "Elijah McCoy",
+      "Lewis Latimer"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "49eeae70-ba7c-4764-9f9c-1dc2c442bd60",
+    "prompt": "Who wrote the autobiography 'Narrative of the Life of Frederick Douglass'?",
+    "options": [
+      "Frederick Douglass",
+      "Sojourner Truth",
+      "Booker T. Washington",
+      "Marcus Garvey"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c257c3c5-4d65-4617-8fff-1b8ae87d7ec4",
+    "prompt": "Which African American woman became a famous poet and author of 'I Know Why the Caged Bird Sings'?",
+    "options": [
+      "Maya Angelou",
+      "Toni Morrison",
+      "Alice Walker",
+      "Zora Neale Hurston"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8d5f616e-e4ea-4630-a448-e33ece724ae0",
+    "prompt": "Which civil rights law of 1964 outlawed discrimination based on race, color, religion, sex, or national origin?",
+    "options": [
+      "Voting Rights Act",
+      "Civil Rights Act",
+      "Fair Housing Act",
+      "Emancipation Proclamation"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0e6be05c-7932-4c2f-b102-4ed32a4f0ed3",
+    "prompt": "In the board game Chess, which piece can move in an L-shaped pattern?",
+    "options": [
+      "Bishop",
+      "Knight",
+      "Rook",
+      "Queen"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ae2789fc-335f-4948-b4bb-03354b9871b6",
+    "prompt": "In Monopoly, what happens when a player lands on 'Go'?",
+    "options": [
+      "They pay a tax",
+      "They draw a card",
+      "They collect $200",
+      "They go to jail"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "cb0bd02f-e088-4820-b452-3affb0304088",
+    "prompt": "How many spaces are on a standard Scrabble board?",
+    "options": [
+      "196",
+      "225",
+      "144",
+      "169"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7c07a645-812a-436e-96b7-59c0ae2c36ab",
+    "prompt": "In Checkers, what happens when a piece reaches the opposite end of the board?",
+    "options": [
+      "It is removed",
+      "It becomes a king",
+      "It skips a turn",
+      "It doubles in size"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d00a9383-9a75-482a-93ec-8d5f51cf3ef5",
+    "prompt": "Which board game involves guessing a hidden word using letter tiles?",
+    "options": [
+      "Scrabble",
+      "Boggle",
+      "Hangman",
+      "Word Search"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "08d7e1f2-a63d-427a-b907-d061f94baec0",
+    "prompt": "In the game Risk, what is the primary objective?",
+    "options": [
+      "Collect the most money",
+      "Capture all enemy pieces",
+      "Conquer territories on the map",
+      "Solve puzzles"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "367ee0aa-71d0-44de-8bd4-296fb0f2d35a",
+    "prompt": "In Clue (Cluedo), what are players trying to determine?",
+    "options": [
+      "Who won the game",
+      "Who committed the crime, with what weapon, and where",
+      "How many points each player has",
+      "Which card is highest"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "6f94c9b8-511e-43f7-972c-8a0af768bfb9",
+    "prompt": "How many players typically play a standard game of chess?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "6"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "1578cd11-cf4a-45c5-939a-9512ab3d6a5b",
+    "prompt": "In Scrabble, how many points is the letter 'Q' typically worth?",
+    "options": [
+      "8",
+      "10",
+      "5",
+      "12"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0d59fba2-ce46-4bc6-a673-4e5367b368c5",
+    "prompt": "Which board game features the pieces called 'pawn', 'rook', 'bishop', and 'queen'?",
+    "options": [
+      "Checkers",
+      "Chess",
+      "Backgammon",
+      "Go"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "b55d40cd-4652-44cb-b629-9eada6df3f34",
+    "prompt": "In the game Sorry!, what is the goal?",
+    "options": [
+      "Move all your pawns to the home space",
+      "Capture the opponent’s king",
+      "Collect the most properties",
+      "Spell the longest word"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "96a469a4-e399-4880-b9b1-d2879af7ac02",
+    "prompt": "Which ancient strategy board game originated in China and uses black and white stones?",
+    "options": [
+      "Checkers",
+      "Go",
+      "Mahjong",
+      "Dominoes"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4654b553-6661-4f15-a360-ed49d9a6757a",
+    "prompt": "In Monopoly, what happens if a player cannot pay their debts?",
+    "options": [
+      "They lose a turn",
+      "They go to jail",
+      "They go bankrupt",
+      "They skip the board"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "75093f09-a8d9-4fdc-babd-93a049951619",
+    "prompt": "How many squares are on a standard chessboard?",
+    "options": [
+      "64",
+      "81",
+      "72",
+      "49"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "fff41916-e3c1-4378-a43e-ee9a6c942642",
+    "prompt": "In Backgammon, what do players use to determine how far they move their pieces?",
+    "options": [
+      "Cards",
+      "Dice",
+      "Spinners",
+      "Tiles"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f9c66e40-aaf8-443e-a33a-7aec6ba29f2a",
+    "prompt": "Which board game involves building words from letter tiles on a board?",
+    "options": [
+      "Boggle",
+      "Scrabble",
+      "Codenames",
+      "Scattergories"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "88eafb7f-c13e-48e6-8973-649f4ed0024b",
+    "prompt": "In the game Clue, which room is commonly included on the board?",
+    "options": [
+      "Kitchen",
+      "Gym",
+      "Garage",
+      "Library"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c8d1a66e-c873-4878-a27f-586a827d767d",
+    "prompt": "In chess, what is the term for threatening the opponent’s king?",
+    "options": [
+      "Capture",
+      "Check",
+      "Mate",
+      "Guard"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4a0d4307-4ae3-422d-be17-109c55844c26",
+    "prompt": "In Risk, what determines the outcome of battles?",
+    "options": [
+      "Card draws",
+      "Dice rolls",
+      "Tile placement",
+      "Point totals"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "37d54278-0713-496b-a3d7-36f9b79bc1db",
+    "prompt": "In chess, what is the objective of the game?",
+    "options": [
+      "Capture all pieces",
+      "Checkmate the opponent’s king",
+      "Reach the opposite side",
+      "Control the center"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "403564ba-75d2-4fb5-b6da-9276b1020d22",
+    "prompt": "Who is the prophet who led his family from Jerusalem to the Americas at the beginning of the Book of Mormon?",
+    "options": [
+      "Nephi",
+      "Lehi",
+      "Alma",
+      "Mosiah"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "759a9502-7c9c-47ee-aba8-28baf3023cf2",
+    "prompt": "Which book is the first book in the Book of Mormon?",
+    "options": [
+      "1 Nephi",
+      "Mosiah",
+      "Ether",
+      "Jacob"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "734e820d-b63d-4218-9b5d-942c5d2e2bcd",
+    "prompt": "Who built a ship to carry his family across the ocean to the promised land?",
+    "options": [
+      "Lehi",
+      "Nephi",
+      "Jacob",
+      "Samuel"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "1ced0277-375b-48b2-80c8-1a92c910dd2c",
+    "prompt": "What object did Lehi see in his dream that represented the love of God?",
+    "options": [
+      "A tree of life",
+      "A golden sword",
+      "A shining temple",
+      "A pillar of fire"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c78d12bd-8163-4de4-9930-91c24ffe6132",
+    "prompt": "Who was the prophet who kept the small plates after Nephi?",
+    "options": [
+      "Jacob",
+      "Alma",
+      "Mormon",
+      "Helaman"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "97627632-c3db-4edb-ae3c-f9ec650e8b50",
+    "prompt": "What two major groups of people are described throughout much of the Book of Mormon?",
+    "options": [
+      "Nephites and Lamanites",
+      "Jaredites and Amalekites",
+      "Israelites and Babylonians",
+      "Romans and Greeks"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5ef36018-3d31-4420-b1cd-34a29ff9cf64",
+    "prompt": "Who was the king who translated the Jaredite record using interpreters?",
+    "options": [
+      "King Benjamin",
+      "King Mosiah",
+      "King Noah",
+      "King Limhi"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ead2f9e3-6bce-45e7-b6a9-7dcdf603e568",
+    "prompt": "Which prophet delivered the famous sermon from a tower about serving others?",
+    "options": [
+      "King Benjamin",
+      "Alma the Younger",
+      "Nephi",
+      "Helaman"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "41a2b65a-4e24-46a0-8214-91fba813d5ae",
+    "prompt": "Who was a wicked man that became a prophet after seeing an angel?",
+    "options": [
+      "Helaman",
+      "Alma the Younger",
+      "Nephi",
+      "Mormon"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "346350bd-deb5-4cb3-ab4b-541691a942b8",
+    "prompt": "Which missionary companions traveled with Alma the Younger to preach to the Lamanites?",
+    "options": [
+      "The sons of Mosiah",
+      "The sons of Helaman",
+      "The sons of Lehi",
+      "The sons of Jacob"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e045ce64-ab77-460f-9663-6dad9a487aa7",
+    "prompt": "Who was the Nephite commander known for his title of liberty?",
+    "options": [
+      "Captain Moroni",
+      "Helaman",
+      "Gidgiddoni",
+      "Teancum"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "401e98ad-88e1-42ce-a66c-9acfa4ef8ce4",
+    "prompt": "Which Book of Mormon prophet preached repentance on the city wall of Zarahemla?",
+    "options": [
+      "Samuel the Lamanite",
+      "Alma",
+      "Jacob",
+      "Ammon"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c2757dda-4e57-4bc1-bd8e-661af496856a",
+    "prompt": "What sign was given of the birth of Jesus in the Book of Mormon?",
+    "options": [
+      "A day and a night and a day with no darkness",
+      "A star appearing in the west",
+      "A pillar of fire",
+      "An eclipse of the sun"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "35744bbd-6a7e-4929-a3e0-2dbe135ee297",
+    "prompt": "After His resurrection, where did Jesus appear to people in the Book of Mormon?",
+    "options": [
+      "The Americas",
+      "Rome",
+      "Egypt",
+      "Babylon"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e9cf1f21-6667-4bea-be79-27c45a3c84f0",
+    "prompt": "Which Book of Mormon prophet abridged many of the records into a single history?",
+    "options": [
+      "Moroni",
+      "Mormon",
+      "Nephi",
+      "Jacob"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f7926258-378c-4171-b8e5-eb5340dc0a05",
+    "prompt": "Who was the final prophet who completed and buried the Book of Mormon plates?",
+    "options": [
+      "Moroni",
+      "Mormon",
+      "Ether",
+      "Helaman"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ebd5c1dc-9a80-4248-b76c-bf891028f503",
+    "prompt": "Which group of people came to the Americas after the Tower of Babel?",
+    "options": [
+      "The Jaredites",
+      "The Nephites",
+      "The Lamanites",
+      "The Zoramites"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5235783c-d105-49bd-8fb6-14edb3729895",
+    "prompt": "Who was the prophet who wrote the book of Ether?",
+    "options": [
+      "Moroni",
+      "Mormon",
+      "Ether",
+      "Nephi"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5f7be6e0-b487-42c6-83e6-4a7813ec078c",
+    "prompt": "What sacred records did Nephi and his brothers retrieve from Laban in Jerusalem?",
+    "options": [
+      "The brass plates",
+      "The golden plates",
+      "The stone tablets",
+      "The scroll of Isaiah"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "eebcd347-da2f-48b9-8170-44171df64a98",
+    "prompt": "Which prophet taught that 'men are free according to the flesh' and emphasized agency?",
+    "options": [
+      "Lehi",
+      "Alma",
+      "Nephi",
+      "Moroni"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8cdb5e07-c402-4593-9079-4ae2bd0e2abe",
+    "prompt": "What is the chemical symbol for water?",
+    "options": [
+      "O2",
+      "H2O",
+      "CO2",
+      "NaCl"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "9980cc1a-db0a-479a-87bf-e3cc3a77af87",
+    "prompt": "What is the atomic number of carbon?",
+    "options": [
+      "6",
+      "8",
+      "12",
+      "14"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ed04f0be-3e8e-47ae-95d3-fd0004ea6e07",
+    "prompt": "Which particle in an atom has a negative charge?",
+    "options": [
+      "Proton",
+      "Neutron",
+      "Electron",
+      "Nucleus"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2792ffa3-e7c7-4152-a766-14976a9c0639",
+    "prompt": "What gas do humans exhale as a waste product of respiration?",
+    "options": [
+      "Oxygen",
+      "Carbon dioxide",
+      "Nitrogen",
+      "Hydrogen"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "805d77f8-64c5-41a8-b038-b5999b601140",
+    "prompt": "What is the pH of a neutral solution at room temperature?",
+    "options": [
+      "0",
+      "7",
+      "10",
+      "14"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d61a1523-2563-437a-a73a-f7e95aa83be3",
+    "prompt": "Which element has the chemical symbol 'Na'?",
+    "options": [
+      "Nitrogen",
+      "Sodium",
+      "Nickel",
+      "Neon"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "19810c4b-37a5-4b78-be44-e80e0fbf58f2",
+    "prompt": "Which state of matter has a definite volume but no definite shape?",
+    "options": [
+      "Solid",
+      "Liquid",
+      "Gas",
+      "Plasma"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5be57aef-b28e-42c5-99c7-14d908e72c18",
+    "prompt": "What is the chemical formula for table salt?",
+    "options": [
+      "NaCl",
+      "KCl",
+      "CaCO3",
+      "HCl"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3b2d9b06-9dab-4959-845e-499c0eed04e4",
+    "prompt": "Which type of chemical bond involves the sharing of electron pairs between atoms?",
+    "options": [
+      "Ionic bond",
+      "Covalent bond",
+      "Metallic bond",
+      "Hydrogen bond"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "de86dd25-f4b2-4c03-af78-024cca9acd85",
+    "prompt": "Which gas is most abundant in Earth's atmosphere?",
+    "options": [
+      "Oxygen",
+      "Carbon dioxide",
+      "Nitrogen",
+      "Argon"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "49704c0e-1ea5-41f1-bc5b-08f24273be78",
+    "prompt": "Which element is represented by the symbol 'Fe'?",
+    "options": [
+      "Fluorine",
+      "Iron",
+      "Francium",
+      "Fermium"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "85eb746b-1ca1-4fd5-8a42-42c0a0b2bd72",
+    "prompt": "What is the center of an atom called?",
+    "options": [
+      "Electron shell",
+      "Proton cloud",
+      "Nucleus",
+      "Ion core"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d76a4374-d2aa-4d35-bead-0552ea0cac63",
+    "prompt": "Which element is required for combustion to occur?",
+    "options": [
+      "Nitrogen",
+      "Oxygen",
+      "Helium",
+      "Neon"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "76842ddc-f9f6-4918-981e-f1ac0a050fd8",
+    "prompt": "What type of reaction releases energy to the surroundings?",
+    "options": [
+      "Endothermic reaction",
+      "Exothermic reaction",
+      "Neutralization reaction",
+      "Oxidation reaction"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "034fa9a2-3a23-49d7-a9ac-b61dbc43eeca",
+    "prompt": "What is the smallest unit of an element that retains its chemical properties?",
+    "options": [
+      "Molecule",
+      "Atom",
+      "Compound",
+      "Ion"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ffe8fef6-78bd-4912-97b7-8bf30fedc0b9",
+    "prompt": "Which scientist developed the periodic table of elements?",
+    "options": [
+      "Marie Curie",
+      "Dmitri Mendeleev",
+      "John Dalton",
+      "Niels Bohr"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3e1c7c92-9b95-4774-9a88-048bc4169dc5",
+    "prompt": "What type of bond forms when one atom transfers electrons to another?",
+    "options": [
+      "Covalent bond",
+      "Ionic bond",
+      "Metallic bond",
+      "Hydrogen bond"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f7130d1f-ef06-4cf5-aa22-fc5c1e0f6595",
+    "prompt": "What is the chemical symbol for gold?",
+    "options": [
+      "Ag",
+      "Au",
+      "Gd",
+      "Go"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "00dcde97-3d07-4e73-981f-587deed613e2",
+    "prompt": "Which subatomic particle has no electrical charge?",
+    "options": [
+      "Proton",
+      "Electron",
+      "Neutron",
+      "Ion"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5b047433-73a0-400d-b2a0-e9904ec7a2e3",
+    "prompt": "What type of mixture has a uniform composition throughout?",
+    "options": [
+      "Heterogeneous mixture",
+      "Homogeneous mixture",
+      "Suspension",
+      "Colloid"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c7795087-555e-4953-8a28-ded849b74271",
+    "prompt": "Who wrote the play 'Romeo and Juliet'?",
+    "options": [
+      "William Shakespeare",
+      "Charles Dickens",
+      "Jane Austen",
+      "Mark Twain"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7b5d4ef3-f6f6-4d01-ba31-61cbd585546a",
+    "prompt": "Who is the author of the novel 'Moby-Dick'?",
+    "options": [
+      "Herman Melville",
+      "Nathaniel Hawthorne",
+      "Edgar Allan Poe",
+      "Henry James"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8137880d-cf00-4b26-836d-47f9dd35a002",
+    "prompt": "Which novel by Jane Austen features the characters Elizabeth Bennet and Mr. Darcy?",
+    "options": [
+      "Sense and Sensibility",
+      "Emma",
+      "Pride and Prejudice",
+      "Mansfield Park"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c920d33e-df74-494a-852f-f66c7527e0e4",
+    "prompt": "Who wrote the epic poem 'The Odyssey'?",
+    "options": [
+      "Homer",
+      "Virgil",
+      "Sophocles",
+      "Aristotle"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4c1817b9-f067-44d7-9c26-0ff67e4a1813",
+    "prompt": "Which Charles Dickens novel begins with the line 'It was the best of times, it was the worst of times'?",
+    "options": [
+      "Oliver Twist",
+      "Great Expectations",
+      "David Copperfield",
+      "A Tale of Two Cities"
+    ],
+    "correct_index": 3,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3ac1e676-d394-445f-824c-8a674ed71401",
+    "prompt": "Who wrote 'The Adventures of Tom Sawyer'?",
+    "options": [
+      "Mark Twain",
+      "Jack London",
+      "Herman Melville",
+      "Henry David Thoreau"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3c0b09a3-f635-4972-b94e-c4b3ec1cf061",
+    "prompt": "Which novel tells the story of Victor Frankenstein and his creation?",
+    "options": [
+      "Dracula",
+      "Frankenstein",
+      "The Strange Case of Dr. Jekyll and Mr. Hyde",
+      "The Invisible Man"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c38a3f4c-43de-4387-a984-b0c2b1f7f488",
+    "prompt": "Who wrote 'The Divine Comedy', which includes the sections Inferno, Purgatorio, and Paradiso?",
+    "options": [
+      "Dante Alighieri",
+      "Geoffrey Chaucer",
+      "John Milton",
+      "Virgil"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "66eecfee-aa34-4be8-a7f1-b25e2b6d8f19",
+    "prompt": "Which Russian author wrote the novel 'War and Peace'?",
+    "options": [
+      "Fyodor Dostoevsky",
+      "Leo Tolstoy",
+      "Anton Chekhov",
+      "Nikolai Gogol"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "27b5f662-0a74-430d-8f6c-dfdf41953989",
+    "prompt": "Who wrote the tragedy 'Hamlet'?",
+    "options": [
+      "William Shakespeare",
+      "Christopher Marlowe",
+      "Ben Jonson",
+      "John Donne"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "77053b69-f9a5-424a-9154-dc423242f21e",
+    "prompt": "Which novel by George Orwell depicts a dystopian society under constant surveillance?",
+    "options": [
+      "Animal Farm",
+      "1984",
+      "Brave New World",
+      "Fahrenheit 451"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "b1f80c99-b3cc-4e38-a835-e4cb536e5f1d",
+    "prompt": "Who wrote the novel 'The Great Gatsby'?",
+    "options": [
+      "Ernest Hemingway",
+      "F. Scott Fitzgerald",
+      "John Steinbeck",
+      "William Faulkner"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "147d8425-7616-40cb-b36c-729c2cdca8ca",
+    "prompt": "Which author wrote 'The Canterbury Tales'?",
+    "options": [
+      "Geoffrey Chaucer",
+      "William Langland",
+      "Thomas More",
+      "Edmund Spenser"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "91261e11-1c8b-49d8-a167-4e42d2dc0fbf",
+    "prompt": "Which novel by Harper Lee centers on the trial of Tom Robinson?",
+    "options": [
+      "To Kill a Mockingbird",
+      "Of Mice and Men",
+      "The Grapes of Wrath",
+      "The Catcher in the Rye"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "561120d2-c80e-4f54-a3af-f03210a9bde3",
+    "prompt": "Who wrote the novel 'The Scarlet Letter'?",
+    "options": [
+      "Nathaniel Hawthorne",
+      "Herman Melville",
+      "Edgar Allan Poe",
+      "Washington Irving"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2c5017e0-6015-4f01-8f5f-ccdc5d57449a",
+    "prompt": "Which American author wrote 'The Grapes of Wrath'?",
+    "options": [
+      "John Steinbeck",
+      "Ernest Hemingway",
+      "William Faulkner",
+      "Upton Sinclair"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0d9f5466-460c-4fcf-bf3e-bb800606ff8c",
+    "prompt": "Who wrote the epic poem 'Paradise Lost'?",
+    "options": [
+      "John Milton",
+      "Alexander Pope",
+      "William Blake",
+      "Edmund Spenser"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2d5410ea-4ffc-4bd6-ae67-09abbea2f34f",
+    "prompt": "Which novel by Mary Shelley is considered one of the earliest works of science fiction?",
+    "options": [
+      "Dracula",
+      "Frankenstein",
+      "The Time Machine",
+      "The War of the Worlds"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3cbc1f48-6dcf-4c12-b283-5d58df8cbddf",
+    "prompt": "Who wrote 'Don Quixote', often considered one of the first modern novels?",
+    "options": [
+      "Miguel de Cervantes",
+      "Gabriel García Márquez",
+      "Jorge Luis Borges",
+      "Lope de Vega"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "744eb768-f554-4e12-ab9b-44d433704461",
+    "prompt": "Which novel features the characters Lennie Small and George Milton?",
+    "options": [
+      "The Grapes of Wrath",
+      "Of Mice and Men",
+      "East of Eden",
+      "Cannery Row"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "cb8008c4-1658-4318-a77e-24fb7e853323",
+    "prompt": "What does CPU stand for in computing?",
+    "options": [
+      "Central Processing Unit",
+      "Computer Processing Utility",
+      "Central Program Unit",
+      "Control Processing Unit"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "b31974c0-08ea-403c-bd6c-4c8d759db045",
+    "prompt": "Which component of a computer temporarily stores data and programs currently in use?",
+    "options": [
+      "Hard drive",
+      "RAM",
+      "GPU",
+      "Power supply"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "49244999-b31d-405f-b1cb-e120521737b6",
+    "prompt": "What does the acronym 'HTTP' stand for?",
+    "options": [
+      "HyperText Transfer Protocol",
+      "High Transfer Text Protocol",
+      "HyperText Transmission Process",
+      "Host Transfer Text Program"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "6d8a7e23-e67e-4764-9e85-4eb6477f9163",
+    "prompt": "Which device is primarily used to display visual output from a computer?",
+    "options": [
+      "Printer",
+      "Monitor",
+      "Keyboard",
+      "Router"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "093af6ee-d547-425f-9d09-f6ca140a46ff",
+    "prompt": "Which programming language is primarily used for structuring content on web pages?",
+    "options": [
+      "Python",
+      "HTML",
+      "Java",
+      "C++"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "6f2a4789-3eb2-4d20-8c16-f564b5e0317f",
+    "prompt": "What is the primary function of an operating system?",
+    "options": [
+      "Manage hardware and software resources",
+      "Edit images",
+      "Create spreadsheets",
+      "Connect to the internet"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ec875918-d187-4081-bd9a-36d577234244",
+    "prompt": "Which storage device typically has no moving parts and uses flash memory?",
+    "options": [
+      "Hard Disk Drive",
+      "Solid State Drive",
+      "Optical Drive",
+      "Floppy Disk"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2c449bcd-18c5-44f4-9e13-8cd11ffd5df9",
+    "prompt": "What does 'URL' stand for?",
+    "options": [
+      "Universal Resource Locator",
+      "Uniform Resource Locator",
+      "Unified Reference Link",
+      "Universal Retrieval Location"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "125bc515-1b5d-4319-baf6-8d00a3145180",
+    "prompt": "Which company developed the Windows operating system?",
+    "options": [
+      "Apple",
+      "Microsoft",
+      "Google",
+      "IBM"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2716e24c-8cdb-4e0f-9167-1f8e2f34277d",
+    "prompt": "What unit is commonly used to measure computer memory?",
+    "options": [
+      "Volt",
+      "Byte",
+      "Hertz",
+      "Watt"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "bd8284cc-a2f5-4906-a74e-fc9bcbfce9eb",
+    "prompt": "Which programming concept refers to repeating a block of code multiple times?",
+    "options": [
+      "Loop",
+      "Variable",
+      "Function",
+      "Array"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0706e345-37fd-4f10-9745-4f68794bf769",
+    "prompt": "Which network device directs internet traffic between networks?",
+    "options": [
+      "Router",
+      "Keyboard",
+      "Scanner",
+      "Monitor"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "51965b28-e9ac-453a-8877-04e1e05ca14d",
+    "prompt": "What type of malware disguises itself as legitimate software?",
+    "options": [
+      "Virus",
+      "Worm",
+      "Trojan horse",
+      "Spyware"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d64ff0f7-b870-43a4-b615-56687d36c548",
+    "prompt": "Which part of a computer performs most of the calculations?",
+    "options": [
+      "CPU",
+      "Hard drive",
+      "Monitor",
+      "Keyboard"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "15709c13-b544-435d-93a6-ae64de1881b9",
+    "prompt": "Which programming language is widely used for data science and machine learning?",
+    "options": [
+      "Python",
+      "HTML",
+      "CSS",
+      "SQL"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3d16c542-6656-4af1-8ab5-21a3adc292f1",
+    "prompt": "What does GPU stand for?",
+    "options": [
+      "General Processing Unit",
+      "Graphics Processing Unit",
+      "Graphical Performance Utility",
+      "Graphics Program Unit"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c93101cc-fe54-4b70-b025-22b8969fdfd7",
+    "prompt": "Which protocol is commonly used to securely transfer data over the web?",
+    "options": [
+      "FTP",
+      "HTTP",
+      "HTTPS",
+      "SMTP"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "9c96cdf3-7fbb-4940-b7ae-7ce9aaebc544",
+    "prompt": "Which company created the Linux kernel?",
+    "options": [
+      "Linus Torvalds",
+      "Bill Gates",
+      "Steve Jobs",
+      "Mark Zuckerberg"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "47def311-3d6e-461f-9d4e-18976bb2fbcb",
+    "prompt": "What is the binary number system based on?",
+    "options": [
+      "Base 2",
+      "Base 8",
+      "Base 10",
+      "Base 16"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c81ca003-2644-467a-a4de-3fb9b7b302e4",
+    "prompt": "Which type of software allows users to browse the internet?",
+    "options": [
+      "Spreadsheet",
+      "Web browser",
+      "Compiler",
+      "Text editor"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ecc9d0d2-767a-4b21-9809-f50217ccaeea",
+    "prompt": "Who is the primary prophet through whom the revelations in the Doctrine and Covenants were given?",
+    "options": [
+      "Brigham Young",
+      "Joseph Smith",
+      "Oliver Cowdery",
+      "John Taylor"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a2ce0334-2dfc-44bd-8737-123ea30def68",
+    "prompt": "Which section of the Doctrine and Covenants is known as the 'Preface' to the book?",
+    "options": [
+      "Section 1",
+      "Section 5",
+      "Section 20",
+      "Section 76"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ae63b21f-9644-4533-9505-9103503b5a42",
+    "prompt": "Where was the Church of Jesus Christ organized on April 6, 1830?",
+    "options": [
+      "Kirtland, Ohio",
+      "Fayette, New York",
+      "Nauvoo, Illinois",
+      "Independence, Missouri"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3124c187-a4be-442f-a33a-744964cfe152",
+    "prompt": "Which section outlines many of the basic beliefs and organization of the Church and is sometimes called the 'Articles and Covenants'?",
+    "options": [
+      "Section 13",
+      "Section 20",
+      "Section 42",
+      "Section 76"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e3bac3b1-141c-49bc-a09d-0451aae41e36",
+    "prompt": "Which priesthood was restored by John the Baptist according to the Doctrine and Covenants?",
+    "options": [
+      "Melchizedek Priesthood",
+      "Aaronic Priesthood",
+      "Levitical Priesthood",
+      "Patriarchal Priesthood"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "6abcdbed-9060-45b6-9c01-947667ffe52e",
+    "prompt": "Which section describes the three degrees of glory in the afterlife?",
+    "options": [
+      "Section 76",
+      "Section 88",
+      "Section 132",
+      "Section 121"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ebf70996-a207-4d04-85db-820e6a0ea244",
+    "prompt": "Which revelation is known as the 'Word of Wisdom'?",
+    "options": [
+      "Section 42",
+      "Section 76",
+      "Section 89",
+      "Section 110"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ebf74d94-ee58-42ae-95ee-5ad1c76af753",
+    "prompt": "Which city is identified in the Doctrine and Covenants as the location of Zion or the New Jerusalem?",
+    "options": [
+      "Salt Lake City",
+      "Kirtland",
+      "Independence, Missouri",
+      "Nauvoo"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ae14effe-3bcb-4c45-95f5-2664a0910738",
+    "prompt": "Which section contains the vision of the celestial kingdom and the degrees of glory received by Joseph Smith and Sidney Rigdon?",
+    "options": [
+      "Section 1",
+      "Section 42",
+      "Section 76",
+      "Section 121"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "abbe7d97-e1de-432c-96a3-b5dc34cab0cf",
+    "prompt": "Which building was dedicated in Kirtland, Ohio and associated with several revelations in the Doctrine and Covenants?",
+    "options": [
+      "Kirtland Temple",
+      "Nauvoo Temple",
+      "Salt Lake Temple",
+      "Independence Temple"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "806b7fa9-4671-461a-b66d-4a368d9e0b8c",
+    "prompt": "Which section includes the phrase 'The glory of God is intelligence'?",
+    "options": [
+      "Section 88",
+      "Section 76",
+      "Section 121",
+      "Section 132"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ef714a25-1b38-4281-b17a-84bac091b8ae",
+    "prompt": "Which section contains counsel about priesthood power and the principles of righteousness beginning with 'No power or influence can or ought to be maintained'?",
+    "options": [
+      "Section 121",
+      "Section 89",
+      "Section 76",
+      "Section 42"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "15625cfd-b52e-4ce6-8eba-99909b45ec5d",
+    "prompt": "Which section teaches about eternal marriage and the new and everlasting covenant?",
+    "options": [
+      "Section 76",
+      "Section 110",
+      "Section 132",
+      "Section 121"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0dd1bc44-8712-436b-a8c7-13d4b1642022",
+    "prompt": "Who appeared in the Kirtland Temple to restore the keys of the gathering of Israel according to Doctrine and Covenants 110?",
+    "options": [
+      "Moses",
+      "Elijah",
+      "Peter",
+      "John"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "10badd77-ebdd-4de5-bb43-298bb2674d1f",
+    "prompt": "Which heavenly messenger restored the sealing power according to Doctrine and Covenants 110?",
+    "options": [
+      "Elijah",
+      "Moroni",
+      "Gabriel",
+      "Raphael"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a4d9fdbc-9a56-4ab6-a9b2-920feb4e63b6",
+    "prompt": "Which section explains that all things are governed by law and describes the 'law irrevocably decreed in heaven'?",
+    "options": [
+      "Section 130",
+      "Section 89",
+      "Section 42",
+      "Section 76"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "416327b9-7431-4efd-9140-d2df92a8cdca",
+    "prompt": "Which section instructs the Saints to establish a house of learning, a house of order, and a house of God?",
+    "options": [
+      "Section 88",
+      "Section 20",
+      "Section 76",
+      "Section 132"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ef46a566-e96a-4094-9a02-07f65ac85b2e",
+    "prompt": "Which early leader served as one of the Three Witnesses to the Book of Mormon and received revelations in the Doctrine and Covenants?",
+    "options": [
+      "Oliver Cowdery",
+      "Parley P. Pratt",
+      "Wilford Woodruff",
+      "Lorenzo Snow"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0442da91-200e-4cba-bf97-ab930d4f1303",
+    "prompt": "Which section describes the organization of priesthood quorums including the Quorum of the Twelve Apostles?",
+    "options": [
+      "Section 107",
+      "Section 76",
+      "Section 121",
+      "Section 1"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "aec57e96-cbc4-41d3-9b03-9a29d2092d5c",
+    "prompt": "Which location in Illinois became the gathering place of the Saints and the setting for several later revelations in the Doctrine and Covenants?",
+    "options": [
+      "Nauvoo",
+      "Kirtland",
+      "Palmyra",
+      "Independence"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "bd79e319-a393-4921-95d3-447861a49d0a",
+    "prompt": "What is ecology the study of?",
+    "options": [
+      "The structure of atoms",
+      "The interactions between organisms and their environment",
+      "The motion of planets",
+      "Human anatomy"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "6d3a48a4-4d29-42b6-98a0-d3e0682d7164",
+    "prompt": "What term describes all the living organisms in a particular area?",
+    "options": [
+      "Population",
+      "Community",
+      "Ecosystem",
+      "Biome"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3f564f2d-69b4-453f-bff4-7b0f51800217",
+    "prompt": "What is the role of producers in an ecosystem?",
+    "options": [
+      "They consume other organisms",
+      "They break down waste",
+      "They produce their own food using sunlight",
+      "They hunt predators"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "73a21fcc-1d4f-4474-9789-e0a187fd5c94",
+    "prompt": "Which organisms break down dead organic matter and recycle nutrients?",
+    "options": [
+      "Producers",
+      "Consumers",
+      "Decomposers",
+      "Predators"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "74648e58-3318-4b6c-a2dd-bab993417ae9",
+    "prompt": "What is a food chain?",
+    "options": [
+      "A series of organisms linked by energy transfer through eating",
+      "A group of animals living together",
+      "A collection of plants in a forest",
+      "A type of ecological experiment"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "b39323d7-6133-4fe7-983f-b1a22dcc0a13",
+    "prompt": "Which biome is characterized by very low rainfall and sparse vegetation?",
+    "options": [
+      "Tropical rainforest",
+      "Desert",
+      "Grassland",
+      "Taiga"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4046b562-b7ad-4bde-a4ef-70f4c99e9077",
+    "prompt": "What term describes a group of individuals of the same species living in a specific area?",
+    "options": [
+      "Community",
+      "Population",
+      "Ecosystem",
+      "Biome"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d86c6753-9dfd-4861-9340-f6f7f24a3f8d",
+    "prompt": "What is biodiversity?",
+    "options": [
+      "The number of ecosystems on Earth",
+      "The variety of life in a particular habitat or on Earth",
+      "The number of animals in a forest",
+      "The amount of water in an ecosystem"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "adc52b9d-f6cb-4333-90b4-8b9be0489f57",
+    "prompt": "Which process do plants use to convert sunlight into energy?",
+    "options": [
+      "Respiration",
+      "Photosynthesis",
+      "Fermentation",
+      "Transpiration"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3a959b0b-42e3-45f5-b08c-fc16d6f04d64",
+    "prompt": "What term describes an organism that eats plants?",
+    "options": [
+      "Carnivore",
+      "Herbivore",
+      "Omnivore",
+      "Decomposer"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f0c43b99-180d-4b1e-abdc-3c92c2c14a64",
+    "prompt": "Which gas is removed from the atmosphere during photosynthesis?",
+    "options": [
+      "Oxygen",
+      "Nitrogen",
+      "Carbon dioxide",
+      "Methane"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "81a78805-7643-46e5-84e1-7e8c5cf6f306",
+    "prompt": "What is an ecosystem?",
+    "options": [
+      "A group of animals living together",
+      "A community of organisms and their physical environment",
+      "Only the plants in an area",
+      "A collection of mountains and rivers"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ee01dd47-fe5f-4b58-abbd-6f1e906c0424",
+    "prompt": "What type of consumer eats both plants and animals?",
+    "options": [
+      "Herbivore",
+      "Carnivore",
+      "Omnivore",
+      "Decomposer"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8568b056-45e6-44ea-8d9c-68c710289010",
+    "prompt": "Which biome contains dense forests, high rainfall, and high biodiversity?",
+    "options": [
+      "Tundra",
+      "Savanna",
+      "Tropical rainforest",
+      "Desert"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c492f0e7-17e2-434a-9fee-f00ab7e6bee9",
+    "prompt": "What is the primary source of energy for most ecosystems on Earth?",
+    "options": [
+      "The Moon",
+      "The Sun",
+      "Volcanoes",
+      "Ocean currents"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d519c85c-e2ad-4c8e-a2af-382e673a9dd2",
+    "prompt": "What term describes a species that has a disproportionately large impact on its ecosystem?",
+    "options": [
+      "Indicator species",
+      "Keystone species",
+      "Endangered species",
+      "Native species"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a16ef1b9-3a92-4403-9f08-2a816cb0c5d7",
+    "prompt": "What is the role of a predator in an ecosystem?",
+    "options": [
+      "To produce oxygen",
+      "To control prey populations",
+      "To create nutrients from sunlight",
+      "To decompose dead matter"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4ad12abe-897b-4a41-929f-6d18152ef178",
+    "prompt": "What term describes the gradual change in species composition in an ecosystem over time?",
+    "options": [
+      "Evolution",
+      "Succession",
+      "Migration",
+      "Adaptation"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0369abe2-e954-454f-b2ba-288f72bdad60",
+    "prompt": "Which layer of the ocean receives the most sunlight and supports most marine life?",
+    "options": [
+      "Abyssal zone",
+      "Midnight zone",
+      "Photic zone",
+      "Hadopelagic zone"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0e8c76cd-4c44-4432-8651-e278242a23de",
+    "prompt": "What term describes non-living components of an ecosystem such as water, sunlight, and temperature?",
+    "options": [
+      "Biotic factors",
+      "Abiotic factors",
+      "Predators",
+      "Consumers"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c4682c86-d42f-4de2-9aac-6749cb6b7361",
+    "prompt": "What is the largest continent on Earth?",
+    "options": [
+      "Africa",
+      "Asia",
+      "North America",
+      "Antarctica"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "58aa600d-0827-498f-91d2-f47c7d22b3c2",
+    "prompt": "Which river is the longest in the world?",
+    "options": [
+      "Amazon River",
+      "Mississippi River",
+      "Nile River",
+      "Yangtze River"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "91661361-1544-46a5-aac0-92a6f8d572e4",
+    "prompt": "What is the capital city of France?",
+    "options": [
+      "Paris",
+      "Lyon",
+      "Marseille",
+      "Nice"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "31cae4c0-d642-4b7c-974b-098b8a8ed8ce",
+    "prompt": "Which ocean is the largest on Earth?",
+    "options": [
+      "Atlantic Ocean",
+      "Indian Ocean",
+      "Pacific Ocean",
+      "Arctic Ocean"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c90e5d9c-8243-4b52-8d01-f48aedb8db13",
+    "prompt": "Which mountain is the highest above sea level?",
+    "options": [
+      "K2",
+      "Mount Everest",
+      "Kangchenjunga",
+      "Denali"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "48f66ac0-3be8-4b52-b78b-56051c8f0a65",
+    "prompt": "Which country has the largest population in the world?",
+    "options": [
+      "United States",
+      "India",
+      "China",
+      "Indonesia"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d9780e95-0491-4eef-af47-29a6b3bf0c67",
+    "prompt": "What is the largest desert in the world?",
+    "options": [
+      "Sahara Desert",
+      "Arabian Desert",
+      "Antarctic Desert",
+      "Gobi Desert"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c3c2cc05-5a18-48ba-b32b-c1f5c55950cf",
+    "prompt": "Which U.S. state is the largest by area?",
+    "options": [
+      "Texas",
+      "California",
+      "Alaska",
+      "Montana"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3cdf855b-3e84-44e7-83a4-2736c7a89fef",
+    "prompt": "What line divides the Earth into the Northern and Southern Hemispheres?",
+    "options": [
+      "Prime Meridian",
+      "Equator",
+      "Tropic of Cancer",
+      "International Date Line"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a382a211-19a8-485d-a15e-370d2d291b26",
+    "prompt": "Which continent is the Sahara Desert located on?",
+    "options": [
+      "Asia",
+      "Africa",
+      "Australia",
+      "South America"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "cc22e9d7-9bfa-45a3-9d01-815cb4610ed2",
+    "prompt": "Which country has the largest land area in the world?",
+    "options": [
+      "China",
+      "United States",
+      "Russia",
+      "Canada"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c97c0f8b-82bf-4a3d-b2f7-fb4d0c6e02ff",
+    "prompt": "What is the capital of Japan?",
+    "options": [
+      "Osaka",
+      "Kyoto",
+      "Tokyo",
+      "Hiroshima"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "dee68ec2-76d6-45dd-b536-6ad7a84cc91c",
+    "prompt": "Which continent contains the Amazon Rainforest?",
+    "options": [
+      "Africa",
+      "Asia",
+      "South America",
+      "North America"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c9bdfbbe-f313-41df-a341-e6fb82c97f01",
+    "prompt": "Which country is home to the Great Barrier Reef?",
+    "options": [
+      "Indonesia",
+      "Australia",
+      "Philippines",
+      "New Zealand"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8a4b0deb-9ec9-4a61-8371-988202f2b973",
+    "prompt": "What is the capital of Canada?",
+    "options": [
+      "Toronto",
+      "Ottawa",
+      "Montreal",
+      "Vancouver"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "1c62f948-a04b-4557-b12e-23f84a37cfd5",
+    "prompt": "Which sea separates Europe and Africa?",
+    "options": [
+      "Black Sea",
+      "Mediterranean Sea",
+      "Red Sea",
+      "Caspian Sea"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8ec082f4-5349-48cf-9404-a3bc15c99631",
+    "prompt": "Which country has the most time zones?",
+    "options": [
+      "United States",
+      "Russia",
+      "France",
+      "China"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3cab1db6-49f7-464d-bfd8-12ffc077ba95",
+    "prompt": "What is the longest river in South America?",
+    "options": [
+      "Amazon River",
+      "Orinoco River",
+      "Paraná River",
+      "Magdalena River"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e38c8126-2aa4-4dbc-b679-42f823468b27",
+    "prompt": "Which mountain range runs along the western edge of South America?",
+    "options": [
+      "Rocky Mountains",
+      "Himalayas",
+      "Andes Mountains",
+      "Alps"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7b5074bf-2882-4029-bc9d-c0d55fc6e768",
+    "prompt": "Which U.S. state contains the Grand Canyon?",
+    "options": [
+      "Nevada",
+      "Utah",
+      "Arizona",
+      "Colorado"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "cea28ed6-a583-4f2f-9001-65dab1a6b8b0",
+    "prompt": "Which organ in the human body pumps blood through the circulatory system?",
+    "options": [
+      "Lungs",
+      "Heart",
+      "Liver",
+      "Kidneys"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7d344768-4d4c-4d6b-9ebd-ababc4a4fe6e",
+    "prompt": "What type of blood cells are responsible for carrying oxygen throughout the body?",
+    "options": [
+      "White blood cells",
+      "Platelets",
+      "Red blood cells",
+      "Plasma cells"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2ffe54bd-d9d0-43ed-b2c2-fa308994890d",
+    "prompt": "Which system of the body is responsible for sending electrical signals between the brain and the rest of the body?",
+    "options": [
+      "Digestive system",
+      "Nervous system",
+      "Respiratory system",
+      "Endocrine system"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "445d7610-517f-4468-9ff8-aa2da8972bdc",
+    "prompt": "Which organ is primarily responsible for detoxifying chemicals and metabolizing drugs?",
+    "options": [
+      "Kidney",
+      "Liver",
+      "Pancreas",
+      "Stomach"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "80733b95-e769-42c3-9a5b-dafcdd934b12",
+    "prompt": "Which vitamin is important for calcium absorption and bone health?",
+    "options": [
+      "Vitamin A",
+      "Vitamin C",
+      "Vitamin D",
+      "Vitamin K"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "857678c3-c2fe-4c00-837a-5499a69441e2",
+    "prompt": "What is the normal average body temperature in humans (in Fahrenheit)?",
+    "options": [
+      "96.5°F",
+      "97.5°F",
+      "98.6°F",
+      "100.4°F"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "01f5f3a7-edaa-48df-bc6a-430e90ed0ea7",
+    "prompt": "Which part of the brain controls balance and coordination?",
+    "options": [
+      "Cerebrum",
+      "Cerebellum",
+      "Medulla",
+      "Hypothalamus"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c779c3c8-1fbc-4d80-aa12-8b175e3ecb37",
+    "prompt": "Which system of the body is responsible for breaking down food and absorbing nutrients?",
+    "options": [
+      "Respiratory system",
+      "Digestive system",
+      "Circulatory system",
+      "Endocrine system"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3b7a3335-6f49-4103-ab07-4b6f0a1fc5fb",
+    "prompt": "Which mineral is essential for carrying oxygen in the blood as part of hemoglobin?",
+    "options": [
+      "Calcium",
+      "Iron",
+      "Magnesium",
+      "Potassium"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "335efc73-5620-4b1b-b4a6-753fed48a79d",
+    "prompt": "What is the largest organ in the human body?",
+    "options": [
+      "Liver",
+      "Brain",
+      "Skin",
+      "Heart"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "6f501107-ed04-4cb8-a389-29decb07704e",
+    "prompt": "Which hormone helps regulate blood sugar levels by lowering glucose in the blood?",
+    "options": [
+      "Adrenaline",
+      "Insulin",
+      "Cortisol",
+      "Thyroxine"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a472d9f2-60ba-49a3-9e8c-c9fbcd50f8c0",
+    "prompt": "Which organ in the respiratory system is responsible for gas exchange?",
+    "options": [
+      "Trachea",
+      "Bronchi",
+      "Alveoli",
+      "Diaphragm"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0bd6d824-9b86-4aa2-bdc8-091e811f21e9",
+    "prompt": "Which type of joint allows movement in many directions, such as the shoulder joint?",
+    "options": [
+      "Hinge joint",
+      "Ball-and-socket joint",
+      "Pivot joint",
+      "Gliding joint"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "df943ed0-b6cf-4e8d-9a1b-8cfd2094d129",
+    "prompt": "How many chambers does the human heart have?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8be12344-609d-445a-b65b-3f19ccefc693",
+    "prompt": "Which system of the body helps protect against infections and disease?",
+    "options": [
+      "Immune system",
+      "Digestive system",
+      "Skeletal system",
+      "Respiratory system"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8950af95-d3a1-47d8-98c0-14a8e7993acc",
+    "prompt": "Which organ produces bile to help digest fats?",
+    "options": [
+      "Liver",
+      "Pancreas",
+      "Gallbladder",
+      "Stomach"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "599eb84f-951b-48d5-bc41-cad19e9286d2",
+    "prompt": "Which electrolyte is most important for nerve signal transmission and muscle contraction?",
+    "options": [
+      "Potassium",
+      "Iron",
+      "Zinc",
+      "Calcium carbonate"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0561a63a-36aa-47bd-a94d-edd42e67d880",
+    "prompt": "Which organ filters blood to remove waste products and produces urine?",
+    "options": [
+      "Liver",
+      "Kidneys",
+      "Pancreas",
+      "Spleen"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "eb95e078-8e52-4df0-9d60-6666c715f2c2",
+    "prompt": "What structure carries oxygenated blood away from the heart to the body?",
+    "options": [
+      "Veins",
+      "Capillaries",
+      "Arteries",
+      "Lymph vessels"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "533d938d-9749-48d0-8aba-9599a1bfe2be",
+    "prompt": "Which macronutrient is the body's primary source of quick energy?",
+    "options": [
+      "Proteins",
+      "Carbohydrates",
+      "Fats",
+      "Vitamins"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2c960fed-95bf-4f82-9477-19f09fc4d555",
+    "prompt": "Who wrote the play 'Romeo and Juliet'?",
+    "options": [
+      "William Shakespeare",
+      "Charles Dickens",
+      "Jane Austen",
+      "Mark Twain"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a4d44b58-fbc2-4081-8b9c-c7f46599f2c9",
+    "prompt": "Who is the author of the novel 'Moby-Dick'?",
+    "options": [
+      "Herman Melville",
+      "Nathaniel Hawthorne",
+      "Edgar Allan Poe",
+      "Henry James"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3ad1fe51-67f1-43ce-bc8a-3076c77d3bde",
+    "prompt": "Which novel by Jane Austen features the characters Elizabeth Bennet and Mr. Darcy?",
+    "options": [
+      "Sense and Sensibility",
+      "Emma",
+      "Pride and Prejudice",
+      "Mansfield Park"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "6c213a34-59fa-47ee-977e-eb203e1e5b39",
+    "prompt": "Who wrote the epic poem 'The Odyssey'?",
+    "options": [
+      "Homer",
+      "Virgil",
+      "Sophocles",
+      "Aristotle"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f417f18a-9600-46f9-9d3f-edf942a1a921",
+    "prompt": "Which Charles Dickens novel begins with the line 'It was the best of times, it was the worst of times'?",
+    "options": [
+      "Oliver Twist",
+      "Great Expectations",
+      "David Copperfield",
+      "A Tale of Two Cities"
+    ],
+    "correct_index": 3,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "323ed5ca-266d-40e5-b649-e48ad9fe8fa8",
+    "prompt": "Who wrote 'The Adventures of Tom Sawyer'?",
+    "options": [
+      "Mark Twain",
+      "Jack London",
+      "Herman Melville",
+      "Henry David Thoreau"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "befebfa2-a320-4774-8ca8-37e0124143f7",
+    "prompt": "Which novel tells the story of Victor Frankenstein and his creation?",
+    "options": [
+      "Dracula",
+      "Frankenstein",
+      "The Strange Case of Dr. Jekyll and Mr. Hyde",
+      "The Invisible Man"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "59a96f13-3d0d-457d-b180-48d676f57395",
+    "prompt": "Who wrote 'The Divine Comedy', which includes the sections Inferno, Purgatorio, and Paradiso?",
+    "options": [
+      "Dante Alighieri",
+      "Geoffrey Chaucer",
+      "John Milton",
+      "Virgil"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e87938fc-e374-4616-bc33-27e4b035b131",
+    "prompt": "Which Russian author wrote the novel 'War and Peace'?",
+    "options": [
+      "Fyodor Dostoevsky",
+      "Leo Tolstoy",
+      "Anton Chekhov",
+      "Nikolai Gogol"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d7f6f225-81f5-414e-bc4a-4e1742e549f3",
+    "prompt": "Who wrote the tragedy 'Hamlet'?",
+    "options": [
+      "William Shakespeare",
+      "Christopher Marlowe",
+      "Ben Jonson",
+      "John Donne"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d4e92b50-0c49-4aef-a560-2802c09c6221",
+    "prompt": "Which novel by George Orwell depicts a dystopian society under constant surveillance?",
+    "options": [
+      "Animal Farm",
+      "1984",
+      "Brave New World",
+      "Fahrenheit 451"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "98f21837-9eb0-45cb-b5e1-31d7ccc1e572",
+    "prompt": "Who wrote the novel 'The Great Gatsby'?",
+    "options": [
+      "Ernest Hemingway",
+      "F. Scott Fitzgerald",
+      "John Steinbeck",
+      "William Faulkner"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d8d3ccb4-698e-4516-b6f4-b44958ee78c2",
+    "prompt": "Which author wrote 'The Canterbury Tales'?",
+    "options": [
+      "Geoffrey Chaucer",
+      "William Langland",
+      "Thomas More",
+      "Edmund Spenser"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "936a5508-37fc-48a5-b24d-695b1f2a7647",
+    "prompt": "Which novel by Harper Lee centers on the trial of Tom Robinson?",
+    "options": [
+      "To Kill a Mockingbird",
+      "Of Mice and Men",
+      "The Grapes of Wrath",
+      "The Catcher in the Rye"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d97b5973-be0d-484b-8986-67023aa19b14",
+    "prompt": "Who wrote the novel 'The Scarlet Letter'?",
+    "options": [
+      "Nathaniel Hawthorne",
+      "Herman Melville",
+      "Edgar Allan Poe",
+      "Washington Irving"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "9b81ce26-ec0f-422a-8183-e2ff05aa5a4f",
+    "prompt": "Which American author wrote 'The Grapes of Wrath'?",
+    "options": [
+      "John Steinbeck",
+      "Ernest Hemingway",
+      "William Faulkner",
+      "Upton Sinclair"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "cd847989-5d06-4b25-8b5d-ff021eefb5ac",
+    "prompt": "Who wrote the epic poem 'Paradise Lost'?",
+    "options": [
+      "John Milton",
+      "Alexander Pope",
+      "William Blake",
+      "Edmund Spenser"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "55125d70-8350-4225-a0bd-320377bf8358",
+    "prompt": "Which novel by Mary Shelley is considered one of the earliest works of science fiction?",
+    "options": [
+      "Dracula",
+      "Frankenstein",
+      "The Time Machine",
+      "The War of the Worlds"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "285fba2e-6b68-4c45-8072-20e7e694c252",
+    "prompt": "Who wrote 'Don Quixote', often considered one of the first modern novels?",
+    "options": [
+      "Miguel de Cervantes",
+      "Gabriel García Márquez",
+      "Jorge Luis Borges",
+      "Lope de Vega"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f663209e-c17c-46f3-9fe7-d8838bf541a7",
+    "prompt": "Which novel features the characters Lennie Small and George Milton?",
+    "options": [
+      "The Grapes of Wrath",
+      "Of Mice and Men",
+      "East of Eden",
+      "Cannery Row"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "1caa2fa6-0df7-45db-8596-6db4b53dd824",
+    "prompt": "How many lines are on a standard musical staff?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2fb3220f-b60e-455d-b04f-39882d644dc1",
+    "prompt": "Which symbol raises a note by one half step?",
+    "options": [
+      "Flat",
+      "Sharp",
+      "Natural",
+      "Fermata"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a6f96722-1044-4048-92aa-62b9e2709b0f",
+    "prompt": "What is the term for the speed of music?",
+    "options": [
+      "Dynamics",
+      "Tempo",
+      "Harmony",
+      "Pitch"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "67b049cb-9f5d-4ada-87ca-95bba1dcda18",
+    "prompt": "Which instrument family does the violin belong to?",
+    "options": [
+      "Woodwind",
+      "Brass",
+      "String",
+      "Percussion"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e77fc0be-d60f-4afd-99e3-557e2c1db21b",
+    "prompt": "Which clef is most commonly used for higher-pitched instruments and voices?",
+    "options": [
+      "Bass clef",
+      "Alto clef",
+      "Treble clef",
+      "Tenor clef"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8aea73ef-d7c9-4f71-b998-59c798141d5f",
+    "prompt": "What is the relative minor of C major?",
+    "options": [
+      "A minor",
+      "E minor",
+      "D minor",
+      "G minor"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "728a8826-ec9d-4cd5-b22e-eb53605eed7e",
+    "prompt": "Which composer wrote the famous Fifth Symphony with the motif often described as 'da-da-da-dum'?",
+    "options": [
+      "Johann Sebastian Bach",
+      "Wolfgang Amadeus Mozart",
+      "Ludwig van Beethoven",
+      "Franz Schubert"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5f7d7313-46cc-41d9-9ce7-5711eadfcc02",
+    "prompt": "What does the musical term 'forte' indicate?",
+    "options": [
+      "Play softly",
+      "Play loudly",
+      "Play slowly",
+      "Play smoothly"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "82a2f2a4-f357-413b-b1c1-a90566341e1d",
+    "prompt": "Which instrument uses a reed to produce sound?",
+    "options": [
+      "Trumpet",
+      "Clarinet",
+      "Violin",
+      "Trombone"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "fe386e9f-ae91-4d49-bdba-5f1f4553dbdd",
+    "prompt": "What is a group of three notes played together called?",
+    "options": [
+      "Scale",
+      "Chord",
+      "Interval",
+      "Octave"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "6f739246-a1ee-4842-83df-9a3e5c3464f1",
+    "prompt": "Which genre of music originated in the Mississippi Delta and influenced many modern styles?",
+    "options": [
+      "Blues",
+      "Opera",
+      "Baroque",
+      "Classical"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5b8b0666-9a9f-4144-b780-99e8464f5b7a",
+    "prompt": "What does the term 'crescendo' mean in music?",
+    "options": [
+      "Gradually getting louder",
+      "Gradually getting softer",
+      "Suddenly loud",
+      "Return to normal tempo"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d0df453d-51ac-45e7-8ac5-df8345377601",
+    "prompt": "Which instrument is commonly associated with jazz improvisation and has valves?",
+    "options": [
+      "Trumpet",
+      "Flute",
+      "Cello",
+      "Oboe"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e4fc0ca3-4974-4807-9f12-488e1928cd16",
+    "prompt": "Which musical period followed the Baroque era?",
+    "options": [
+      "Romantic",
+      "Modern",
+      "Classical",
+      "Renaissance"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "307f8cdc-a57c-4e4f-b186-884e9f35ae81",
+    "prompt": "How many beats does a whole note typically receive in 4/4 time?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correct_index": 3,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "378b444d-2e2d-4a96-99a7-e74ec7177d26",
+    "prompt": "Which famous composer became deaf later in life but continued to write music?",
+    "options": [
+      "Johannes Brahms",
+      "Ludwig van Beethoven",
+      "Antonio Vivaldi",
+      "Joseph Haydn"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4983b4c4-a5cc-4bdf-9b06-28237e71d4c8",
+    "prompt": "What is the distance between two identical notes an octave apart?",
+    "options": [
+      "6 semitones",
+      "8 semitones",
+      "12 semitones",
+      "16 semitones"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5155f23c-f1ea-48e0-8e39-7c7e96fbc729",
+    "prompt": "Which instrument family produces sound primarily by striking or shaking?",
+    "options": [
+      "String",
+      "Percussion",
+      "Brass",
+      "Woodwind"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "55f848ec-439c-4255-8355-6d15ff765f70",
+    "prompt": "Which musical style became widely popular in the United States during the 1950s and combined rhythm and blues with country influences?",
+    "options": [
+      "Rock and Roll",
+      "Opera",
+      "Baroque",
+      "Folk"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "016d9e91-2baa-416d-96c0-5273dc1a5ce6",
+    "prompt": "What does 'a cappella' mean in music?",
+    "options": [
+      "Music performed without instruments",
+      "Music played very quickly",
+      "Music played with strong rhythm",
+      "Music played in unison with instruments"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4af9de7e-0fd2-4b6b-af2e-dd0e8217b41e",
+    "prompt": "Which book of the New Testament tells the story of the early Christian church after Jesus’ ascension?",
+    "options": [
+      "Acts",
+      "Romans",
+      "Hebrews",
+      "Revelation"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f9b0ab29-57fb-4236-b3a0-32fa52da64cb",
+    "prompt": "Who is traditionally believed to have written the Gospel of Luke?",
+    "options": [
+      "Luke the physician",
+      "Peter the apostle",
+      "James the brother of Jesus",
+      "Barnabas"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "15575b96-9694-4583-a8d3-45ac218c1aed",
+    "prompt": "Which apostle is known for denying Jesus three times before the crucifixion?",
+    "options": [
+      "John",
+      "Peter",
+      "Andrew",
+      "Thomas"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "fade1485-c8f0-4d97-986e-4c6ad2daff9e",
+    "prompt": "What is the first book of the New Testament?",
+    "options": [
+      "Matthew",
+      "Mark",
+      "Luke",
+      "John"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "cfe10031-b7e1-4e3a-b9e7-79ba28116177",
+    "prompt": "Which disciple is often referred to as 'the doubter' because he questioned Jesus’ resurrection?",
+    "options": [
+      "Philip",
+      "Thomas",
+      "Bartholomew",
+      "Matthew"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "fd85e657-b301-4541-a468-2db119cab078",
+    "prompt": "Who baptized Jesus in the Jordan River?",
+    "options": [
+      "Peter",
+      "John the Baptist",
+      "James",
+      "Andrew"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "68e13855-2ba0-42e3-85c2-555fd3728ed3",
+    "prompt": "Which New Testament book contains the Beatitudes?",
+    "options": [
+      "Matthew",
+      "Romans",
+      "Acts",
+      "Galatians"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "9ae27f62-95fc-449f-a159-3719154652ef",
+    "prompt": "What was the profession of Matthew before he became a disciple of Jesus?",
+    "options": [
+      "Fisherman",
+      "Carpenter",
+      "Tax collector",
+      "Tentmaker"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "fc7c3bc8-f6d0-4172-af60-a222305bc7d5",
+    "prompt": "Who wrote many of the letters (epistles) in the New Testament to early Christian churches?",
+    "options": [
+      "Paul",
+      "John",
+      "Peter",
+      "Stephen"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "70c03f79-ba94-48f0-af3a-a3619c0138cc",
+    "prompt": "Which New Testament book describes visions of the end times and the final victory of God?",
+    "options": [
+      "Jude",
+      "Revelation",
+      "Hebrews",
+      "2 Timothy"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "bc2bbdee-1e1c-4219-9aea-68fa5c384b2e",
+    "prompt": "What miracle did Jesus perform at the wedding in Cana?",
+    "options": [
+      "Healing a blind man",
+      "Feeding the 5,000",
+      "Turning water into wine",
+      "Walking on water"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5e1a05dc-8f96-47e4-9694-8eb024d03a97",
+    "prompt": "Which apostle was known as a missionary to the Gentiles?",
+    "options": [
+      "Paul",
+      "James",
+      "Peter",
+      "Matthew"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ded30c0b-cf4b-4cbc-bf0d-6cbe586fcc08",
+    "prompt": "How many Gospels are included in the New Testament?",
+    "options": [
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5c195ff7-b22c-46e6-b416-b7a82bec44fe",
+    "prompt": "Which Gospel begins with the words 'In the beginning was the Word'?",
+    "options": [
+      "Matthew",
+      "Mark",
+      "Luke",
+      "John"
+    ],
+    "correct_index": 3,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "28682fbb-5ed6-4efb-8922-d85e054226ef",
+    "prompt": "What event marks the descent of the Holy Spirit upon the apostles in Acts?",
+    "options": [
+      "Passover",
+      "Pentecost",
+      "Ascension",
+      "Transfiguration"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ce61bb24-ab7c-410f-aec2-2e2010109125",
+    "prompt": "Which apostle is traditionally believed to have written the book of Revelation?",
+    "options": [
+      "John",
+      "Peter",
+      "Paul",
+      "James"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "b69b38ff-c4ad-4ffa-a462-dfc1f48f2502",
+    "prompt": "Where was Jesus born according to the Gospels?",
+    "options": [
+      "Nazareth",
+      "Jerusalem",
+      "Bethlehem",
+      "Capernaum"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "828d8240-d191-4d1a-acd8-9b673f214e89",
+    "prompt": "Who betrayed Jesus for thirty pieces of silver?",
+    "options": [
+      "Judas Iscariot",
+      "Simon the Zealot",
+      "James",
+      "Andrew"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7ee0a41c-e720-4445-b884-e7f1d47354bb",
+    "prompt": "Which New Testament letter begins with a discussion of faith and works?",
+    "options": [
+      "James",
+      "Romans",
+      "Ephesians",
+      "Colossians"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7b171190-d395-4d19-a7aa-a9bda1d486d6",
+    "prompt": "What event in the New Testament marks Jesus rising from the dead?",
+    "options": [
+      "The Ascension",
+      "The Resurrection",
+      "The Transfiguration",
+      "The Annunciation"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a3cc9960-11e4-4a74-aae7-5f83a681e2f4",
+    "prompt": "Who led the Israelites out of Egypt according to the book of Exodus?",
+    "options": [
+      "Abraham",
+      "Moses",
+      "Joshua",
+      "Aaron"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e1d332e6-1099-4593-bab6-fb92eea9cbf3",
+    "prompt": "What is the first book of the Old Testament?",
+    "options": [
+      "Exodus",
+      "Genesis",
+      "Leviticus",
+      "Numbers"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "08c7c136-ab8a-4224-ad1e-218f8be8f65b",
+    "prompt": "Which Old Testament figure built an ark to survive a great flood?",
+    "options": [
+      "Noah",
+      "Abraham",
+      "Lot",
+      "Jacob"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "18e8d8fc-9156-4e3e-b90c-bd8b5630343a",
+    "prompt": "Who was the first king of Israel?",
+    "options": [
+      "David",
+      "Saul",
+      "Solomon",
+      "Samuel"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5b8151d1-c36a-4f22-a7c9-74ec93e3acb5",
+    "prompt": "Which king of Israel built the first temple in Jerusalem?",
+    "options": [
+      "David",
+      "Saul",
+      "Solomon",
+      "Hezekiah"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "66b7ba27-9288-4386-8463-8c7f0c23b310",
+    "prompt": "Who defeated the Philistine giant Goliath?",
+    "options": [
+      "Samson",
+      "David",
+      "Joshua",
+      "Saul"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "55004169-f11e-40db-b0e4-4254ac0bf662",
+    "prompt": "What mountain did Moses receive the Ten Commandments on?",
+    "options": [
+      "Mount Carmel",
+      "Mount Sinai",
+      "Mount Zion",
+      "Mount Ararat"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "eaf8e8cc-e14b-4b72-821c-bb394e97a853",
+    "prompt": "Who was swallowed by a great fish after trying to flee from God's command?",
+    "options": [
+      "Jonah",
+      "Elijah",
+      "Isaiah",
+      "Amos"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "cd146566-3247-4a2a-9dcc-a0ee459a5f08",
+    "prompt": "Which Old Testament book contains many poetic psalms traditionally attributed to King David?",
+    "options": [
+      "Proverbs",
+      "Psalms",
+      "Ecclesiastes",
+      "Song of Solomon"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "352badbe-4215-4bf8-b564-763532dc994c",
+    "prompt": "Who was thrown into a den of lions but survived?",
+    "options": [
+      "Joseph",
+      "Daniel",
+      "Jeremiah",
+      "Ezra"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "eafbce29-880d-467d-be2d-c61e304af58e",
+    "prompt": "Which patriarch was known for his coat of many colors?",
+    "options": [
+      "Isaac",
+      "Joseph",
+      "Jacob",
+      "Benjamin"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "75350d20-1e64-43cd-bf6d-15ce27ab815d",
+    "prompt": "Which Old Testament book records the creation of the world?",
+    "options": [
+      "Genesis",
+      "Exodus",
+      "Job",
+      "Deuteronomy"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "17c2d231-224c-4ad7-9fbc-719d4d678e40",
+    "prompt": "Who succeeded Moses and led the Israelites into the Promised Land?",
+    "options": [
+      "Joshua",
+      "Aaron",
+      "Samuel",
+      "David"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "bec33c8a-77d2-4cdd-b963-7338afab18b9",
+    "prompt": "Which judge of Israel was known for his great strength and long hair?",
+    "options": [
+      "Gideon",
+      "Samson",
+      "Deborah",
+      "Jephthah"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "769aa7b7-b43d-4488-872b-84ff3d19823d",
+    "prompt": "Which book of the Old Testament is known for its reflections on the meaning of life and the phrase 'vanity of vanities'?",
+    "options": [
+      "Ecclesiastes",
+      "Proverbs",
+      "Psalms",
+      "Lamentations"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "1bee2609-ed2d-4d77-8f3a-a216e928e2c2",
+    "prompt": "Which prophet challenged the prophets of Baal on Mount Carmel?",
+    "options": [
+      "Elijah",
+      "Isaiah",
+      "Jeremiah",
+      "Hosea"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f7f466ab-c2fa-492d-9c07-2a85954ff201",
+    "prompt": "Which Old Testament book tells the story of a queen who saved the Jewish people from destruction in Persia?",
+    "options": [
+      "Ruth",
+      "Esther",
+      "Judges",
+      "Ezra"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0b5c273a-c55b-428e-84c6-0eab01b85056",
+    "prompt": "Which patriarch was the father of Isaac?",
+    "options": [
+      "Abraham",
+      "Jacob",
+      "Noah",
+      "Joseph"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5fd76bd7-df92-452b-8dec-615236e526a6",
+    "prompt": "What city’s walls fell after the Israelites marched around it for seven days?",
+    "options": [
+      "Jericho",
+      "Babylon",
+      "Nineveh",
+      "Samaria"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "1c297f35-6583-4cd1-9330-dc79cf97ef0c",
+    "prompt": "Which Old Testament book tells the story of a righteous man who endured great suffering and remained faithful to God?",
+    "options": [
+      "Job",
+      "Nehemiah",
+      "Malachi",
+      "Habakkuk"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "30759b35-2c38-48b5-acb4-1232a5c980b7",
+    "prompt": "What is the term for money set aside for unexpected expenses?",
+    "options": [
+      "Emergency fund",
+      "Retirement account",
+      "Investment portfolio",
+      "Credit line"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c1c6c230-a5da-4b2b-bdfc-6d01520a56d0",
+    "prompt": "What is a budget?",
+    "options": [
+      "A type of loan",
+      "A plan for managing income and expenses",
+      "An investment account",
+      "A tax refund"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "fbb80362-cec4-46a7-ade2-ec099f087812",
+    "prompt": "What does APR stand for in finance?",
+    "options": [
+      "Annual Percentage Rate",
+      "Adjusted Payment Ratio",
+      "Average Personal Revenue",
+      "Annual Profit Return"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ba3c26c4-2e92-45cf-ac73-7a9821f17d69",
+    "prompt": "Which type of account typically earns interest while holding savings?",
+    "options": [
+      "Checking account",
+      "Savings account",
+      "Credit account",
+      "Loan account"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7ca1850c-1249-499e-92ff-aa3b5e816251",
+    "prompt": "What does diversification mean in investing?",
+    "options": [
+      "Investing in only one company",
+      "Spreading investments across different assets",
+      "Selling investments quickly",
+      "Avoiding the stock market"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ff8d41fe-baf1-4228-bfc8-fe6eb0b848f1",
+    "prompt": "What is the term for borrowing money with the promise to repay it later?",
+    "options": [
+      "Investing",
+      "Credit",
+      "Saving",
+      "Budgeting"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d335456d-73a9-4020-a2d6-7936925d0d1f",
+    "prompt": "Which financial product represents ownership in a company?",
+    "options": [
+      "Bond",
+      "Stock",
+      "Loan",
+      "Certificate of deposit"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e8c982d0-81b4-499c-a248-be61e1322db8",
+    "prompt": "What is compound interest?",
+    "options": [
+      "Interest paid only once",
+      "Interest calculated only on the original amount",
+      "Interest earned on both the principal and previous interest",
+      "Interest paid by the government"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f8001c38-d4e4-4a1f-9dec-53e23cfd7cc9",
+    "prompt": "What is the purpose of a credit score?",
+    "options": [
+      "To measure a person's income",
+      "To evaluate creditworthiness",
+      "To calculate taxes",
+      "To determine savings interest"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "878f6c65-ed86-4a90-b42e-55bb54e39c2d",
+    "prompt": "Which type of investment is generally considered the least risky?",
+    "options": [
+      "Stocks",
+      "Government bonds",
+      "Cryptocurrency",
+      "Startup investments"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "75b98135-11e1-4c82-b805-ca9a7e3687fb",
+    "prompt": "What is inflation?",
+    "options": [
+      "A decrease in prices over time",
+      "An increase in the general level of prices",
+      "A rise in wages",
+      "A drop in interest rates"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "b2b1bd4d-d27a-4dd4-8a92-66e64986695d",
+    "prompt": "What is a 401(k)?",
+    "options": [
+      "A type of mortgage",
+      "A retirement savings plan offered by employers",
+      "A credit card account",
+      "A checking account"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8ff25909-2358-46bb-9324-8578a6013636",
+    "prompt": "What does liquidity refer to in finance?",
+    "options": [
+      "The ability to quickly convert assets to cash",
+      "The total value of investments",
+      "The amount of debt someone has",
+      "The rate of return on investments"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "194dd7cd-6dcb-472a-a522-68e1b1fcd019",
+    "prompt": "Which type of loan is commonly used to buy a home?",
+    "options": [
+      "Auto loan",
+      "Mortgage",
+      "Personal loan",
+      "Student loan"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f0b49abf-e3ef-4388-8c54-691332530ce3",
+    "prompt": "What is net income?",
+    "options": [
+      "Income before taxes and expenses",
+      "Income after taxes and expenses",
+      "Total savings",
+      "Money invested in stocks"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7691743b-5573-4490-bf12-a38cc1a12185",
+    "prompt": "What does ROI stand for?",
+    "options": [
+      "Rate of Income",
+      "Return on Investment",
+      "Range of Interest",
+      "Revenue of Industry"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "95634fcf-d8f5-464e-a8c4-2973e527a0f0",
+    "prompt": "What is a deductible in insurance?",
+    "options": [
+      "The amount paid before insurance coverage begins",
+      "The monthly insurance payment",
+      "The maximum insurance payout",
+      "The interest rate on insurance"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e61f68e3-2f08-4fb2-a30d-d0a5728e8d8d",
+    "prompt": "Which financial document summarizes income and expenses over a period of time?",
+    "options": [
+      "Balance sheet",
+      "Income statement",
+      "Budget report",
+      "Credit report"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "25eff38a-2d96-4e05-9c2f-f0bdfab29fca",
+    "prompt": "What is a credit card minimum payment?",
+    "options": [
+      "The total amount owed",
+      "The smallest amount required to keep the account current",
+      "The interest charged monthly",
+      "The annual fee"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4a1fedaa-584a-478f-bf59-14fe4b0e02f1",
+    "prompt": "What is the main purpose of insurance?",
+    "options": [
+      "To increase income",
+      "To reduce financial risk from unexpected events",
+      "To earn investment returns",
+      "To avoid paying taxes"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e32f43c2-96c8-4325-a6f1-610ab8e5e99e",
+    "prompt": "What is the primary purpose of missionaries as taught in Preach My Gospel?",
+    "options": [
+      "To travel and learn about other cultures",
+      "To invite others to come unto Christ",
+      "To build churches in new areas",
+      "To translate scripture"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ad89584c-f96f-4fce-8925-8bd58cfddb2d",
+    "prompt": "Which chapter of Preach My Gospel teaches missionaries how to study effectively and prepare spiritually?",
+    "options": [
+      "Chapter 2",
+      "Chapter 3",
+      "Chapter 6",
+      "Chapter 9"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "14d1ad20-26bf-4a36-af64-6ebad8c88dde",
+    "prompt": "Which chapter of Preach My Gospel focuses on developing Christlike attributes?",
+    "options": [
+      "Chapter 5",
+      "Chapter 6",
+      "Chapter 7",
+      "Chapter 8"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a417be07-6846-4fc8-a6ac-1f8d1f80ef73",
+    "prompt": "According to Preach My Gospel, what is the first principle of the gospel of Jesus Christ?",
+    "options": [
+      "Faith in Jesus Christ",
+      "Repentance",
+      "Baptism",
+      "Receiving the Holy Ghost"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "59b2352f-a1b6-43ce-978b-dbe5c144cd22",
+    "prompt": "Which chapter teaches missionaries how to find people to teach?",
+    "options": [
+      "Chapter 2",
+      "Chapter 6",
+      "Chapter 9",
+      "Chapter 11"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2e3b4a11-4f34-460c-9dcd-ea351701f7ec",
+    "prompt": "What is the name of the daily planning process missionaries use to organize their work?",
+    "options": [
+      "Mission Planning",
+      "Daily Planning",
+      "Companion Study",
+      "Area Planning"
+    ],
+    "correct_index": 3,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7ce7cbd2-a845-46e2-9977-82e451cb3bc8",
+    "prompt": "Which chapter of Preach My Gospel explains the lessons missionaries teach about the doctrine of Christ?",
+    "options": [
+      "Chapter 1",
+      "Chapter 3",
+      "Chapter 6",
+      "Chapter 8"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "574e9ece-6b0e-4be7-afcb-4c5516874167",
+    "prompt": "According to Preach My Gospel, what role does the Holy Ghost play in missionary work?",
+    "options": [
+      "It replaces the need for preparation",
+      "It confirms truth and teaches hearts",
+      "It removes the need for scriptures",
+      "It replaces the need for teaching"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5ce0c600-0abb-4a36-8757-363acaa95474",
+    "prompt": "Which Christlike attribute listed in Preach My Gospel helps missionaries persist despite challenges?",
+    "options": [
+      "Diligence",
+      "Hope",
+      "Virtue",
+      "Knowledge"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "584c0ac5-6c54-4da6-8878-bcf16316d154",
+    "prompt": "What principle helps missionaries teach more effectively by focusing on people rather than memorized presentations?",
+    "options": [
+      "Teaching by the Spirit",
+      "Teaching from memory",
+      "Teaching from notes",
+      "Teaching with outlines only"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e3c30029-da5a-4914-8b0d-e81e0f0a950a",
+    "prompt": "What ordinance follows faith and repentance in the gospel of Jesus Christ according to Preach My Gospel?",
+    "options": [
+      "Baptism",
+      "Confirmation",
+      "Sacrament",
+      "Ordination"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7ad4a64d-7193-496a-89fd-b115126d5f5e",
+    "prompt": "Which chapter focuses on using time wisely and planning missionary activities?",
+    "options": [
+      "Chapter 6",
+      "Chapter 8",
+      "Chapter 13",
+      "Chapter 4"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "df66ffac-b981-40d1-8b46-112ce465d77e",
+    "prompt": "According to Preach My Gospel, why should missionaries ask inspired questions when teaching?",
+    "options": [
+      "To fill time in lessons",
+      "To help people think and feel the Spirit",
+      "To test knowledge of investigators",
+      "To avoid teaching doctrine"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "1c68f34c-0e5d-43fb-aac5-83690064c1d9",
+    "prompt": "Which chapter helps missionaries understand how to work with members and leaders in the Church?",
+    "options": [
+      "Chapter 9",
+      "Chapter 13",
+      "Chapter 2",
+      "Chapter 5"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "accc97b8-7490-4a37-a155-38c951a9685e",
+    "prompt": "What is the purpose of invitations in missionary teaching according to Preach My Gospel?",
+    "options": [
+      "To encourage people to act on faith and commitments",
+      "To test investigators",
+      "To shorten lessons",
+      "To memorize scriptures"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "08193078-be59-4ec2-901a-20082521e603",
+    "prompt": "Which Christlike attribute helps missionaries rely on God and trust in His promises?",
+    "options": [
+      "Faith",
+      "Knowledge",
+      "Virtue",
+      "Diligence"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2699589e-b32a-454a-8e5f-cb3beef30b3f",
+    "prompt": "According to Preach My Gospel, why is personal scripture study important for missionaries?",
+    "options": [
+      "It increases teaching hours",
+      "It strengthens faith and understanding of doctrine",
+      "It replaces companionship study",
+      "It reduces preparation time"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "25887b90-2490-4c7d-b2f8-d3b2a6693ada",
+    "prompt": "What does Preach My Gospel teach about the role of prayer in missionary work?",
+    "options": [
+      "It should only be done privately",
+      "It invites guidance and help from God",
+      "It replaces planning",
+      "It is optional"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a53a38f8-c52d-4606-878f-cedbfdc9984f",
+    "prompt": "Which principle helps missionaries become more effective teachers by understanding people’s needs?",
+    "options": [
+      "Listening carefully",
+      "Memorizing lessons",
+      "Speaking quickly",
+      "Reading longer passages"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "b68355e7-9392-46be-96f6-0fa80f398023",
+    "prompt": "What does Preach My Gospel emphasize about missionary work and personal conversion?",
+    "options": [
+      "Missionaries must be converted themselves to teach effectively",
+      "Missionaries should focus only on teaching skills",
+      "Conversion happens automatically",
+      "Only leaders need strong testimonies"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ab11dc2e-f590-43b1-ab5e-318886d6d1f7",
+    "prompt": "What is the basic unit of life in all living organisms?",
+    "options": [
+      "Atom",
+      "Molecule",
+      "Cell",
+      "Tissue"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a0c662f2-afb0-4b0c-9595-c399f1d9754e",
+    "prompt": "Which organelle is responsible for producing energy (ATP) in a cell?",
+    "options": [
+      "Nucleus",
+      "Mitochondria",
+      "Golgi apparatus",
+      "Ribosome"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "812ff1a0-66a7-4f0d-9b69-0dfee4c61804",
+    "prompt": "What gas do plants absorb from the atmosphere during photosynthesis?",
+    "options": [
+      "Oxygen",
+      "Nitrogen",
+      "Carbon dioxide",
+      "Hydrogen"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "dde9151a-2f94-4c57-95ff-8c2fe8a97e10",
+    "prompt": "Which planet is known as the Red Planet?",
+    "options": [
+      "Venus",
+      "Mars",
+      "Jupiter",
+      "Mercury"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "8a75779f-a6d5-4e96-8f36-ae37ff5b1160",
+    "prompt": "What force keeps planets in orbit around the Sun?",
+    "options": [
+      "Magnetism",
+      "Gravity",
+      "Friction",
+      "Inertia"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c295b4f1-6576-48e6-aa78-f55ab06c75a2",
+    "prompt": "What is the chemical symbol for gold?",
+    "options": [
+      "Ag",
+      "Au",
+      "Fe",
+      "Pb"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a8bc485d-6b52-4fb6-8668-4892d964fac7",
+    "prompt": "Which scientist developed the theory of relativity?",
+    "options": [
+      "Isaac Newton",
+      "Albert Einstein",
+      "Galileo Galilei",
+      "Niels Bohr"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c281b805-1043-42ce-8609-cf1b5ea182c8",
+    "prompt": "What is the center of an atom called?",
+    "options": [
+      "Electron",
+      "Proton",
+      "Nucleus",
+      "Neutron"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2854385f-eaae-410f-a71b-35faf2bff96d",
+    "prompt": "Which process allows plants to convert sunlight into chemical energy?",
+    "options": [
+      "Respiration",
+      "Photosynthesis",
+      "Fermentation",
+      "Digestion"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d487abcb-a91b-4d21-9809-11db86dbb956",
+    "prompt": "What type of rock is formed from cooled molten lava or magma?",
+    "options": [
+      "Sedimentary",
+      "Metamorphic",
+      "Igneous",
+      "Organic"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "649d075f-d994-4d46-ad81-9770b1673354",
+    "prompt": "Which blood cells are primarily responsible for fighting infections?",
+    "options": [
+      "Red blood cells",
+      "White blood cells",
+      "Platelets",
+      "Plasma cells"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "6fef801f-8f66-487a-9d77-bc43849ee912",
+    "prompt": "What is the most abundant gas in Earth's atmosphere?",
+    "options": [
+      "Oxygen",
+      "Carbon dioxide",
+      "Nitrogen",
+      "Argon"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c3129f15-4870-4424-a8ef-ddfafccb24ff",
+    "prompt": "Which part of the human brain controls balance and coordination?",
+    "options": [
+      "Cerebrum",
+      "Cerebellum",
+      "Brainstem",
+      "Hypothalamus"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "c122b466-0c4d-4180-b57f-28036db11bd0",
+    "prompt": "What is the speed of light in a vacuum approximately?",
+    "options": [
+      "300,000 km/s",
+      "150,000 km/s",
+      "30,000 km/s",
+      "3,000 km/s"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "3c829d37-ba44-4dc3-91b3-eade0c495a0c",
+    "prompt": "Which layer of the Earth is directly beneath the crust?",
+    "options": [
+      "Inner core",
+      "Outer core",
+      "Mantle",
+      "Lithosphere"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "7e59a1c3-c9ea-4cd4-b0ce-62cb206a993f",
+    "prompt": "Which vitamin is produced by the human body when skin is exposed to sunlight?",
+    "options": [
+      "Vitamin A",
+      "Vitamin C",
+      "Vitamin D",
+      "Vitamin K"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4452c5a5-5c1f-40fe-8bad-e6132abf829d",
+    "prompt": "What law states that energy cannot be created or destroyed, only transformed?",
+    "options": [
+      "Newton's First Law",
+      "Law of Conservation of Energy",
+      "Law of Gravity",
+      "Ohm's Law"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "a300ca2c-53fe-436a-8b54-03f28857aade",
+    "prompt": "Which type of wave requires a medium to travel through?",
+    "options": [
+      "Electromagnetic wave",
+      "Light wave",
+      "Mechanical wave",
+      "Radio wave"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "2290ec6b-a434-4cf5-b190-55edbdfe3a66",
+    "prompt": "What is the largest organ in the human body?",
+    "options": [
+      "Liver",
+      "Brain",
+      "Skin",
+      "Heart"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "ad828235-121a-42e8-a8d8-5102f40032ca",
+    "prompt": "Which scientist proposed the theory of evolution by natural selection?",
+    "options": [
+      "Gregor Mendel",
+      "Charles Darwin",
+      "Louis Pasteur",
+      "James Watson"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "357f60db-2eb7-48f2-9df9-b025daec8846",
+    "prompt": "Which ancient civilization built the pyramids at Giza?",
+    "options": [
+      "Mesopotamians",
+      "Egyptians",
+      "Greeks",
+      "Romans"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d0d14468-7fe5-4da6-901f-3f58c43a02e3",
+    "prompt": "Who was the first emperor of a unified China?",
+    "options": [
+      "Confucius",
+      "Qin Shi Huang",
+      "Kublai Khan",
+      "Sun Yat-sen"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "17b8a784-9b5d-4854-8ce0-f5bd6c063b48",
+    "prompt": "Which empire was ruled by Julius Caesar before becoming a dictatorship?",
+    "options": [
+      "Greek Empire",
+      "Roman Republic",
+      "Byzantine Empire",
+      "Ottoman Empire"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "40ae3d77-17cf-4335-b10c-7c0dfbbc1d50",
+    "prompt": "Which document limited the power of the English monarchy in 1215?",
+    "options": [
+      "Magna Carta",
+      "English Bill of Rights",
+      "Treaty of Versailles",
+      "Petition of Right"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5d4b86a7-4d28-4d17-aea7-ff6dfee2fb3f",
+    "prompt": "Which Italian city is most associated with the beginning of the Renaissance?",
+    "options": [
+      "Rome",
+      "Venice",
+      "Florence",
+      "Milan"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f4d1dfc6-1eae-4dbf-875a-4b3fe347dd56",
+    "prompt": "Who was the Mongol leader who created one of the largest empires in history?",
+    "options": [
+      "Attila the Hun",
+      "Genghis Khan",
+      "Kublai Khan",
+      "Tamerlane"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "e42210c4-6f36-4d5a-820f-bcbc0c7bd578",
+    "prompt": "Which explorer is credited with reaching the Americas in 1492?",
+    "options": [
+      "Christopher Columbus",
+      "Vasco da Gama",
+      "Ferdinand Magellan",
+      "Amerigo Vespucci"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "21a162d5-a096-4267-b54f-f540e077ec32",
+    "prompt": "Which event began the French Revolution in 1789?",
+    "options": [
+      "Storming of the Bastille",
+      "Execution of Louis XVI",
+      "Reign of Terror",
+      "Napoleon’s coronation"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4ecdfb10-9aec-433b-ac90-9a8d2a85bf1f",
+    "prompt": "Who was the British prime minister during most of World War II?",
+    "options": [
+      "Neville Chamberlain",
+      "Winston Churchill",
+      "Clement Attlee",
+      "Harold Macmillan"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "d320a837-5e95-46c1-b1fc-48f87856325f",
+    "prompt": "Which empire controlled much of southeastern Europe and the Middle East for centuries before World War I?",
+    "options": [
+      "Ottoman Empire",
+      "Persian Empire",
+      "Russian Empire",
+      "Mongol Empire"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "4ba0cd15-cdc1-4067-82b2-132951d537ab",
+    "prompt": "Which conflict from 1914–1918 involved many of the world's major powers?",
+    "options": [
+      "Crimean War",
+      "World War I",
+      "Franco-Prussian War",
+      "Napoleonic Wars"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "dfabfc11-869a-47fd-b76a-d396b817ab06",
+    "prompt": "Which leader of India promoted nonviolent resistance against British rule?",
+    "options": [
+      "Jawaharlal Nehru",
+      "Mahatma Gandhi",
+      "Indira Gandhi",
+      "Subhas Chandra Bose"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "eb1c0b42-411b-4170-9fa9-c65117c5ede8",
+    "prompt": "Which wall, built in 1961, symbolized the division between East and West during the Cold War?",
+    "options": [
+      "Great Wall",
+      "Berlin Wall",
+      "Iron Curtain",
+      "Hadrian’s Wall"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "0ad53236-a444-4a00-80fa-020ed7df98ac",
+    "prompt": "Which civilization developed cuneiform writing?",
+    "options": [
+      "Egyptians",
+      "Sumerians",
+      "Phoenicians",
+      "Greeks"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "04d32834-efd4-4169-86b0-f3b6ee063dec",
+    "prompt": "Which empire was ruled by the pharaohs?",
+    "options": [
+      "Roman Empire",
+      "Egyptian civilization",
+      "Persian Empire",
+      "Babylonian Empire"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "5a21cef9-23ba-43a3-a557-1f800394fccf",
+    "prompt": "Who was the first man to walk on the Moon in 1969?",
+    "options": [
+      "Buzz Aldrin",
+      "Neil Armstrong",
+      "Yuri Gagarin",
+      "John Glenn"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "20653b80-70fc-4d6a-9644-b1775bb65d51",
+    "prompt": "Which empire built a vast road system connecting its territories in South America?",
+    "options": [
+      "Aztec Empire",
+      "Inca Empire",
+      "Maya Civilization",
+      "Olmec Civilization"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "26644f5d-12e8-4566-8213-70ab4c77007a",
+    "prompt": "Which political ideology was promoted by Karl Marx?",
+    "options": [
+      "Capitalism",
+      "Communism",
+      "Fascism",
+      "Mercantilism"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "f0b64495-7795-4168-bcf5-7a3c880c194e",
+    "prompt": "Which war from 1939–1945 involved the Axis and Allied powers?",
+    "options": [
+      "World War I",
+      "World War II",
+      "Korean War",
+      "Vietnam War"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "df409ace-ccfe-49d5-9148-75c2276c2a9a",
+    "prompt": "Which treaty ended World War I in 1919?",
+    "options": [
+      "Treaty of Paris",
+      "Treaty of Versailles",
+      "Treaty of Vienna",
+      "Treaty of Tordesillas"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  }
+]
