@@ -37,6 +37,22 @@
       margin-bottom: 1rem;
       box-shadow: 0 0 24px #00f6ff20;
     }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.6rem;
+    }
+    .brand-logo {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px #00f6ffaa);
+      border-radius: 10px;
+      border: 1px solid #2c2c2c;
+      background: #0c0c0c;
+      padding: 0.25rem;
+    }
     h1 {
       margin: 0 0 0.5rem;
       color: var(--neon-cyan);
@@ -79,7 +95,40 @@
     }
     .option.correct { border-color: #b6ff0088; }
     .powerups { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 0.5rem; }
-    .power { width: 100%; }
+    .power {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      justify-content: flex-start;
+      min-height: 58px;
+    }
+    .power img {
+      width: 28px;
+      height: 28px;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid #2c2c2c;
+      background: #080808;
+    }
+    .round-feedback {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+      padding: 0.6rem;
+      border-radius: 10px;
+      border: 1px solid #343434;
+      background: #101010;
+    }
+    .round-feedback img {
+      width: 54px;
+      height: 54px;
+      object-fit: contain;
+      border-radius: 8px;
+      border: 1px solid #2f2f2f;
+      background: #0a0a0a;
+    }
     .wizard-step { border-left: 3px solid var(--neon-lime); padding-left: 0.75rem; margin: 0.5rem 0; }
     .hidden { display: none; }
     .leader-item { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding: 0.35rem 0; }
@@ -89,7 +138,10 @@
 <body>
   <div class="wrap">
     <div class="panel" id="joinPanel">
-      <h1>Quiztik Player</h1>
+      <div class="brand">
+        <img class="brand-logo" src="assets/images/Quiztik_logo.png" alt="Quiztik logo" />
+        <h1>Quiztik Player</h1>
+      </div>
       <div class="row">
         <input id="serverUrl" placeholder="Server URL" value="http://localhost:8080" style="min-width:260px;" />
         <input id="roomCode" placeholder="Room Code" value="QUIZTIK" />
@@ -120,6 +172,10 @@
       <img id="questionImage" class="hidden" style="max-width:100%; border-radius:10px; border:1px solid #333;" />
       <div id="options"></div>
       <p class="status" id="answerStatus"></p>
+      <div class="round-feedback hidden" id="roundFeedback">
+        <img id="resultImage" alt="Round result" />
+        <div class="status" id="resultText"></div>
+      </div>
     </div>
 
     <div class="panel hidden" id="powerupPanel">
@@ -140,12 +196,12 @@
 
   <script>
     const powerUps = [
-      { id: "mix_master", label: "🌀 Mix Master" },
-      { id: "speed_searcher", label: "🔒 Speed Searcher" },
-      { id: "double_downer", label: "💥 Double Downer" },
-      { id: "clone_commander", label: "🧬 Clone Commander" },
-      { id: "super_spliter", label: "✂️ Super Spliter" },
-      { id: "great_gambler", label: "🎲 Great Gambler" }
+      { id: "mix_master", label: "🌀 Mix Master", image: "assets/images/Mix_Master.png" },
+      { id: "speed_searcher", label: "🔒 Speed Searcher", image: "assets/images/Speed_Searcher.png" },
+      { id: "double_downer", label: "💥 Double Downer", image: "assets/images/Double_Downer.png" },
+      { id: "clone_commander", label: "🧬 Clone Commander", image: "assets/images/Clone_Commander.png" },
+      { id: "super_spliter", label: "✂️ Super Spliter", image: "assets/images/Super_Splitter.png" },
+      { id: "great_gambler", label: "🎲 Great Gambler", image: "assets/images/Great_Gambler.png" }
     ];
 
     const wizardSteps = [
@@ -192,7 +248,8 @@
       powerUps.forEach((p) => {
         const b = document.createElement("button");
         b.className = "power";
-        b.textContent = p.label;
+        const icon = p.image ? `<img src="${p.image}" alt="${p.label}" onerror="this.style.display='none'"/>` : "";
+        b.innerHTML = `${icon}<span>${p.label}</span>`;
         b.disabled = used.has(p.id);
         b.onclick = () => {
           ws?.send(JSON.stringify({ action: "activate_powerup", powerup: p.id }));
@@ -218,6 +275,7 @@
         el("questionPrompt").textContent = "No active question.";
         el("options").innerHTML = "";
         el("timer").textContent = "--";
+        el("roundFeedback").classList.add("hidden");
         return;
       }
       el("questionTitle").textContent = `Round ${q.round_number} - ${q.points} pts`;
@@ -287,6 +345,23 @@
           } else if (msg.event === "round_result") {
             log(`Round ${msg.payload.round_number} complete. Correct answer index: ${msg.payload.correct_index}`);
             mixedMode = false;
+            const myResult = msg.payload?.scores?.[playerId];
+            const feedback = el("roundFeedback");
+            const resultImage = el("resultImage");
+            const resultText = el("resultText");
+            feedback.classList.remove("hidden");
+            if (myResult) {
+              if (myResult.is_correct) {
+                resultImage.src = "assets/images/Celebrate_Correct.png";
+                resultText.textContent = `Correct! +${myResult.score_delta} points this round.`;
+              } else {
+                resultImage.src = "assets/images/Dissappointed_Incorrect.png";
+                resultText.textContent = `Incorrect. +0 points this round.`;
+              }
+            } else {
+              resultImage.src = "assets/images/Dissappointed_Incorrect.png";
+              resultText.textContent = "No answer submitted this round.";
+            }
           }
         } catch (_e) {}
       };

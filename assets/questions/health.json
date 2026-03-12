@@ -1,0 +1,262 @@
+[
+  {
+    "id": "q-261",
+    "prompt": "Which organ in the human body pumps blood through the circulatory system?",
+    "options": [
+      "Lungs",
+      "Heart",
+      "Liver",
+      "Kidneys"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-262",
+    "prompt": "What type of blood cells are responsible for carrying oxygen throughout the body?",
+    "options": [
+      "White blood cells",
+      "Platelets",
+      "Red blood cells",
+      "Plasma cells"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-263",
+    "prompt": "Which system of the body is responsible for sending electrical signals between the brain and the rest of the body?",
+    "options": [
+      "Digestive system",
+      "Nervous system",
+      "Respiratory system",
+      "Endocrine system"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-264",
+    "prompt": "Which organ is primarily responsible for detoxifying chemicals and metabolizing drugs?",
+    "options": [
+      "Kidney",
+      "Liver",
+      "Pancreas",
+      "Stomach"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-265",
+    "prompt": "Which vitamin is important for calcium absorption and bone health?",
+    "options": [
+      "Vitamin A",
+      "Vitamin C",
+      "Vitamin D",
+      "Vitamin K"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-266",
+    "prompt": "What is the normal average body temperature in humans (in Fahrenheit)?",
+    "options": [
+      "96.5°F",
+      "97.5°F",
+      "98.6°F",
+      "100.4°F"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-267",
+    "prompt": "Which part of the brain controls balance and coordination?",
+    "options": [
+      "Cerebrum",
+      "Cerebellum",
+      "Medulla",
+      "Hypothalamus"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-268",
+    "prompt": "Which system of the body is responsible for breaking down food and absorbing nutrients?",
+    "options": [
+      "Respiratory system",
+      "Digestive system",
+      "Circulatory system",
+      "Endocrine system"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-269",
+    "prompt": "Which mineral is essential for carrying oxygen in the blood as part of hemoglobin?",
+    "options": [
+      "Calcium",
+      "Iron",
+      "Magnesium",
+      "Potassium"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-270",
+    "prompt": "What is the largest organ in the human body?",
+    "options": [
+      "Liver",
+      "Brain",
+      "Skin",
+      "Heart"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-271",
+    "prompt": "Which hormone helps regulate blood sugar levels by lowering glucose in the blood?",
+    "options": [
+      "Adrenaline",
+      "Insulin",
+      "Cortisol",
+      "Thyroxine"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-272",
+    "prompt": "Which organ in the respiratory system is responsible for gas exchange?",
+    "options": [
+      "Trachea",
+      "Bronchi",
+      "Alveoli",
+      "Diaphragm"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-273",
+    "prompt": "Which type of joint allows movement in many directions, such as the shoulder joint?",
+    "options": [
+      "Hinge joint",
+      "Ball-and-socket joint",
+      "Pivot joint",
+      "Gliding joint"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-274",
+    "prompt": "How many chambers does the human heart have?",
+    "options": [
+      "2",
+      "3",
+      "4",
+      "5"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-275",
+    "prompt": "Which system of the body helps protect against infections and disease?",
+    "options": [
+      "Immune system",
+      "Digestive system",
+      "Skeletal system",
+      "Respiratory system"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-276",
+    "prompt": "Which organ produces bile to help digest fats?",
+    "options": [
+      "Liver",
+      "Pancreas",
+      "Gallbladder",
+      "Stomach"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-277",
+    "prompt": "Which electrolyte is most important for nerve signal transmission and muscle contraction?",
+    "options": [
+      "Potassium",
+      "Iron",
+      "Zinc",
+      "Calcium carbonate"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-278",
+    "prompt": "Which organ filters blood to remove waste products and produces urine?",
+    "options": [
+      "Liver",
+      "Kidneys",
+      "Pancreas",
+      "Spleen"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-279",
+    "prompt": "What structure carries oxygenated blood away from the heart to the body?",
+    "options": [
+      "Veins",
+      "Capillaries",
+      "Arteries",
+      "Lymph vessels"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-280",
+    "prompt": "Which macronutrient is the body's primary source of quick energy?",
+    "options": [
+      "Proteins",
+      "Carbohydrates",
+      "Fats",
+      "Vitamins"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  }
+]

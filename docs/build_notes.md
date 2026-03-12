@@ -110,3 +110,21 @@
   - None specific to this change.
 - Next stage:
   - Additional bank tooling and import UX enhancements.
+
+## v0.7.0 - 2026-03-11
+- Completed:
+  - Added UI image integration for logo, power-ups, and round result feedback.
+  - Added static asset serving from server (`/assets`).
+  - Updated packaging so player/admin zips include images and admin zip includes question banks.
+  - Added and committed current image and question-bank resources.
+- Build artifacts:
+  - `quiztik-server-local-v0.7.0.zip`
+  - `quiztik-player-v0.7.0.zip`
+  - `quiztik-admin-v0.7.0.zip`
+- Test status:
+  - `cargo check` passes.
+  - Packaging content verified for player/admin images and admin question banks.
+- Known issues:
+  - None specific to this stage.
+- Next stage:
+  - Continued gameplay polish and feature expansion.

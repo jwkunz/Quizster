@@ -19,6 +19,7 @@ use std::{
     time::{Duration, Instant},
 };
 use tokio::sync::{mpsc, Mutex};
+use tower_http::services::ServeDir;
 use uuid::Uuid;
 
 const DEFAULT_ADMIN_PASSCODE: &str = "quiztik-admin";
@@ -248,6 +249,7 @@ async fn main() {
         .route("/api/admin/start", post(start_game))
         .route("/api/state/:client_id", get(get_state))
         .route("/ws/:client_id", get(ws_handler))
+        .nest_service("/assets", ServeDir::new("assets"))
         .with_state(state);
 
     let addr = SocketAddr::from(([0, 0, 0, 0], 8080));

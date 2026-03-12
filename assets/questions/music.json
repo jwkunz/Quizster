@@ -1,0 +1,262 @@
+[
+  {
+    "id": "q-041",
+    "prompt": "How many lines are on a standard musical staff?",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-042",
+    "prompt": "Which symbol raises a note by one half step?",
+    "options": [
+      "Flat",
+      "Sharp",
+      "Natural",
+      "Fermata"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-043",
+    "prompt": "What is the term for the speed of music?",
+    "options": [
+      "Dynamics",
+      "Tempo",
+      "Harmony",
+      "Pitch"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-044",
+    "prompt": "Which instrument family does the violin belong to?",
+    "options": [
+      "Woodwind",
+      "Brass",
+      "String",
+      "Percussion"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-045",
+    "prompt": "Which clef is most commonly used for higher-pitched instruments and voices?",
+    "options": [
+      "Bass clef",
+      "Alto clef",
+      "Treble clef",
+      "Tenor clef"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-046",
+    "prompt": "What is the relative minor of C major?",
+    "options": [
+      "A minor",
+      "E minor",
+      "D minor",
+      "G minor"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-047",
+    "prompt": "Which composer wrote the famous Fifth Symphony with the motif often described as 'da-da-da-dum'?",
+    "options": [
+      "Johann Sebastian Bach",
+      "Wolfgang Amadeus Mozart",
+      "Ludwig van Beethoven",
+      "Franz Schubert"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-048",
+    "prompt": "What does the musical term 'forte' indicate?",
+    "options": [
+      "Play softly",
+      "Play loudly",
+      "Play slowly",
+      "Play smoothly"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-049",
+    "prompt": "Which instrument uses a reed to produce sound?",
+    "options": [
+      "Trumpet",
+      "Clarinet",
+      "Violin",
+      "Trombone"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-050",
+    "prompt": "What is a group of three notes played together called?",
+    "options": [
+      "Scale",
+      "Chord",
+      "Interval",
+      "Octave"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-051",
+    "prompt": "Which genre of music originated in the Mississippi Delta and influenced many modern styles?",
+    "options": [
+      "Blues",
+      "Opera",
+      "Baroque",
+      "Classical"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-052",
+    "prompt": "What does the term 'crescendo' mean in music?",
+    "options": [
+      "Gradually getting louder",
+      "Gradually getting softer",
+      "Suddenly loud",
+      "Return to normal tempo"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-053",
+    "prompt": "Which instrument is commonly associated with jazz improvisation and has valves?",
+    "options": [
+      "Trumpet",
+      "Flute",
+      "Cello",
+      "Oboe"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-054",
+    "prompt": "Which musical period followed the Baroque era?",
+    "options": [
+      "Romantic",
+      "Modern",
+      "Classical",
+      "Renaissance"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-055",
+    "prompt": "How many beats does a whole note typically receive in 4/4 time?",
+    "options": [
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    "correct_index": 3,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-056",
+    "prompt": "Which famous composer became deaf later in life but continued to write music?",
+    "options": [
+      "Johannes Brahms",
+      "Ludwig van Beethoven",
+      "Antonio Vivaldi",
+      "Joseph Haydn"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-057",
+    "prompt": "What is the distance between two identical notes an octave apart?",
+    "options": [
+      "6 semitones",
+      "8 semitones",
+      "12 semitones",
+      "16 semitones"
+    ],
+    "correct_index": 2,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-058",
+    "prompt": "Which instrument family produces sound primarily by striking or shaking?",
+    "options": [
+      "String",
+      "Percussion",
+      "Brass",
+      "Woodwind"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-059",
+    "prompt": "Which musical style became widely popular in the United States during the 1950s and combined rhythm and blues with country influences?",
+    "options": [
+      "Rock and Roll",
+      "Opera",
+      "Baroque",
+      "Folk"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  },
+  {
+    "id": "q-060",
+    "prompt": "What does 'a cappella' mean in music?",
+    "options": [
+      "Music performed without instruments",
+      "Music played very quickly",
+      "Music played with strong rhythm",
+      "Music played in unison with instruments"
+    ],
+    "correct_index": 0,
+    "points": 100,
+    "image_url": null
+  }
+]
