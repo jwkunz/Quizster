@@ -95,3 +95,18 @@
   - Load testing for full 20-player scenario is still a manual validation item.
 - Next stage:
   - Feature extension and production hardening.
+
+## v0.6.0 - 2026-03-11
+- Completed:
+  - Changed server startup behavior to always rebuild the runtime question bank from `assets/questions/*.json` first.
+  - Persists rebuilt merged bank to `data/questions.json` after load.
+- Build artifacts:
+  - `quiztik-server-local-v0.6.0.zip`
+  - `quiztik-player-v0.6.0.zip`
+  - `quiztik-admin-v0.6.0.zip`
+- Test status:
+  - `cargo check` passes.
+- Known issues:
+  - None specific to this change.
+- Next stage:
+  - Additional bank tooling and import UX enhancements.

@@ -112,6 +112,7 @@ struct RoundState {
     clone_commanders: HashSet<String>,
     super_spliter_targets: HashMap<String, (usize, usize)>,
     mix_master_owner: Option<String>,
+    option_order: Vec<usize>,
 }
 
 #[derive(Debug)]
@@ -196,6 +197,7 @@ struct AddQuestionRequest {
 struct ImportQuestionsRequest {
     admin_id: String,
     questions: Vec<Question>,
+    merge: Option<bool>,
 }
 
 #[derive(Deserialize)]
@@ -402,16 +404,21 @@ async fn import_questions(
 
     {
         let mut game = state.game.lock().await;
-        game.questions = req
+        let imported: Vec<Question> = req
             .questions
             .into_iter()
             .map(|mut q| {
-                if q.id.is_empty() {
-                    q.id = Uuid::new_v4().to_string();
-                }
+                // Ignore source IDs and always assign unique IDs on import.
+                q.id = Uuid::new_v4().to_string();
                 q
             })
             .collect();
+
+        if req.merge.unwrap_or(false) {
+            game.questions.extend(imported);
+        } else {
+            game.questions = imported;
+        }
         save_questions(&state.data_dir, &game.questions);
     }
 
@@ -687,6 +694,8 @@ async fn start_next_round(state: AppState) {
             if let Some(question) = game.questions.iter().find(|q| q.id == question_id).cloned() {
                 let started_at = Instant::now();
                 let deadline = started_at + Duration::from_secs(15);
+                let mut option_order = vec![0, 1, 2, 3];
+                option_order.shuffle(&mut rand::thread_rng());
                 game.current_round = Some(RoundState {
                     round_number: game.completed_rounds + 1,
                     question,
@@ -700,6 +709,7 @@ async fn start_next_round(state: AppState) {
                     clone_commanders: HashSet::new(),
                     super_spliter_targets: HashMap::new(),
                     mix_master_owner: None,
+                    option_order,
                 });
                 game.status = GameStatus::InRound;
                 round_started = true;
@@ -851,11 +861,15 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
 
     if let Some(round) = &game.current_round {
         let mut options: Vec<Value> = round
-            .question
-            .options
+            .option_order
             .iter()
-            .enumerate()
-            .map(|(idx, text)| json!({"index": idx, "text": text}))
+            .filter_map(|idx| {
+                round
+                    .question
+                    .options
+                    .get(*idx)
+                    .map(|text| json!({"index": idx, "text": text}))
+            })
             .collect();
 
         if let Some((correct, incorrect)) = round.super_spliter_targets.get(client_id) {
@@ -939,6 +953,14 @@ async fn is_admin(state: &AppState, client_id: &str) -> bool {
 }
 
 fn load_questions(data_dir: &PathBuf) -> Vec<Question> {
+    // Always rebuild the active runtime bank from assets on startup.
+    // data/questions.json is treated as persisted runtime output, not the source of truth.
+    let asset_questions = load_asset_question_banks();
+    if !asset_questions.is_empty() {
+        save_questions(data_dir, &asset_questions);
+        return asset_questions;
+    }
+
     let file = data_dir.join("questions.json");
     if let Ok(raw) = fs::read_to_string(&file) {
         if let Ok(questions) = serde_json::from_str::<Vec<Question>>(&raw) {
@@ -968,6 +990,61 @@ fn load_questions(data_dir: &PathBuf) -> Vec<Question> {
     ];
     save_questions(data_dir, &defaults);
     defaults
+}
+
+fn load_asset_question_banks() -> Vec<Question> {
+    let dir = PathBuf::from("assets/questions");
+    if !dir.exists() {
+        return Vec::new();
+    }
+
+    let mut files: Vec<PathBuf> = match fs::read_dir(&dir) {
+        Ok(entries) => entries
+            .filter_map(|entry| entry.ok().map(|e| e.path()))
+            .filter(|p| p.extension().map(|ext| ext == "json").unwrap_or(false))
+            .collect(),
+        Err(_) => return Vec::new(),
+    };
+
+    files.sort();
+
+    let mut merged = Vec::new();
+    for file in files {
+        let raw = match fs::read_to_string(&file) {
+            Ok(raw) => raw,
+            Err(err) => {
+                tracing::warn!("Could not read question file {}: {}", file.display(), err);
+                continue;
+            }
+        };
+
+        let parsed = match serde_json::from_str::<Vec<Question>>(&raw) {
+            Ok(questions) => questions,
+            Err(err) => {
+                tracing::warn!("Invalid JSON in {}: {}", file.display(), err);
+                continue;
+            }
+        };
+
+        for mut question in parsed {
+            // Ignore source IDs and assign fresh IDs while merging banks.
+            question.id = Uuid::new_v4().to_string();
+            if question.options.len() != 4 || question.correct_index > 3 || question.points == 0 {
+                tracing::warn!(
+                    "Skipping invalid question '{}' from {}",
+                    question.prompt,
+                    file.display()
+                );
+                continue;
+            }
+            merged.push(question);
+        }
+    }
+
+    if !merged.is_empty() {
+        tracing::info!("Loaded {} questions from assets/questions/*.json", merged.len());
+    }
+    merged
 }
 
 fn save_questions(data_dir: &PathBuf, questions: &[Question]) {
