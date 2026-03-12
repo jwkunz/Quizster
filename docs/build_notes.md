@@ -80,3 +80,18 @@
   - Full end-to-end browser automation tests are not yet included.
 - Next stage:
   - v0.5.0 final polish and acceptance checklist updates.
+
+## v0.5.0 - 2026-03-11
+- Completed:
+  - Added archive verification script to validate versioned zip outputs and expected content.
+  - Added acceptance checklist covering packaging, smoke tests, core rules, and CI matrix.
+- Build artifacts:
+  - `quiztik-server-local-v0.5.0.zip`
+  - `quiztik-player-v0.5.0.zip`
+  - `quiztik-admin-v0.5.0.zip`
+- Test status:
+  - `scripts/verify_artifacts.sh` passes for local build.
+- Known issues:
+  - Load testing for full 20-player scenario is still a manual validation item.
+- Next stage:
+  - Feature extension and production hardening.
