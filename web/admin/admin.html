@@ -2,30 +2,245 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quiztik Admin</title>
   <style>
     :root {
       --bg: #050505;
-      --fg: #f8f9ff;
-      --neon1: #ff8f00;
-      --neon2: #00f6ff;
-      --panel: #101010;
+      --panel: #121212;
+      --text: #eef7ff;
+      --neon-gold: #ff8f00;
+      --neon-cyan: #00f6ff;
+      --neon-pink: #ff2d95;
+      --muted: #92a8bc;
     }
-    body { margin: 0; font-family: "Trebuchet MS", sans-serif; background: linear-gradient(135deg, #0b0b0b, #000); color: var(--fg); }
-    .wrap { max-width: 780px; margin: 2rem auto; padding: 1rem; }
-    .card { background: var(--panel); border: 1px solid #222; box-shadow: 0 0 24px #ff8f0033; border-radius: 12px; padding: 1rem; }
-    h1 { color: var(--neon1); text-shadow: 0 0 8px #ff8f00aa; }
-    .small { opacity: .8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 1rem;
+      font-family: "Trebuchet MS", Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 15% 15%, #2a1400 0, transparent 28%),
+        radial-gradient(circle at 90% 10%, #052f33 0, transparent 30%),
+        linear-gradient(180deg, #0a0a0a, var(--bg));
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; }
+    .panel {
+      background: rgba(18,18,18,.95);
+      border: 1px solid #2a2a2a;
+      border-radius: 14px;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      box-shadow: 0 0 24px #ff8f0028;
+    }
+    h1 { margin: 0 0 .5rem; color: var(--neon-gold); text-shadow: 0 0 10px #ff8f00aa; }
+    h2 { margin: .1rem 0 .7rem; color: var(--neon-cyan); }
+    .row { display: flex; gap: .55rem; flex-wrap: wrap; }
+    input, textarea, button {
+      background: #0e0e0e;
+      color: var(--text);
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: .6rem .75rem;
+      font-size: .95rem;
+    }
+    textarea { width: 100%; min-height: 76px; resize: vertical; }
+    button { cursor: pointer; border-color: #00f6ff55; box-shadow: 0 0 10px #00f6ff22; }
+    button:hover { box-shadow: 0 0 14px #00f6ff44; }
+    .status { color: var(--muted); }
+    .split { display: grid; grid-template-columns: 1.1fr .9fr; gap: 1rem; }
+    @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+    .leader-item { display:flex; justify-content:space-between; border-bottom:1px solid #232323; padding:.35rem 0; }
+    .hidden { display:none; }
+    .wizard-step { border-left: 3px solid var(--neon-pink); padding-left: .7rem; margin: .5rem 0; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card">
-      <h1>Quiztik Admin</h1>
-      <p>Admin interface scaffold. Controls and editor will be added in next stages.</p>
-      <p class="small">Single-file HTML for cross-platform browser launch.</p>
+    <div class="panel" id="authPanel">
+      <h1>Quiztik Admin Console</h1>
+      <div class="row">
+        <input id="serverUrl" value="http://localhost:8080" style="min-width:260px" />
+        <input id="roomCode" value="QUIZTIK" placeholder="Room code" />
+        <input id="passcode" value="quiztik-admin" placeholder="Admin passcode" />
+        <input id="rounds" type="number" min="1" value="10" style="max-width:110px" />
+        <button id="createRoomBtn">Create/Update Room</button>
+        <button id="loginBtn">Admin Login</button>
+      </div>
+      <p class="status" id="authStatus">Create room then login.</p>
+    </div>
+
+    <div class="panel hidden" id="mainPanel">
+      <div class="row">
+        <button id="startGameBtn">Start Game</button>
+        <button id="nextRoundBtn">Force Next Round</button>
+      </div>
+      <p class="status" id="gameState">Waiting for state...</p>
+    </div>
+
+    <div class="split hidden" id="adminSplit">
+      <div>
+        <div class="panel">
+          <h2>Guided Question Builder</h2>
+          <div class="wizard-step">Step 1: Enter question prompt and optional image URL.</div>
+          <textarea id="qPrompt" placeholder="Question prompt"></textarea>
+          <input id="qImage" placeholder="Optional image URL" style="width:100%; margin-top:.5rem" />
+          <div class="wizard-step">Step 2: Fill all 4 answer choices and pick the correct one.</div>
+          <input id="opt0" placeholder="Option 1" style="width:100%; margin-top:.35rem" />
+          <input id="opt1" placeholder="Option 2" style="width:100%; margin-top:.35rem" />
+          <input id="opt2" placeholder="Option 3" style="width:100%; margin-top:.35rem" />
+          <input id="opt3" placeholder="Option 4" style="width:100%; margin-top:.35rem" />
+          <div class="row" style="margin-top:.5rem">
+            <label>Correct index <input id="correctIndex" type="number" min="0" max="3" value="0" style="max-width:90px" /></label>
+            <label>Points <input id="points" type="number" min="10" step="10" value="100" style="max-width:110px" /></label>
+            <button id="addQuestionBtn">Add Question</button>
+          </div>
+          <p class="status" id="questionStatus"></p>
+        </div>
+
+        <div class="panel">
+          <h2>Import JSON Question Pack</h2>
+          <textarea id="importJson" placeholder='[{"prompt":"...","options":["a","b","c","d"],"correct_index":0,"points":100}]'></textarea>
+          <button id="importBtn">Import Pack</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <h2>Leaderboard</h2>
+          <div id="leaderboard"></div>
+        </div>
+        <div class="panel">
+          <h2>Live Feed</h2>
+          <div id="feed" class="status"></div>
+        </div>
+      </div>
     </div>
   </div>
+
+  <script>
+    let serverUrl = "http://localhost:8080";
+    let adminId = null;
+    let ws;
+
+    const el = (id) => document.getElementById(id);
+    const feed = (msg) => {
+      const line = document.createElement("div");
+      line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      el("feed").prepend(line);
+    };
+
+    function connectWs() {
+      ws = new WebSocket(serverUrl.replace("http", "ws") + `/ws/${adminId}`);
+      ws.onmessage = (ev) => {
+        try {
+          const msg = JSON.parse(ev.data);
+          if (msg.event === "state") {
+            const s = msg.payload;
+            el("gameState").textContent = `Status: ${s.status} | Round ${s.completed_rounds}/${s.total_rounds} | Players: ${s.leaderboard.length} | Questions: ${s.questions_available}`;
+            const lb = el("leaderboard");
+            lb.innerHTML = "";
+            s.leaderboard.forEach((p, i) => {
+              const row = document.createElement("div");
+              row.className = "leader-item";
+              row.innerHTML = `<span>${i+1}. ${p.name}</span><strong>${p.score.toFixed(2)}</strong>`;
+              lb.appendChild(row);
+            });
+          }
+          if (msg.event === "powerup_activated") {
+            feed(`${msg.payload.player_id} used ${msg.payload.powerup}`);
+          }
+          if (msg.event === "round_result") {
+            feed(`Round ${msg.payload.round_number} complete.`);
+          }
+        } catch (_e) {}
+      };
+    }
+
+    async function createRoom() {
+      serverUrl = el("serverUrl").value.trim();
+      const payload = {
+        admin_passcode: el("passcode").value.trim(),
+        total_rounds: Number(el("rounds").value || "10")
+      };
+      const res = await fetch(`${serverUrl}/api/admin/create_room`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      el("authStatus").textContent = `Room ready: ${data.room_code} (${data.questions_available} questions)`;
+    }
+
+    async function login() {
+      serverUrl = el("serverUrl").value.trim();
+      const res = await fetch(`${serverUrl}/api/admin/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          room_code: el("roomCode").value.trim(),
+          admin_passcode: el("passcode").value.trim()
+        })
+      });
+      if (!res.ok) {
+        el("authStatus").textContent = "Admin login failed";
+        return;
+      }
+      const data = await res.json();
+      adminId = data.admin_id;
+      el("authStatus").textContent = "Admin logged in";
+      el("mainPanel").classList.remove("hidden");
+      el("adminSplit").classList.remove("hidden");
+      connectWs();
+    }
+
+    async function startGame() {
+      const res = await fetch(`${serverUrl}/api/admin/start`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ admin_id: adminId, total_rounds: Number(el("rounds").value || "10") })
+      });
+      if (res.ok) feed("Game started.");
+    }
+
+    async function addQuestion() {
+      const payload = {
+        admin_id: adminId,
+        prompt: el("qPrompt").value.trim(),
+        options: [el("opt0").value.trim(), el("opt1").value.trim(), el("opt2").value.trim(), el("opt3").value.trim()],
+        correct_index: Number(el("correctIndex").value),
+        points: Number(el("points").value),
+        image_url: el("qImage").value.trim() || null
+      };
+      const res = await fetch(`${serverUrl}/api/admin/questions/add`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      el("questionStatus").textContent = res.ok ? "Question added." : "Question add failed.";
+    }
+
+    async function importPack() {
+      try {
+        const questions = JSON.parse(el("importJson").value);
+        const res = await fetch(`${serverUrl}/api/admin/questions/import`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ admin_id: adminId, questions })
+        });
+        feed(res.ok ? "Imported question pack." : "Import failed.");
+      } catch {
+        feed("Invalid JSON pack.");
+      }
+    }
+
+    el("createRoomBtn").onclick = createRoom;
+    el("loginBtn").onclick = login;
+    el("startGameBtn").onclick = startGame;
+    el("nextRoundBtn").onclick = () => ws?.send(JSON.stringify({ action: "admin_next_round" }));
+    el("addQuestionBtn").onclick = addQuestion;
+    el("importBtn").onclick = importPack;
+  </script>
 </body>
 </html>

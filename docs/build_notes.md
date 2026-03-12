@@ -29,3 +29,21 @@
   - Gameplay and realtime protocol not implemented yet.
 - Next stage:
   - v0.2.0 session and role system.
+
+## v0.2.0 - 2026-03-11
+- Completed:
+  - Implemented Rust authoritative LAN game server core: room join/admin auth, websocket sync, sequential rounds, 15s timeout, random question selection, scoring (correct + speed bonus, incorrect = 0), reconnect-by-name, and game history persistence.
+  - Implemented six one-time power-ups with activation broadcasts.
+  - Added full single-file player and admin web apps with neon-on-black styling.
+  - Added player join tutorial wizard and admin guided manual question builder + JSON question import.
+  - Fixed repository hygiene by removing tracked build output and strengthening ignore patterns.
+- Build artifacts:
+  - `quiztik-server-local-v0.2.0.zip`
+  - `quiztik-player-v0.2.0.zip`
+  - `quiztik-admin-v0.2.0.zip`
+- Test status:
+  - `cargo check` passes.
+- Known issues:
+  - Local packaging currently produces one local server target; CI multi-OS packaging added in next stage.
+- Next stage:
+  - v0.3.0 packaging workflow and release automation.

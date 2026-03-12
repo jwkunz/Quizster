@@ -2,31 +2,346 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Quiztik Player</title>
   <style>
     :root {
-      --bg: #070707;
-      --fg: #f6fbff;
-      --neon1: #00f6ff;
-      --neon2: #ff2d95;
-      --neon3: #b7ff00;
-      --panel: #101010;
+      --bg: #040404;
+      --panel: #121212;
+      --text: #ecf8ff;
+      --neon-cyan: #00f6ff;
+      --neon-pink: #ff2d95;
+      --neon-lime: #b6ff00;
+      --neon-orange: #ff8f00;
+      --muted: #9ab2c7;
     }
-    body { margin: 0; font-family: "Trebuchet MS", sans-serif; background: radial-gradient(circle at top, #151515, var(--bg)); color: var(--fg); }
-    .wrap { max-width: 780px; margin: 2rem auto; padding: 1rem; }
-    .card { background: var(--panel); border: 1px solid #222; box-shadow: 0 0 24px #00f6ff33; border-radius: 12px; padding: 1rem; }
-    h1 { color: var(--neon1); text-shadow: 0 0 8px #00f6ffaa; }
-    .small { opacity: .8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Trebuchet MS", Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 15%, #102029 0%, transparent 28%),
+        radial-gradient(circle at 90% 10%, #2b1030 0%, transparent 26%),
+        radial-gradient(circle at 15% 85%, #162a11 0%, transparent 25%),
+        linear-gradient(180deg, #0a0a0a, var(--bg));
+      min-height: 100vh;
+      padding: 1rem;
+    }
+    .wrap { max-width: 940px; margin: 0 auto; }
+    .panel {
+      background: rgba(18, 18, 18, 0.92);
+      border: 1px solid #2a2a2a;
+      border-radius: 14px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 24px #00f6ff20;
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      color: var(--neon-cyan);
+      text-shadow: 0 0 12px #00f6ffaa;
+    }
+    h2 { margin: 0.2rem 0 0.7rem; color: var(--neon-pink); }
+    .row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    input, button, select, textarea {
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #0e0e0e;
+      color: var(--text);
+      padding: 0.65rem 0.75rem;
+      font-size: 0.95rem;
+    }
+    button {
+      cursor: pointer;
+      border-color: #00f6ff55;
+      box-shadow: 0 0 10px #00f6ff22;
+      transition: transform .08s ease, box-shadow .12s ease;
+    }
+    button:hover { transform: translateY(-1px); box-shadow: 0 0 14px #00f6ff44; }
+    button:disabled { opacity: 0.4; cursor: not-allowed; }
+    .status { color: var(--muted); font-size: 0.9rem; }
+    .timer {
+      font-size: 2.1rem;
+      color: var(--neon-orange);
+      text-shadow: 0 0 14px #ff8f00aa;
+      animation: tick .9s linear infinite;
+      display: inline-block;
+      min-width: 3ch;
+    }
+    @keyframes tick { 0% { transform: scale(1); } 50% { transform: scale(1.08);} 100% { transform: scale(1);} }
+    .option {
+      width: 100%;
+      text-align: left;
+      margin: 0.3rem 0;
+      border-color: #ff2d9555;
+      box-shadow: 0 0 10px #ff2d9522;
+    }
+    .option.correct { border-color: #b6ff0088; }
+    .powerups { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 0.5rem; }
+    .power { width: 100%; }
+    .wizard-step { border-left: 3px solid var(--neon-lime); padding-left: 0.75rem; margin: 0.5rem 0; }
+    .hidden { display: none; }
+    .leader-item { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding: 0.35rem 0; }
+    .event-log { max-height: 180px; overflow: auto; font-size: .88rem; color: #cde6f6; }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="card">
+    <div class="panel" id="joinPanel">
       <h1>Quiztik Player</h1>
-      <p>Player interface scaffold. Join and game UI will be added in next stages.</p>
-      <p class="small">Single-file HTML for cross-platform browser launch.</p>
+      <div class="row">
+        <input id="serverUrl" placeholder="Server URL" value="http://localhost:8080" style="min-width:260px;" />
+        <input id="roomCode" placeholder="Room Code" value="QUIZTIK" />
+        <input id="displayName" placeholder="Display Name" />
+        <button id="joinBtn">Join Game</button>
+      </div>
+      <p class="status" id="joinStatus">Join with room code and your display name.</p>
+      <button id="openTutorialBtn">View How-To Wizard</button>
+    </div>
+
+    <div class="panel hidden" id="wizardPanel">
+      <h2>How to Play (Quick Wizard)</h2>
+      <div id="wizardContent"></div>
+      <div class="row">
+        <button id="wizardPrev">Previous</button>
+        <button id="wizardNext">Next</button>
+        <button id="wizardSkip">Skip</button>
+      </div>
+    </div>
+
+    <div class="panel hidden" id="gamePanel">
+      <h2 id="questionTitle">Waiting for round...</h2>
+      <div class="row" style="align-items:center;">
+        <div>Time left: <span class="timer" id="timer">--</span></div>
+        <div class="status" id="progress">Round 0/0</div>
+      </div>
+      <p id="questionPrompt">No active question yet.</p>
+      <img id="questionImage" class="hidden" style="max-width:100%; border-radius:10px; border:1px solid #333;" />
+      <div id="options"></div>
+      <p class="status" id="answerStatus"></p>
+    </div>
+
+    <div class="panel hidden" id="powerupPanel">
+      <h2>Power Ups</h2>
+      <div class="powerups" id="powerups"></div>
+    </div>
+
+    <div class="panel hidden" id="leaderboardPanel">
+      <h2>Leaderboard</h2>
+      <div id="leaderboard"></div>
+    </div>
+
+    <div class="panel hidden" id="eventsPanel">
+      <h2>Game Feed</h2>
+      <div id="events" class="event-log"></div>
     </div>
   </div>
+
+  <script>
+    const powerUps = [
+      { id: "mix_master", label: "🌀 Mix Master" },
+      { id: "speed_searcher", label: "🔒 Speed Searcher" },
+      { id: "double_downer", label: "💥 Double Downer" },
+      { id: "clone_commander", label: "🧬 Clone Commander" },
+      { id: "super_spliter", label: "✂️ Super Spliter" },
+      { id: "great_gambler", label: "🎲 Great Gambler" }
+    ];
+
+    const wizardSteps = [
+      "Join with room code + display name, then wait for the host to start.",
+      "Each question has a ticking timer. Submit before it reaches zero.",
+      "Correct answers earn base points plus a speed bonus.",
+      "You get 6 power-ups once per game. Tap any active one during a question.",
+      "Watch the feed for power-up activations and round results."
+    ];
+
+    let ws;
+    let state = null;
+    let serverUrl = "http://localhost:8080";
+    let playerId = null;
+    let wizardIndex = 0;
+    let mixedMode = false;
+
+    const el = (id) => document.getElementById(id);
+    const log = (msg) => {
+      const node = document.createElement("div");
+      node.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+      el("events").prepend(node);
+    };
+
+    function renderWizard() {
+      const content = el("wizardContent");
+      content.innerHTML = `<div class="wizard-step">Step ${wizardIndex + 1}/${wizardSteps.length}: ${wizardSteps[wizardIndex]}</div>`;
+      el("wizardPrev").disabled = wizardIndex === 0;
+      el("wizardNext").textContent = wizardIndex === wizardSteps.length - 1 ? "Finish" : "Next";
+    }
+
+    function setPanelsJoined(isJoined) {
+      el("joinPanel").classList.toggle("hidden", isJoined);
+      el("gamePanel").classList.toggle("hidden", !isJoined);
+      el("powerupPanel").classList.toggle("hidden", !isJoined);
+      el("leaderboardPanel").classList.toggle("hidden", !isJoined);
+      el("eventsPanel").classList.toggle("hidden", !isJoined);
+    }
+
+    function renderPowerups() {
+      const used = new Set(state?.you?.used_powerups || []);
+      const wrap = el("powerups");
+      wrap.innerHTML = "";
+      powerUps.forEach((p) => {
+        const b = document.createElement("button");
+        b.className = "power";
+        b.textContent = p.label;
+        b.disabled = used.has(p.id);
+        b.onclick = () => {
+          ws?.send(JSON.stringify({ action: "activate_powerup", powerup: p.id }));
+        };
+        wrap.appendChild(b);
+      });
+    }
+
+    function scrambleText(value) {
+      const chars = value.split("");
+      for (let i = chars.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [chars[i], chars[j]] = [chars[j], chars[i]];
+      }
+      return chars.join("");
+    }
+
+    function renderQuestion() {
+      const q = state?.current_question;
+      el("progress").textContent = `Round ${state?.completed_rounds + (q ? 1 : 0)}/${state?.total_rounds || 0}`;
+      if (!q) {
+        el("questionTitle").textContent = state?.status === "ended" ? "Game complete" : "Waiting for next round";
+        el("questionPrompt").textContent = "No active question.";
+        el("options").innerHTML = "";
+        el("timer").textContent = "--";
+        return;
+      }
+      el("questionTitle").textContent = `Round ${q.round_number} - ${q.points} pts`;
+      el("questionPrompt").textContent = q.prompt;
+      el("timer").textContent = q.seconds_left;
+      const image = el("questionImage");
+      if (q.image_url) {
+        image.src = q.image_url;
+        image.classList.remove("hidden");
+      } else {
+        image.classList.add("hidden");
+      }
+
+      let options = [...q.options];
+      if (mixedMode && q.mix_master_owner && q.mix_master_owner !== playerId) {
+        options = options.map((o) => ({ ...o, text: scrambleText(o.text) })).sort(() => Math.random() - 0.5);
+      }
+
+      const box = el("options");
+      box.innerHTML = "";
+      options.forEach((o) => {
+        const btn = document.createElement("button");
+        btn.className = "option";
+        btn.textContent = o.text;
+        const locked = q.speed_searcher_owner && q.speed_searcher_owner !== playerId;
+        btn.disabled = locked;
+        btn.onclick = () => {
+          ws?.send(JSON.stringify({ action: "submit_answer", choice_index: o.index }));
+          el("answerStatus").textContent = "Answer submitted.";
+        };
+        box.appendChild(btn);
+      });
+    }
+
+    function renderLeaderboard() {
+      const lb = el("leaderboard");
+      lb.innerHTML = "";
+      (state?.leaderboard || []).forEach((p, idx) => {
+        const line = document.createElement("div");
+        line.className = "leader-item";
+        line.innerHTML = `<span>${idx + 1}. ${p.name}</span><strong>${p.score.toFixed(2)}</strong>`;
+        lb.appendChild(line);
+      });
+    }
+
+    function applyState(payload) {
+      state = payload;
+      renderQuestion();
+      renderLeaderboard();
+      renderPowerups();
+    }
+
+    function connectWs() {
+      const wsUrl = serverUrl.replace("http", "ws") + `/ws/${playerId}`;
+      ws = new WebSocket(wsUrl);
+      ws.onmessage = (ev) => {
+        try {
+          const msg = JSON.parse(ev.data);
+          if (msg.event === "state") {
+            applyState(msg.payload);
+          } else if (msg.event === "timer_tick") {
+            el("timer").textContent = msg.payload.seconds_left;
+          } else if (msg.event === "powerup_activated") {
+            const p = msg.payload;
+            mixedMode = p.powerup === "mix_master" ? true : mixedMode;
+            log(`${p.player_id} activated ${p.powerup}`);
+          } else if (msg.event === "round_result") {
+            log(`Round ${msg.payload.round_number} complete. Correct answer index: ${msg.payload.correct_index}`);
+            mixedMode = false;
+          }
+        } catch (_e) {}
+      };
+      ws.onclose = () => log("Connection closed.");
+    }
+
+    async function joinGame() {
+      serverUrl = el("serverUrl").value.trim();
+      const roomCode = el("roomCode").value.trim();
+      const displayName = el("displayName").value.trim();
+      if (!displayName) {
+        el("joinStatus").textContent = "Enter display name.";
+        return;
+      }
+
+      try {
+        const res = await fetch(`${serverUrl}/api/join`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ room_code: roomCode, display_name: displayName })
+        });
+        if (!res.ok) {
+          el("joinStatus").textContent = "Join failed.";
+          return;
+        }
+        const data = await res.json();
+        playerId = data.player_id;
+        setPanelsJoined(true);
+        connectWs();
+
+        if (!(state?.you?.tutorial_seen)) {
+          el("wizardPanel").classList.remove("hidden");
+          renderWizard();
+        }
+      } catch (e) {
+        el("joinStatus").textContent = `Join error: ${e.message}`;
+      }
+    }
+
+    el("joinBtn").onclick = joinGame;
+    el("openTutorialBtn").onclick = () => { el("wizardPanel").classList.remove("hidden"); renderWizard(); };
+    el("wizardPrev").onclick = () => { wizardIndex = Math.max(0, wizardIndex - 1); renderWizard(); };
+    el("wizardNext").onclick = () => {
+      if (wizardIndex < wizardSteps.length - 1) {
+        wizardIndex += 1;
+        renderWizard();
+      } else {
+        el("wizardPanel").classList.add("hidden");
+        ws?.send(JSON.stringify({ action: "tutorial_seen", tutorial_seen: true }));
+      }
+    };
+    el("wizardSkip").onclick = () => {
+      el("wizardPanel").classList.add("hidden");
+      ws?.send(JSON.stringify({ action: "tutorial_seen", tutorial_seen: true }));
+    };
+  </script>
 </body>
 </html>
