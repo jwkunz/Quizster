@@ -168,6 +168,15 @@
     </div>
 
     <div class="panel hidden" id="mainPanel">
+      <h2>Current Question Pool Filter</h2>
+      <div class="row" style="margin-bottom:.5rem;">
+        <button id="addAllBanksBtn">Add All Banks</button>
+        <button id="clearAllBanksBtn">Clear All Banks</button>
+        <button id="applyBanksBtn">Apply Filter</button>
+      </div>
+      <div id="bankList" class="bank-list"></div>
+      <p class="status" id="bankSummary"></p>
+      <p class="status warning" id="bankWarning"></p>
       <div class="row">
         <button id="startGameBtn">Start Game</button>
         <button id="nextRoundBtn">Force Next Round</button>
@@ -203,16 +212,6 @@
           </div>
           <button id="importBtn">Import Pack</button>
         </div>
-        <div class="panel">
-          <h2>Question Bank Files</h2>
-          <div class="row" style="margin-bottom:.5rem;">
-            <button id="addAllBanksBtn">Add All Banks</button>
-            <button id="clearAllBanksBtn">Clear All Banks</button>
-          </div>
-          <div id="bankList" class="bank-list"></div>
-          <p class="status" id="bankSummary"></p>
-          <p class="status warning" id="bankWarning"></p>
-        </div>
       </div>
 
       <div>
@@ -244,8 +243,10 @@
     let adminId = null;
     let ws;
     let latestQuestionCount = 0;
+    let latestAvailableCount = 0;
     let availableBanks = [];
     let selectedBanks = new Set();
+    let appliedBanks = new Set();
 
     const el = (id) => document.getElementById(id);
     const feed = (msg) => {
@@ -280,14 +281,14 @@
         list.appendChild(row);
       });
       const selectedCount = [...selectedBanks].length;
-      el("bankSummary").textContent = `${selectedCount} bank(s) selected.`;
+      const pendingChanges = JSON.stringify([...selectedBanks].sort()) !== JSON.stringify([...appliedBanks].sort());
+      el("bankSummary").textContent = `${selectedCount} bank(s) selected.${pendingChanges ? " Pending changes not applied." : ""}`;
       el("bankWarning").textContent = selectedCount === 0 ? "No bank files selected. File-based pool will be empty." : "";
       list.querySelectorAll("input[type='checkbox']").forEach((cb) => {
         cb.onchange = () => {
           const file = cb.getAttribute("data-bank");
           if (cb.checked) selectedBanks.add(file);
           else selectedBanks.delete(file);
-          pushBankSelection();
           renderBankList();
         };
       });
@@ -300,12 +301,16 @@
       const data = await res.json();
       availableBanks = data.available_files || [];
       selectedBanks = new Set(data.selected_files || []);
+      appliedBanks = new Set(data.selected_files || []);
+      latestAvailableCount = Number(data.available_question_count || 0);
+      latestQuestionCount = Number(data.effective_question_count || 0);
       renderBankList();
+      updateGameStateStatus();
     }
 
     async function pushBankSelection() {
       if (!adminId) return;
-      await fetch(`${serverUrl}/api/admin/question_banks/selection`, {
+      const res = await fetch(`${serverUrl}/api/admin/question_banks/selection`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -313,6 +318,19 @@
           selected_files: [...selectedBanks].sort()
         })
       });
+      if (res.ok) {
+        appliedBanks = new Set(selectedBanks);
+        const data = await res.json().catch(() => ({}));
+        latestQuestionCount = Number(data.effective_question_count || latestQuestionCount);
+        latestAvailableCount = Number(data.available_question_count || latestAvailableCount);
+      }
+      renderBankList();
+      updateGameStateStatus();
+    }
+
+    function updateGameStateStatus(extra = "") {
+      const suffix = extra ? ` | ${extra}` : "";
+      el("gameState").textContent = `Available Questions: ${latestAvailableCount}, Questions in Play: ${latestQuestionCount}${suffix}`;
     }
 
     function connectWs() {
@@ -322,8 +340,9 @@
           const msg = JSON.parse(ev.data);
           if (msg.event === "state") {
             const s = msg.payload;
-            latestQuestionCount = s.questions_available || 0;
-            el("gameState").textContent = `Status: ${s.status} | Round ${s.completed_rounds}/${s.total_rounds} | Players: ${s.leaderboard.length} | Questions: ${s.questions_available}`;
+            latestQuestionCount = Number(s.questions_in_play || s.questions_available || 0);
+            latestAvailableCount = Number(s.available_questions || latestAvailableCount);
+            updateGameStateStatus(`Status: ${s.status} | Round ${s.completed_rounds}/${s.total_rounds} | Players: ${s.leaderboard.length}`);
             const lb = el("leaderboard");
             lb.innerHTML = "";
             s.leaderboard.forEach((p, i) => {
@@ -332,7 +351,6 @@
               row.innerHTML = `<span>${i+1}. ${p.name}</span><strong>${p.score.toFixed(2)}</strong>`;
               lb.appendChild(row);
             });
-            if (adminId) loadBanks();
             el("startGameBtn").disabled = latestQuestionCount === 0;
           }
           if (msg.event === "powerup_activated") {
@@ -358,7 +376,10 @@
         body: JSON.stringify(payload)
       });
       const data = await res.json();
-      el("authStatus").textContent = `Room ready: ${data.room_code} (${data.questions_available} questions)`;
+      latestQuestionCount = Number(data.questions_in_play || data.questions_available || 0);
+      latestAvailableCount = Number(data.available_questions || latestAvailableCount);
+      updateGameStateStatus();
+      el("authStatus").textContent = `Room ready: ${data.room_code}`;
     }
 
     async function login() {
@@ -443,15 +464,17 @@
     el("importBtn").onclick = importPack;
     el("addAllBanksBtn").onclick = async () => {
       selectedBanks = new Set(availableBanks);
-      await pushBankSelection();
       renderBankList();
-      feed("Selected all question banks.");
+      feed("Selected all question banks in filter draft. Click Apply Filter.");
     };
     el("clearAllBanksBtn").onclick = async () => {
       selectedBanks = new Set();
-      await pushBankSelection();
       renderBankList();
-      feed("Cleared all question banks.");
+      feed("Cleared all question banks in filter draft. Click Apply Filter.");
+    };
+    el("applyBanksBtn").onclick = async () => {
+      await pushBankSelection();
+      feed("Applied question pool filter.");
     };
     el("serverUrl").onchange = refreshServerInfo;
     el("copyJoinUrlBtn").onclick = async () => {

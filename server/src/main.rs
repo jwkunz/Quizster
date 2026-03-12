@@ -189,6 +189,11 @@ impl GameState {
         files
     }
 
+    fn total_available_questions(&self) -> usize {
+        let file_count: usize = self.file_question_banks.values().map(|v| v.len()).sum();
+        self.manual_questions.len() + file_count
+    }
+
     fn reflow_future_rounds_after_pool_change(&mut self) {
         let mut preserved_ids: Vec<String> = self
             .shuffled_question_ids
@@ -457,7 +462,9 @@ async fn create_room(
     Json(json!({
         "room_code": game.room_code,
         "total_rounds": game.total_rounds,
-        "questions_available": game.questions.len()
+        "questions_available": game.questions.len(),
+        "questions_in_play": game.questions.len(),
+        "available_questions": game.total_available_questions()
     }))
 }
 
@@ -596,6 +603,7 @@ async fn get_question_banks(State(state): State<AppState>) -> Json<Value> {
         "available_files": game.available_bank_files(),
         "selected_files": selected,
         "effective_question_count": game.questions.len(),
+        "available_question_count": game.total_available_questions(),
     }))
 }
 
@@ -608,6 +616,7 @@ async fn set_question_bank_selection(
     }
 
     let effective_count;
+    let available_count;
     {
         let mut game = state.game.lock().await;
         let available: HashSet<String> = game.available_bank_files().into_iter().collect();
@@ -621,12 +630,17 @@ async fn set_question_bank_selection(
         game.rebuild_effective_question_pool();
         game.reflow_future_rounds_after_pool_change();
         effective_count = game.questions.len();
+        available_count = game.total_available_questions();
     }
 
     broadcast_state(&state).await;
     (
         axum::http::StatusCode::OK,
-        Json(json!({"ok": true, "effective_question_count": effective_count})),
+        Json(json!({
+            "ok": true,
+            "effective_question_count": effective_count,
+            "available_question_count": available_count
+        })),
     )
 }
 
@@ -1156,6 +1170,8 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
         "total_rounds": game.total_rounds,
         "completed_rounds": game.completed_rounds,
         "questions_available": game.questions.len(),
+        "questions_in_play": game.questions.len(),
+        "available_questions": game.total_available_questions(),
         "leaderboard": game.leaderboard(),
         "current_question": visible_question,
         "you": your_state,
