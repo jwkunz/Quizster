@@ -9,16 +9,25 @@ VERSION="${VERSION#v}"
 TARGET="${2:-local}"
 DIST_DIR="$ROOT_DIR/dist"
 STAGE_DIR="$DIST_DIR/stage"
+SKIP_SERVER_BUILD="${SKIP_SERVER_BUILD:-0}"
 
 rm -rf "$DIST_DIR"
 mkdir -p "$DIST_DIR" "$STAGE_DIR/server" "$STAGE_DIR/player" "$STAGE_DIR/admin"
 
 if [[ "$TARGET" == "local" ]]; then
-  (cd server && cargo build --release)
+  if [[ "$SKIP_SERVER_BUILD" != "1" ]]; then
+    (cd server && cargo build --release)
+  fi
   if [[ -f server/target/release/quiztik-server ]]; then
     cp server/target/release/quiztik-server "$STAGE_DIR/server/quiztik-server"
+  else
+    echo "Missing local server binary" > "$STAGE_DIR/server/README.txt"
   fi
 else
+  if [[ "$SKIP_SERVER_BUILD" != "1" ]]; then
+    (cd server && cargo build --release --target "$TARGET")
+  fi
+
   BIN_PATH="server/target/$TARGET/release/quiztik-server"
   BIN_PATH_WIN="server/target/$TARGET/release/quiztik-server.exe"
   if [[ -f "$BIN_PATH" ]]; then

@@ -1,0 +1,59 @@
+name: build-release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+          - os: macos-latest
+            target: x86_64-apple-darwin
+          - os: macos-latest
+            target: aarch64-apple-darwin
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Build server binary
+        working-directory: server
+        shell: bash
+        run: cargo build --release --target "${{ matrix.target }}"
+
+      - name: Package artifacts
+        shell: bash
+        run: |
+          SKIP_SERVER_BUILD=1 scripts/build_release.sh "$(cat VERSION)" "${{ matrix.target }}"
+
+      - name: Upload server artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: quiztik-server-${{ matrix.target }}
+          path: dist/quiztik-server-${{ matrix.target }}-*.zip
+
+      - name: Upload player artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: quiztik-player-${{ matrix.target }}
+          path: dist/quiztik-player-*.zip
+
+      - name: Upload admin artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: quiztik-admin-${{ matrix.target }}
+          path: dist/quiztik-admin-*.zip

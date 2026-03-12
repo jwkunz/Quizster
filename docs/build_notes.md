@@ -47,3 +47,20 @@
   - Local packaging currently produces one local server target; CI multi-OS packaging added in next stage.
 - Next stage:
   - v0.3.0 packaging workflow and release automation.
+
+## v0.3.0 - 2026-03-11
+- Completed:
+  - Added GitHub Actions workflow to build server binaries for Linux/Windows/macOS Intel/macOS Apple Silicon.
+  - Updated build script for target-aware packaging with optional build skipping in CI.
+  - Ensured build script always removes previous archives and outputs versioned zip names.
+  - Added tracked asset directories for upcoming graphics/audio.
+- Build artifacts:
+  - `quiztik-server-local-v0.3.0.zip`
+  - `quiztik-player-v0.3.0.zip`
+  - `quiztik-admin-v0.3.0.zip`
+- Test status:
+  - `cargo check` passes; local packaging run complete.
+- Known issues:
+  - No automated integration tests yet; current validation is manual and compile-time.
+- Next stage:
+  - v0.4.0 test harness and release-quality cleanup.
