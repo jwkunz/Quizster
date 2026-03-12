@@ -117,6 +117,32 @@ Question format per item:
 }
 ```
 
+Easy question generation with an LLM:
+
+- You can ask ChatGPT or another LLM to generate a pack for you.
+- Useful prompt template:
+
+```text
+Please generate { } questions about { } using the JSON format provided in this example: 
+  {
+    "id": "q-001",
+    "prompt": "Which document first established the principle that government derives its authority from the consent of the governed?",
+    "options": [
+      "The Articles of Confederation",
+      "The Declaration of Independence",
+      "The Bill of Rights",
+      "The Federalist Papers"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },
+```
+
+- Replace the first `{ }` with the number of questions.
+- Replace the second `{ }` with the topic.
+- After generation, paste the JSON into the admin page under `Import JSON Question Pack`.
+
 Rules:
 
 - `options` must have exactly 4 entries

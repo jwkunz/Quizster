@@ -95,6 +95,20 @@
       font-size: .86rem;
       color: var(--muted);
     }
+    .copy-prompt {
+      margin: 0.55rem 0 0.75rem;
+      padding: 0.75rem 0.9rem;
+      border-radius: 12px;
+      border: 1px solid #2d565b;
+      background: linear-gradient(135deg, #0d1719, #111111);
+      box-shadow: inset 0 0 18px #00f6ff18;
+      font-family: "Courier New", "Liberation Mono", monospace;
+      font-size: 0.85rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      color: #cfffff;
+      user-select: all;
+    }
     .icon-grid { display: grid; grid-template-columns: repeat(2, minmax(130px, 1fr)); gap: .55rem; }
     .icon-tile {
       display: flex;
@@ -206,6 +220,21 @@
 
         <div class="panel">
           <h2>Import JSON Question Pack</h2>
+          <p class="status">Tip: an easy way to generate question packs is to ask an LLM such as ChatGPT with this prompt:</p>
+          <div class="copy-prompt">Please generate { } questions about { } using the JSON format provided in this example: 
+  {
+    "id": "q-001",
+    "prompt": "Which document first established the principle that government derives its authority from the consent of the governed?",
+    "options": [
+      "The Articles of Confederation",
+      "The Declaration of Independence",
+      "The Bill of Rights",
+      "The Federalist Papers"
+    ],
+    "correct_index": 1,
+    "points": 100,
+    "image_url": null
+  },</div>
           <textarea id="importJson" placeholder='[{"prompt":"...","options":["a","b","c","d"],"correct_index":0,"points":100}]'></textarea>
           <div class="row" style="margin-top:.5rem">
             <button id="importBtn">Import Pack As...</button>
