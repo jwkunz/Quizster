@@ -175,3 +175,17 @@
   - None specific to documentation stage.
 - Next stage:
   - Optional UX/tutorial enhancements and production polish.
+
+## v1.0.0 - 2026-03-11
+- Completed:
+  - Added MIT license.
+  - Added GitHub release workflow that builds server artifacts for Linux, Windows, and macOS on version tags.
+  - Workflow now creates a GitHub Release and attaches built zip assets.
+- Build artifacts:
+  - `quiztik-server-local-v1.0.0.zip`
+- Test status:
+  - `scripts/verify_artifacts.sh` passes for local build.
+- Known issues:
+  - None blocking v1.0.0 release.
+- Next stage:
+  - Post-release maintenance and feature enhancements.

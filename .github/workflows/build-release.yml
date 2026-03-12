@@ -1,13 +1,38 @@
-name: build-release
+name: build-and-release
 
 on:
   push:
     tags:
       - "v*"
-  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
+  validate_tag_on_main:
+    runs-on: ubuntu-latest
+    outputs:
+      is_on_main: ${{ steps.verify.outputs.is_on_main }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Verify tagged commit is on main
+        id: verify
+        shell: bash
+        run: |
+          git fetch origin main --depth=1
+          if git merge-base --is-ancestor "$GITHUB_SHA" "origin/main"; then
+            echo "is_on_main=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Tag does not point to a commit on main; skipping release."
+            echo "is_on_main=false" >> "$GITHUB_OUTPUT"
+          fi
+
   build:
+    needs: validate_tag_on_main
+    if: needs.validate_tag_on_main.outputs.is_on_main == 'true'
     strategy:
       fail-fast: false
       matrix:
@@ -16,8 +41,6 @@ jobs:
             target: x86_64-unknown-linux-gnu
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-          - os: macos-latest
-            target: x86_64-apple-darwin
           - os: macos-latest
             target: aarch64-apple-darwin
 
@@ -30,18 +53,44 @@ jobs:
         with:
           targets: ${{ matrix.target }}
 
-      - name: Build server binary
-        working-directory: server
-        shell: bash
-        run: cargo build --release --target "${{ matrix.target }}"
-
-      - name: Package artifacts
+      - name: Build and package server artifact
         shell: bash
         run: |
-          SKIP_SERVER_BUILD=1 scripts/build_release.sh "$(cat VERSION)" "${{ matrix.target }}"
+          scripts/build_release.sh "$(cat VERSION)" "${{ matrix.target }}"
 
-      - name: Upload server artifact
+      - name: Verify packaged artifact
+        shell: bash
+        run: |
+          scripts/verify_artifacts.sh "$(cat VERSION)" "${{ matrix.target }}"
+
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: quiztik-server-${{ matrix.target }}
           path: dist/quiztik-server-${{ matrix.target }}-*.zip
+
+  release:
+    needs: [validate_tag_on_main, build]
+    if: needs.validate_tag_on_main.outputs.is_on_main == 'true'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download all built artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: release-artifacts
+
+      - name: Flatten artifacts
+        shell: bash
+        run: |
+          mkdir -p release-files
+          find release-artifacts -type f -name "*.zip" -exec cp {} release-files/ \;
+          ls -la release-files
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          files: release-files/*.zip
+          generate_release_notes: true
