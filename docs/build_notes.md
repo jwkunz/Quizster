@@ -237,3 +237,17 @@
   - None specific to this milestone.
 - Next stage:
   - Single-page instruction overhaul with detailed power-up descriptions.
+
+## v1.2.0 - 2026-03-11
+- Completed:
+  - Replaced step-by-step tutorial with a single-page instruction panel.
+  - Added detailed power-up descriptions for all six power-ups.
+  - Kept simple `Continue` and `Skip` actions with tutorial-seen persistence behavior.
+- Build artifacts:
+  - `quiztik-server-local-v1.2.0.zip`
+- Test status:
+  - Build and artifact verification scripts pass.
+- Known issues:
+  - None specific to this milestone.
+- Next stage:
+  - Speed Searcher 60-second update and affected-player red push alerts.

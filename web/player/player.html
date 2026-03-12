@@ -130,6 +130,12 @@
       background: #0a0a0a;
     }
     .wizard-step { border-left: 3px solid var(--neon-lime); padding-left: 0.75rem; margin: 0.5rem 0; }
+    .guide-list {
+      margin: 0.4rem 0 0.6rem;
+      padding-left: 1.1rem;
+      line-height: 1.4;
+    }
+    .guide-list li { margin-bottom: 0.25rem; }
     .hidden { display: none; }
     .leader-item { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding: 0.35rem 0; }
     .event-log { max-height: 180px; overflow: auto; font-size: .88rem; color: #cde6f6; }
@@ -189,11 +195,28 @@
     </div>
 
     <div class="panel hidden" id="wizardPanel">
-      <h2>How to Play (Quick Wizard)</h2>
-      <div id="wizardContent"></div>
+      <h2>How to Play Quiztik</h2>
+      <div id="wizardContent">
+        <div class="wizard-step"><strong>Goal:</strong> Score the most points by answering questions correctly and quickly.</div>
+        <ul class="guide-list">
+          <li>Each round has one question and a countdown timer.</li>
+          <li>Correct answers earn base points plus speed bonus.</li>
+          <li>Incorrect answers earn zero points.</li>
+          <li>Round-end graphics will flash Correct/Incorrect for quick feedback.</li>
+          <li>Use your one-time power-ups strategically.</li>
+        </ul>
+        <div class="wizard-step"><strong>Power-ups (one use each per game):</strong></div>
+        <ul class="guide-list">
+          <li><strong>Mix Master:</strong> Scrambles displayed answer text/order for other players.</li>
+          <li><strong>Speed Searcher:</strong> Locks others out and gives you 60 seconds to answer.</li>
+          <li><strong>Double Downer:</strong> Doubles your score for the round if you answer correctly.</li>
+          <li><strong>Clone Commander:</strong> Copies the top round score to your round score.</li>
+          <li><strong>Super Spliter:</strong> Reduces choices to one correct and one incorrect option.</li>
+          <li><strong>Great Gambler:</strong> Multiplies round scores for answerers by a random factor (-1.0 to 3.0).</li>
+        </ul>
+      </div>
       <div class="row">
-        <button id="wizardPrev">Previous</button>
-        <button id="wizardNext">Next</button>
+        <button id="wizardNext">Continue</button>
         <button id="wizardSkip">Skip</button>
       </div>
     </div>
@@ -246,19 +269,10 @@
       { id: "great_gambler", label: "🎲 Great Gambler", image: "assets/images/Great_Gambler.png" }
     ];
 
-    const wizardSteps = [
-      "Join with room code + display name, then wait for the host to start.",
-      "Each question has a ticking timer. Submit before it reaches zero.",
-      "Correct answers earn base points plus a speed bonus.",
-      "You get 6 power-ups once per game. Tap any active one during a question.",
-      "Watch the feed for power-up activations and round results."
-    ];
-
     let ws;
     let state = null;
     let serverUrl = window.location.origin || "http://localhost:8080";
     let playerId = null;
-    let wizardIndex = 0;
     let mixedMode = false;
     let resultFlashTimer = null;
 
@@ -268,13 +282,6 @@
       node.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
       el("events").prepend(node);
     };
-
-    function renderWizard() {
-      const content = el("wizardContent");
-      content.innerHTML = `<div class="wizard-step">Step ${wizardIndex + 1}/${wizardSteps.length}: ${wizardSteps[wizardIndex]}</div>`;
-      el("wizardPrev").disabled = wizardIndex === 0;
-      el("wizardNext").textContent = wizardIndex === wizardSteps.length - 1 ? "Finish" : "Next";
-    }
 
     async function refreshServerUrl() {
       const manual = el("serverUrl")?.value?.trim();
@@ -455,7 +462,6 @@
 
         if (!(state?.you?.tutorial_seen)) {
           el("wizardPanel").classList.remove("hidden");
-          renderWizard();
         }
       } catch (e) {
         el("joinStatus").textContent = `Join error: ${e.message}`;
@@ -464,16 +470,10 @@
 
     el("joinBtn").onclick = joinGame;
     el("serverUrl").onchange = () => { serverUrl = el("serverUrl").value.trim(); };
-    el("openTutorialBtn").onclick = () => { el("wizardPanel").classList.remove("hidden"); renderWizard(); };
-    el("wizardPrev").onclick = () => { wizardIndex = Math.max(0, wizardIndex - 1); renderWizard(); };
+    el("openTutorialBtn").onclick = () => { el("wizardPanel").classList.remove("hidden"); };
     el("wizardNext").onclick = () => {
-      if (wizardIndex < wizardSteps.length - 1) {
-        wizardIndex += 1;
-        renderWizard();
-      } else {
-        el("wizardPanel").classList.add("hidden");
-        ws?.send(JSON.stringify({ action: "tutorial_seen", tutorial_seen: true }));
-      }
+      el("wizardPanel").classList.add("hidden");
+      ws?.send(JSON.stringify({ action: "tutorial_seen", tutorial_seen: true }));
     };
     el("wizardSkip").onclick = () => {
       el("wizardPanel").classList.add("hidden");
