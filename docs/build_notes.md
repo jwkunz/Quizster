@@ -267,3 +267,22 @@
   - None specific to this milestone.
 - Next stage:
   - Backend question bank selection API with persisted selection state.
+
+## v1.4.0 - 2026-03-11
+- Completed:
+  - Added backend question-bank file selection APIs:
+    - `GET /api/admin/question_banks`
+    - `POST /api/admin/question_banks/selection`
+  - Added persisted selected-bank-file state in runtime data (`selected_bank_files.json`).
+  - Introduced separate manual question pool vs file-bank question pool.
+  - Added effective pool rebuild and future-round reflow logic so mid-game bank updates apply from next round onward.
+  - Set first-run file-bank selection default to all-off.
+- Build artifacts:
+  - `quiztik-server-local-v1.4.0.zip`
+- Test status:
+  - `cargo check` passes.
+  - Build and artifact verification scripts pass.
+- Known issues:
+  - Admin UI for selecting banks is pending next milestone.
+- Next stage:
+  - Admin bank selector checklist UI and live controls.

@@ -129,6 +129,9 @@ struct GameState {
     admin_id: Option<String>,
     status: GameStatus,
     players: HashMap<String, PlayerState>,
+    manual_questions: Vec<Question>,
+    file_question_banks: HashMap<String, Vec<Question>>,
+    selected_bank_files: HashSet<String>,
     questions: Vec<Question>,
     shuffled_question_ids: Vec<String>,
     total_rounds: usize,
@@ -137,18 +140,83 @@ struct GameState {
 }
 
 impl GameState {
-    fn new(questions: Vec<Question>) -> Self {
-        Self {
+    fn new(
+        manual_questions: Vec<Question>,
+        file_question_banks: HashMap<String, Vec<Question>>,
+        selected_bank_files: HashSet<String>,
+    ) -> Self {
+        let mut game = Self {
             room_code: DEFAULT_ROOM_CODE.to_string(),
             admin_passcode: DEFAULT_ADMIN_PASSCODE.to_string(),
             admin_id: None,
             status: GameStatus::Lobby,
             players: HashMap::new(),
-            questions,
+            manual_questions,
+            file_question_banks,
+            selected_bank_files,
+            questions: Vec::new(),
             shuffled_question_ids: Vec::new(),
             total_rounds: 10,
             current_round: None,
             completed_rounds: 0,
+        };
+        game.rebuild_effective_question_pool();
+        game
+    }
+
+    fn rebuild_effective_question_pool(&mut self) {
+        let mut effective = self.manual_questions.clone();
+        let mut selected_files: Vec<String> = self.selected_bank_files.iter().cloned().collect();
+        selected_files.sort();
+        for file in selected_files {
+            if let Some(questions) = self.file_question_banks.get(&file) {
+                effective.extend(questions.clone());
+            }
+        }
+        self.questions = effective;
+        if self.questions.is_empty() {
+            self.total_rounds = 0;
+        } else if self.total_rounds == 0 {
+            self.total_rounds = 1;
+        } else {
+            self.total_rounds = self.total_rounds.min(self.questions.len());
+        }
+    }
+
+    fn available_bank_files(&self) -> Vec<String> {
+        let mut files: Vec<String> = self.file_question_banks.keys().cloned().collect();
+        files.sort();
+        files
+    }
+
+    fn reflow_future_rounds_after_pool_change(&mut self) {
+        let mut preserved_ids: Vec<String> = self
+            .shuffled_question_ids
+            .iter()
+            .take(self.completed_rounds)
+            .cloned()
+            .collect();
+
+        if let Some(current) = &self.current_round {
+            preserved_ids.push(current.question.id.clone());
+        }
+
+        let preserved_set: HashSet<String> = preserved_ids.iter().cloned().collect();
+        let mut remaining_ids: Vec<String> = self
+            .questions
+            .iter()
+            .map(|q| q.id.clone())
+            .filter(|id| !preserved_set.contains(id))
+            .collect();
+        remaining_ids.shuffle(&mut rand::thread_rng());
+        preserved_ids.extend(remaining_ids);
+        self.shuffled_question_ids = preserved_ids;
+
+        if self.questions.is_empty() {
+            self.total_rounds = 0;
+        } else {
+            let min_rounds = self.completed_rounds + usize::from(self.current_round.is_some());
+            self.total_rounds = self.total_rounds.max(min_rounds).min(self.questions.len());
         }
     }
 
@@ -214,6 +282,12 @@ struct StartGameRequest {
 }
 
 #[derive(Deserialize)]
+struct SetBankSelectionRequest {
+    admin_id: String,
+    selected_files: Vec<String>,
+}
+
+#[derive(Deserialize)]
 struct WsClientMessage {
     action: String,
     choice_index: Option<usize>,
@@ -259,10 +333,16 @@ async fn main() {
     let runtime_root = runtime_root_dir();
     let data_dir = runtime_root.join("data");
     let _ = fs::create_dir_all(&data_dir);
-    let questions = load_questions(&data_dir);
+    let manual_questions = load_manual_questions(&data_dir);
+    let file_question_banks = load_file_question_banks(&runtime_root);
+    let selected_bank_files = load_selected_bank_files(&data_dir);
 
     let state = AppState {
-        game: Arc::new(Mutex::new(GameState::new(questions))),
+        game: Arc::new(Mutex::new(GameState::new(
+            manual_questions,
+            file_question_banks,
+            selected_bank_files,
+        ))),
         clients: Arc::new(Mutex::new(HashMap::new())),
         data_dir: Arc::new(data_dir),
         player_join_url: Arc::new(player_join_url),
@@ -284,6 +364,8 @@ async fn main() {
         .route("/api/join", post(join_room))
         .route("/api/admin/questions/add", post(add_question))
         .route("/api/admin/questions/import", post(import_questions))
+        .route("/api/admin/question_banks", get(get_question_banks))
+        .route("/api/admin/question_banks/selection", post(set_question_bank_selection))
         .route("/api/admin/start", post(start_game))
         .route("/api/state/:client_id", get(get_state))
         .route("/ws/:client_id", get(ws_handler))
@@ -448,8 +530,10 @@ async fn add_question(
 
     {
         let mut game = state.game.lock().await;
-        game.questions.push(question.clone());
-        save_questions(&state.data_dir, &game.questions);
+        game.manual_questions.push(question.clone());
+        save_manual_questions(&state.data_dir, &game.manual_questions);
+        game.rebuild_effective_question_pool();
+        game.reflow_future_rounds_after_pool_change();
     }
 
     broadcast_state(&state).await;
@@ -487,15 +571,57 @@ async fn import_questions(
             .collect();
 
         if req.merge.unwrap_or(false) {
-            game.questions.extend(imported);
+            game.manual_questions.extend(imported);
         } else {
-            game.questions = imported;
+            game.manual_questions = imported;
         }
-        save_questions(&state.data_dir, &game.questions);
+        save_manual_questions(&state.data_dir, &game.manual_questions);
+        game.rebuild_effective_question_pool();
+        game.reflow_future_rounds_after_pool_change();
     }
 
     broadcast_state(&state).await;
     (axum::http::StatusCode::OK, Json(json!({"ok": true})))
+}
+
+async fn get_question_banks(State(state): State<AppState>) -> Json<Value> {
+    let game = state.game.lock().await;
+    let mut selected: Vec<String> = game.selected_bank_files.iter().cloned().collect();
+    selected.sort();
+    Json(json!({
+        "available_files": game.available_bank_files(),
+        "selected_files": selected,
+        "effective_question_count": game.questions.len(),
+    }))
+}
+
+async fn set_question_bank_selection(
+    State(state): State<AppState>,
+    Json(req): Json<SetBankSelectionRequest>,
+) -> impl IntoResponse {
+    if !is_admin(&state, &req.admin_id).await {
+        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
+    }
+
+    {
+        let mut game = state.game.lock().await;
+        let available: HashSet<String> = game.available_bank_files().into_iter().collect();
+        let selected: HashSet<String> = req
+            .selected_files
+            .into_iter()
+            .filter(|name| available.contains(name))
+            .collect();
+        game.selected_bank_files = selected;
+        save_selected_bank_files(&state.data_dir, &game.selected_bank_files);
+        game.rebuild_effective_question_pool();
+        game.reflow_future_rounds_after_pool_change();
+    }
+
+    broadcast_state(&state).await;
+    (
+        axum::http::StatusCode::OK,
+        Json(json!({"ok": true})),
+    )
 }
 
 async fn start_game(
@@ -1050,28 +1176,13 @@ async fn is_admin(state: &AppState, client_id: &str) -> bool {
     game.admin_id.as_deref() == Some(client_id)
 }
 
-fn load_questions(data_dir: &PathBuf) -> Vec<Question> {
-    // Always rebuild the active runtime bank from assets on startup.
-    // data/questions.json is treated as persisted runtime output, not the source of truth.
-    let runtime_root = data_dir
-        .parent()
-        .map(FsPath::to_path_buf)
-        .unwrap_or_else(|| PathBuf::from("."));
-    let asset_questions = load_asset_question_banks(&runtime_root);
-    if !asset_questions.is_empty() {
-        save_questions(data_dir, &asset_questions);
-        return asset_questions;
-    }
-
+fn load_manual_questions(data_dir: &PathBuf) -> Vec<Question> {
     let file = data_dir.join("questions.json");
     if let Ok(raw) = fs::read_to_string(&file) {
         if let Ok(questions) = serde_json::from_str::<Vec<Question>>(&raw) {
-            if !questions.is_empty() {
-                return questions;
-            }
+            return questions;
         }
     }
-
     let defaults = vec![
         Question {
             id: Uuid::new_v4().to_string(),
@@ -1090,14 +1201,14 @@ fn load_questions(data_dir: &PathBuf) -> Vec<Question> {
             image_url: None,
         },
     ];
-    save_questions(data_dir, &defaults);
+    save_manual_questions(data_dir, &defaults);
     defaults
 }
 
-fn load_asset_question_banks(runtime_root: &FsPath) -> Vec<Question> {
+fn load_file_question_banks(runtime_root: &FsPath) -> HashMap<String, Vec<Question>> {
     let dir = runtime_root.join("assets/questions");
     if !dir.exists() {
-        return Vec::new();
+        return HashMap::new();
     }
 
     let mut files: Vec<PathBuf> = match fs::read_dir(&dir) {
@@ -1105,13 +1216,17 @@ fn load_asset_question_banks(runtime_root: &FsPath) -> Vec<Question> {
             .filter_map(|entry| entry.ok().map(|e| e.path()))
             .filter(|p| p.extension().map(|ext| ext == "json").unwrap_or(false))
             .collect(),
-        Err(_) => return Vec::new(),
+        Err(_) => return HashMap::new(),
     };
 
     files.sort();
 
-    let mut merged = Vec::new();
+    let mut bank_map: HashMap<String, Vec<Question>> = HashMap::new();
     for file in files {
+        let file_name = file
+            .file_name()
+            .map(|n| n.to_string_lossy().to_string())
+            .unwrap_or_else(|| "unknown.json".to_string());
         let raw = match fs::read_to_string(&file) {
             Ok(raw) => raw,
             Err(err) => {
@@ -1139,17 +1254,42 @@ fn load_asset_question_banks(runtime_root: &FsPath) -> Vec<Question> {
                 );
                 continue;
             }
-            merged.push(question);
+            bank_map.entry(file_name.clone()).or_default().push(question);
         }
     }
 
-    if !merged.is_empty() {
-        tracing::info!("Loaded {} questions from assets/questions/*.json", merged.len());
+    if !bank_map.is_empty() {
+        let count: usize = bank_map.values().map(|v| v.len()).sum();
+        tracing::info!(
+            "Loaded {} questions across {} files from assets/questions/*.json",
+            count,
+            bank_map.len()
+        );
     }
-    merged
+    bank_map
 }
 
-fn save_questions(data_dir: &PathBuf, questions: &[Question]) {
+fn load_selected_bank_files(data_dir: &PathBuf) -> HashSet<String> {
+    let path = data_dir.join("selected_bank_files.json");
+    if let Ok(raw) = fs::read_to_string(path) {
+        if let Ok(files) = serde_json::from_str::<Vec<String>>(&raw) {
+            return files.into_iter().collect();
+        }
+    }
+    HashSet::new()
+}
+
+fn save_selected_bank_files(data_dir: &PathBuf, selected_files: &HashSet<String>) {
+    let _ = fs::create_dir_all(data_dir);
+    let path = data_dir.join("selected_bank_files.json");
+    let mut files: Vec<String> = selected_files.iter().cloned().collect();
+    files.sort();
+    if let Ok(serialized) = serde_json::to_string_pretty(&files) {
+        let _ = fs::write(path, serialized);
+    }
+}
+
+fn save_manual_questions(data_dir: &PathBuf, questions: &[Question]) {
     let _ = fs::create_dir_all(data_dir);
     let path = data_dir.join("questions.json");
     if let Ok(serialized) = serde_json::to_string_pretty(questions) {
