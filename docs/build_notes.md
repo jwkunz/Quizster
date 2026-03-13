@@ -408,3 +408,19 @@
   - Legacy manual question storage still uses per-question records internally and defaults missing categories to `Generic`.
 - Next stage:
   - Optional release build and additional category-management polish.
+
+## v2.3.0 - 2026-03-12
+- Completed:
+  - Added admin support for manual or automatic question issue flow.
+  - Added `Enable Automatic Question Issue` with configurable seconds between questions.
+  - Renamed admin `Force Next Round` action to `Issue Question`.
+  - Implemented server-side delayed round start after round results when automatic issue is enabled.
+  - Updated README and admin help text to explain manual question issue versus automatic timed issue.
+- Build artifacts:
+  - Not run for this milestone.
+- Test status:
+  - `cargo check` passes.
+- Known issues:
+  - Automatic issue uses a simple server-side timer and does not currently display a separate admin countdown between rounds.
+- Next stage:
+  - Consolidated admin game settings and additional rule toggles.

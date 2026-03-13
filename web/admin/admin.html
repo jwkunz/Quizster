@@ -225,8 +225,15 @@
       <p class="status" id="bankSummary"></p>
       <p class="status warning" id="bankWarning"></p>
       <div class="row">
+        <label class="field-label">
+          <span><input id="autoIssueEnabled" type="checkbox" /> Enable Automatic Question Issue</span>
+        </label>
+        <label class="field-label">
+          Seconds Between Questions
+          <input id="autoIssueDelay" type="number" min="1" max="300" value="10" style="max-width:110px" />
+        </label>
         <button id="startGameBtn">Start Game</button>
-        <button id="nextRoundBtn">Force Next Round</button>
+        <button id="nextRoundBtn">Issue Question</button>
       </div>
       <p class="status" id="gameState">Waiting for state...</p>
     </div>
@@ -243,6 +250,7 @@
           <div class="wizard-step">Step 2: Restart the Quizter server so it reloads the available pack files.</div>
           <div class="wizard-step">Step 3: Open <strong>Current Question Pool Filter</strong>, expand a discovered category, and add or remove whole groups of files or individual packs.</div>
           <div class="wizard-step">Step 4: Confirm the status line shows the expected counts for available questions and questions in play.</div>
+          <div class="wizard-step">Round issue mode: leave <strong>Enable Automatic Question Issue</strong> off to use the manual <strong>Issue Question</strong> button, or turn it on and set the number of seconds between automatically issued questions.</div>
           <div class="wizard-step">If a pack has no root <code>"category"</code>, Quizter will place it under <strong>Generic</strong>.</div>
           <p class="status">Tip: an easy way to generate question packs is to ask an LLM such as ChatGPT with this prompt:</p>
           <div class="copy-prompt">Please generate { } questions about { } using the JSON format provided in this example:
@@ -307,6 +315,11 @@
       line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
       el("feed").prepend(line);
     };
+
+    function syncAutoIssueControls() {
+      const enabled = el("autoIssueEnabled").checked;
+      el("autoIssueDelay").disabled = !enabled;
+    }
 
     async function refreshServerInfo() {
       try {
@@ -427,6 +440,9 @@
             const s = msg.payload;
             latestQuestionCount = Number(s.questions_in_play || s.questions_available || 0);
             latestAvailableCount = Number(s.available_questions || latestAvailableCount);
+            el("autoIssueEnabled").checked = Boolean(s.auto_issue_enabled);
+            el("autoIssueDelay").value = Number(s.auto_issue_delay_secs || 10);
+            syncAutoIssueControls();
             updateGameStateStatus(`Status: ${s.status} | Round ${s.completed_rounds}/${s.total_rounds} | Players: ${s.leaderboard.length}`);
             const lb = el("leaderboard");
             lb.innerHTML = "";
@@ -464,6 +480,9 @@
       const data = await res.json();
       latestQuestionCount = Number(data.questions_in_play || data.questions_available || 0);
       latestAvailableCount = Number(data.available_questions || latestAvailableCount);
+      el("autoIssueEnabled").checked = Boolean(data.auto_issue_enabled);
+      el("autoIssueDelay").value = Number(data.auto_issue_delay_secs || 10);
+      syncAutoIssueControls();
       updateGameStateStatus();
       el("authStatus").textContent = `Room ready: ${data.room_code}`;
     }
@@ -514,6 +533,23 @@
     el("loginBtn").onclick = login;
     el("startGameBtn").onclick = startGame;
     el("nextRoundBtn").onclick = () => ws?.send(JSON.stringify({ action: "admin_next_round" }));
+    el("autoIssueEnabled").onchange = () => {
+      syncAutoIssueControls();
+      ws?.send(JSON.stringify({
+        action: "admin_set_auto_issue",
+        auto_issue_enabled: el("autoIssueEnabled").checked,
+        auto_issue_delay_secs: Number(el("autoIssueDelay").value || "10")
+      }));
+    };
+    el("autoIssueDelay").onchange = () => {
+      const value = Math.max(1, Math.min(300, Number(el("autoIssueDelay").value || "10")));
+      el("autoIssueDelay").value = value;
+      ws?.send(JSON.stringify({
+        action: "admin_set_auto_issue",
+        auto_issue_enabled: el("autoIssueEnabled").checked,
+        auto_issue_delay_secs: value
+      }));
+    };
     el("addAllBanksBtn").onclick = async () => {
       selectedBanks = new Set(availableBanks);
       renderBankList();
@@ -540,6 +576,7 @@
       }
     };
     refreshServerInfo();
+    syncAutoIssueControls();
   </script>
 </body>
 </html>

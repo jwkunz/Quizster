@@ -148,6 +148,8 @@ struct GameState {
     admin_passcode: String,
     admin_id: Option<String>,
     status: GameStatus,
+    auto_issue_enabled: bool,
+    auto_issue_delay_secs: u64,
     players: HashMap<String, PlayerState>,
     manual_questions: Vec<Question>,
     file_question_banks: HashMap<String, Vec<Question>>,
@@ -170,6 +172,8 @@ impl GameState {
             admin_passcode: DEFAULT_ADMIN_PASSCODE.to_string(),
             admin_id: None,
             status: GameStatus::Lobby,
+            auto_issue_enabled: false,
+            auto_issue_delay_secs: 10,
             players: HashMap::new(),
             manual_questions,
             file_question_banks,
@@ -319,6 +323,8 @@ impl GameState {
 struct CreateRoomRequest {
     admin_passcode: Option<String>,
     total_rounds: Option<usize>,
+    auto_issue_enabled: Option<bool>,
+    auto_issue_delay_secs: Option<u64>,
 }
 
 #[derive(Deserialize)]
@@ -375,6 +381,8 @@ struct WsClientMessage {
     choice_index: Option<usize>,
     powerup: Option<PowerUp>,
     tutorial_seen: Option<bool>,
+    auto_issue_enabled: Option<bool>,
+    auto_issue_delay_secs: Option<u64>,
 }
 
 #[derive(Serialize)]
@@ -542,13 +550,21 @@ async fn create_room(
             rounds.max(1).min(game.questions.len())
         };
     }
+    if let Some(enabled) = req.auto_issue_enabled {
+        game.auto_issue_enabled = enabled;
+    }
+    if let Some(delay) = req.auto_issue_delay_secs {
+        game.auto_issue_delay_secs = delay.clamp(1, 300);
+    }
 
     Json(json!({
         "room_code": game.room_code,
         "total_rounds": game.total_rounds,
         "questions_available": game.questions.len(),
         "questions_in_play": game.questions.len(),
-        "available_questions": game.total_available_questions()
+        "available_questions": game.total_available_questions(),
+        "auto_issue_enabled": game.auto_issue_enabled,
+        "auto_issue_delay_secs": game.auto_issue_delay_secs
     }))
 }
 
@@ -937,6 +953,19 @@ async fn handle_client_action(state: &AppState, client_id: &str, msg: WsClientMe
                 start_next_round(state.clone()).await;
             }
         }
+        "admin_set_auto_issue" => {
+            if is_admin(state, client_id).await {
+                let mut game = state.game.lock().await;
+                if let Some(enabled) = msg.auto_issue_enabled {
+                    game.auto_issue_enabled = enabled;
+                }
+                if let Some(delay) = msg.auto_issue_delay_secs {
+                    game.auto_issue_delay_secs = delay.clamp(1, 300);
+                }
+                drop(game);
+                broadcast_state(state).await;
+            }
+        }
         _ => {}
     }
 }
@@ -1135,6 +1164,12 @@ async fn start_next_round(state: AppState) {
     let mut queued_activations = Vec::new();
     {
         let mut game = state.game.lock().await;
+        if game.status == GameStatus::InRound || game.status == GameStatus::Ended {
+            return;
+        }
+        if game.current_round.is_some() {
+            return;
+        }
         if game.completed_rounds >= game.total_rounds || game.questions.is_empty() {
             should_end_game = true;
         } else {
@@ -1249,9 +1284,26 @@ async fn spawn_round_timer(state: AppState) {
     });
 }
 
+fn spawn_auto_issue_timer(state: AppState, delay_secs: u64) {
+    tokio::spawn(async move {
+        tokio::time::sleep(Duration::from_secs(delay_secs)).await;
+        let should_issue = {
+            let game = state.game.lock().await;
+            game.status == GameStatus::RoundResult
+                && game.current_round.is_none()
+                && game.auto_issue_enabled
+        };
+        if should_issue {
+            start_next_round(state.clone()).await;
+        }
+    });
+}
+
 async fn finalize_round(state: AppState) {
     let result_payload;
     let end_game;
+    let auto_issue_enabled;
+    let auto_issue_delay_secs;
 
     {
         let mut game = state.game.lock().await;
@@ -1332,6 +1384,8 @@ async fn finalize_round(state: AppState) {
         });
 
         end_game = game.completed_rounds >= game.total_rounds;
+        auto_issue_enabled = game.auto_issue_enabled;
+        auto_issue_delay_secs = game.auto_issue_delay_secs;
     }
 
     broadcast_json(&state, json!({"event": "round_result", "payload": result_payload})).await;
@@ -1348,6 +1402,8 @@ async fn finalize_round(state: AppState) {
         append_history(&state.data_dir, history);
         drop(game);
         broadcast_state(&state).await;
+    } else if auto_issue_enabled {
+        spawn_auto_issue_timer(state.clone(), auto_issue_delay_secs);
     }
 }
 
@@ -1413,6 +1469,8 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
         "role": role,
         "total_rounds": game.total_rounds,
         "completed_rounds": game.completed_rounds,
+        "auto_issue_enabled": game.auto_issue_enabled,
+        "auto_issue_delay_secs": game.auto_issue_delay_secs,
         "questions_available": game.questions.len(),
         "questions_in_play": game.questions.len(),
         "available_questions": game.total_available_questions(),
@@ -1536,19 +1594,17 @@ fn load_file_question_banks(runtime_root: &FsPath) -> HashMap<String, Vec<Questi
     bank_map
 }
 
-fn load_selected_bank_files(data_dir: &PathBuf) -> HashSet<String> {
-    let path = data_dir.join("selected_bank_files.json");
-    if let Ok(raw) = fs::read_to_string(path) {
-        if let Ok(files) = serde_json::from_str::<Vec<String>>(&raw) {
-            return files.into_iter().collect();
-        }
-    }
+fn load_selected_bank_files(_data_dir: &PathBuf) -> HashSet<String> {
     HashSet::new()
 }
 
 fn save_selected_bank_files(data_dir: &PathBuf, selected_files: &HashSet<String>) {
-    let _ = fs::create_dir_all(data_dir);
     let path = data_dir.join("selected_bank_files.json");
+    if selected_files.is_empty() {
+        let _ = fs::remove_file(path);
+        return;
+    }
+    let _ = fs::create_dir_all(data_dir);
     let mut files: Vec<String> = selected_files.iter().cloned().collect();
     files.sort();
     if let Ok(serialized) = serde_json::to_string_pretty(&files) {

@@ -76,8 +76,11 @@ After opening admin page:
    - Expand categories to add or clear whole groups of files at once, or select individual packs.
    - Changes during a game apply from the next round onward.
 6. Place JSON pack files in `assets/questions/`, restart the server if needed, then apply the filter.
-7. Click **Start Game**.
-8. Watch player join activity and leaderboard live.
+7. Choose how rounds should be issued:
+   - Leave **Enable Automatic Question Issue** off to use the manual **Issue Question** button.
+   - Turn **Enable Automatic Question Issue** on to have Quizter automatically issue the next question after the configured number of seconds.
+8. Click **Start Game**.
+9. Watch player join activity, issue questions manually or automatically, and monitor the live leaderboard.
 
 ## Player Experience
 
@@ -103,8 +106,7 @@ File-bank behavior:
 
 - File-bank list is read from `assets/questions/*.json`.
 - The admin filter groups pack files into a dynamic category tree based on the categories found in those JSON packs.
-- Bank file selection is persisted on the server.
-- Default first-run bank selection is all-off.
+- Bank file selection starts all-off every time the server boots.
 - Effective playable pool = selected file-bank questions.
 
 Question pack format:
