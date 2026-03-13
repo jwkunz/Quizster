@@ -201,25 +201,15 @@
     <div class="split hidden" id="adminSplit">
       <div>
         <div class="panel">
-          <h2>Guided Question Builder</h2>
-          <div class="wizard-step">Step 1: Enter question prompt and optional image URL.</div>
-          <textarea id="qPrompt" placeholder="Question prompt"></textarea>
-          <input id="qImage" placeholder="Optional image URL" style="width:100%; margin-top:.5rem" />
-          <div class="wizard-step">Step 2: Fill all 4 answer choices and pick the correct one.</div>
-          <input id="opt0" placeholder="Option 1" style="width:100%; margin-top:.35rem" />
-          <input id="opt1" placeholder="Option 2" style="width:100%; margin-top:.35rem" />
-          <input id="opt2" placeholder="Option 3" style="width:100%; margin-top:.35rem" />
-          <input id="opt3" placeholder="Option 4" style="width:100%; margin-top:.35rem" />
-          <div class="row" style="margin-top:.5rem">
-            <label>Correct index <input id="correctIndex" type="number" min="0" max="3" value="0" style="max-width:90px" /></label>
-            <label>Points <input id="points" type="number" min="10" step="10" value="100" style="max-width:110px" /></label>
-            <button id="addQuestionBtn">Add Question</button>
-          </div>
-          <p class="status" id="questionStatus"></p>
-        </div>
-
-        <div class="panel">
-          <h2>Import JSON Question Pack</h2>
+          <h2>Question Pack Setup</h2>
+          <p class="status">
+            The easiest setup is to place JSON question packs directly into <code>assets/questions/</code> on the server package.
+            Each pack must use the <code>.json</code> extension so Quizter can load it into the filter list.
+          </p>
+          <div class="wizard-step">Step 1: Create or copy one or more JSON pack files into <code>assets/questions/</code>.</div>
+          <div class="wizard-step">Step 2: Restart the Quizter server so it reloads the available pack files.</div>
+          <div class="wizard-step">Step 3: Open <strong>Current Question Pool Filter</strong>, check the banks you want, then click <strong>Apply Filter</strong>.</div>
+          <div class="wizard-step">Step 4: Confirm the status line shows the expected counts for available questions and questions in play.</div>
           <p class="status">Tip: an easy way to generate question packs is to ask an LLM such as ChatGPT with this prompt:</p>
           <div class="copy-prompt">Please generate { } questions about { } using the JSON format provided in this example: 
   {
@@ -235,11 +225,6 @@
     "points": 100,
     "image_url": null
   },</div>
-          <textarea id="importJson" placeholder='[{"prompt":"...","options":["a","b","c","d"],"correct_index":0,"points":100}]'></textarea>
-          <div class="row" style="margin-top:.5rem">
-            <button id="importBtn">Import Pack As...</button>
-            <button id="exportCurrentPackBtn">Export Current Bank as Pack</button>
-          </div>
         </div>
       </div>
 
@@ -453,87 +438,10 @@
       }
     }
 
-    async function addQuestion() {
-      const payload = {
-        admin_id: adminId,
-        prompt: el("qPrompt").value.trim(),
-        options: [el("opt0").value.trim(), el("opt1").value.trim(), el("opt2").value.trim(), el("opt3").value.trim()],
-        correct_index: Number(el("correctIndex").value),
-        points: Number(el("points").value),
-        image_url: el("qImage").value.trim() || null
-      };
-      const res = await fetch(`${serverUrl}/api/admin/questions/add`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
-      el("questionStatus").textContent = res.ok ? "Question added." : "Question add failed.";
-    }
-
-    async function importPack() {
-      try {
-        const questions = JSON.parse(el("importJson").value);
-        const mode = window.prompt(
-          "Import Pack As...\nType 'merge' to add to current bank in play.\nType 'filter' to add as a selectable file bank.",
-          "merge"
-        );
-        if (!mode) return;
-        const normalized = mode.trim().toLowerCase();
-        if (normalized === "merge") {
-          const res = await fetch(`${serverUrl}/api/admin/questions/import`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ admin_id: adminId, questions, merge: true })
-          });
-          feed(res.ok ? "Merged question pack into current bank in play." : "Import failed.");
-        } else if (normalized === "filter") {
-          const bankName = window.prompt("Name for this selectable bank file:", "imported_pack");
-          const res = await fetch(`${serverUrl}/api/admin/questions/import_bank`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ admin_id: adminId, questions, bank_name: bankName || "imported_pack" })
-          });
-          if (res.ok) {
-            const data = await res.json().catch(() => ({}));
-            feed(`Imported pack as selectable bank: ${data.bank_file || "imported_pack.json"}.`);
-            await loadBanks();
-          } else {
-            feed("Import as selectable bank failed.");
-          }
-        } else {
-          feed("Import canceled. Use 'merge' or 'filter'.");
-        }
-      } catch {
-        feed("Invalid JSON pack.");
-      }
-    }
-
-    async function exportCurrentPack() {
-      if (!adminId) return;
-      const res = await fetch(`${serverUrl}/api/admin/questions/current_pack?admin_id=${encodeURIComponent(adminId)}`);
-      if (!res.ok) {
-        feed("Export failed.");
-        return;
-      }
-      const payload = await res.text();
-      const blob = new Blob([payload], { type: "application/json" });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "quizter-current-bank-pack.json";
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-      URL.revokeObjectURL(link.href);
-      feed("Exported current bank pack.");
-    }
-
     el("createRoomBtn").onclick = createRoom;
     el("loginBtn").onclick = login;
     el("startGameBtn").onclick = startGame;
     el("nextRoundBtn").onclick = () => ws?.send(JSON.stringify({ action: "admin_next_round" }));
-    el("addQuestionBtn").onclick = addQuestion;
-    el("importBtn").onclick = importPack;
-    el("exportCurrentPackBtn").onclick = exportCurrentPack;
     el("addAllBanksBtn").onclick = async () => {
       selectedBanks = new Set(availableBanks);
       renderBankList();
