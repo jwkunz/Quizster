@@ -1,0 +1,245 @@
+{
+  "category": "Literature",
+  "questions": [
+    {
+      "prompt": "Who is traditionally credited with writing the epic poems the Iliad and the Odyssey?",
+      "options": [
+        "Hesiod",
+        "Sophocles",
+        "Homer",
+        "Euripides"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Greek epic poem tells the story of Achilles and the Trojan War?",
+      "options": [
+        "The Odyssey",
+        "The Iliad",
+        "Theogony",
+        "Argonautica"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In the Odyssey, who is the king of Ithaca trying to return home after the Trojan War?",
+      "options": [
+        "Agamemnon",
+        "Odysseus",
+        "Menelaus",
+        "Ajax"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Greek poet wrote Theogony, a work describing the origins of the gods?",
+      "options": [
+        "Hesiod",
+        "Homer",
+        "Aeschylus",
+        "Pindar"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In Sophocles' tragedy Oedipus Rex, what terrible truth does Oedipus discover?",
+      "options": [
+        "He killed his brother",
+        "He is the son of Zeus",
+        "He killed his father and married his mother",
+        "He betrayed Athens"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which hero in Greek mythology performs twelve famous labors?",
+      "options": [
+        "Theseus",
+        "Perseus",
+        "Heracles",
+        "Jason"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who slays the Minotaur in the labyrinth according to Greek myth?",
+      "options": [
+        "Jason",
+        "Theseus",
+        "Perseus",
+        "Bellerophon"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which hero leads the Argonauts in search of the Golden Fleece?",
+      "options": [
+        "Jason",
+        "Achilles",
+        "Hector",
+        "Odysseus"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In the Odyssey, which enchantress turns Odysseus's men into pigs?",
+      "options": [
+        "Medea",
+        "Circe",
+        "Calypso",
+        "Hecate"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the name of the monster with many heads defeated by Heracles?",
+      "options": [
+        "Hydra",
+        "Chimera",
+        "Cerberus",
+        "Typhon"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which winged horse is associated with the hero Bellerophon?",
+      "options": [
+        "Pegasus",
+        "Arion",
+        "Xanthos",
+        "Skyros"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which tragic playwright wrote Medea?",
+      "options": [
+        "Sophocles",
+        "Euripides",
+        "Aeschylus",
+        "Aristophanes"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who is the Greek goddess of wisdom and strategic warfare?",
+      "options": [
+        "Hera",
+        "Athena",
+        "Artemis",
+        "Demeter"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which god rules the underworld in Greek mythology?",
+      "options": [
+        "Poseidon",
+        "Hades",
+        "Apollo",
+        "Hermes"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who is the queen of the underworld and wife of Hades?",
+      "options": [
+        "Persephone",
+        "Aphrodite",
+        "Hestia",
+        "Gaia"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which hero famously kills the Gorgon Medusa?",
+      "options": [
+        "Theseus",
+        "Perseus",
+        "Jason",
+        "Heracles"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Titan stole fire from the gods and gave it to humanity?",
+      "options": [
+        "Atlas",
+        "Prometheus",
+        "Cronus",
+        "Hyperion"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What creature guards the entrance to the Greek underworld?",
+      "options": [
+        "Hydra",
+        "Cerberus",
+        "Minotaur",
+        "Cyclops"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Greek hero attempts to rescue his wife Eurydice from the underworld?",
+      "options": [
+        "Orpheus",
+        "Achilles",
+        "Perseus",
+        "Ajax"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which goddess is associated with love and beauty in Greek mythology?",
+      "options": [
+        "Athena",
+        "Aphrodite",
+        "Demeter",
+        "Artemis"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

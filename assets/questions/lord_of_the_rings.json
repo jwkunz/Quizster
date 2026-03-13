@@ -1,0 +1,245 @@
+{
+  "category": "Literature",
+  "questions": [
+    {
+      "prompt": "What is the name of the hobbit who inherits the One Ring from Bilbo Baggins?",
+      "options": [
+        "Samwise Gamgee",
+        "Frodo Baggins",
+        "Meriadoc Brandybuck",
+        "Peregrin Took"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which wizard leads the Fellowship of the Ring at the beginning of their journey?",
+      "options": [
+        "Saruman",
+        "Radagast",
+        "Gandalf",
+        "Alatar"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the name of the dark lord who created the One Ring?",
+      "options": [
+        "Morgoth",
+        "Sauron",
+        "Saruman",
+        "The Witch-king"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which mountain must the One Ring be destroyed in?",
+      "options": [
+        "Mount Gundabad",
+        "Mount Doom",
+        "Caradhras",
+        "Mount Gram"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What creature follows Frodo and Sam while seeking to reclaim the Ring?",
+      "options": [
+        "Shelob",
+        "Gollum",
+        "Smaug",
+        "Azog"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which kingdom does Aragorn eventually become king of?",
+      "options": [
+        "Rohan",
+        "Gondor",
+        "Dale",
+        "Harad"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the name of Aragorn’s sword that was reforged from the shards of Narsil?",
+      "options": [
+        "Glamdring",
+        "Andúril",
+        "Orcrist",
+        "Herugrim"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which elf from Rivendell is a member of the Fellowship?",
+      "options": [
+        "Elrond",
+        "Legolas",
+        "Thranduil",
+        "Glorfindel"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which dwarf accompanies the Fellowship?",
+      "options": [
+        "Balin",
+        "Dwalin",
+        "Gimli",
+        "Thorin"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the name of the giant spider that attacks Frodo in Mordor?",
+      "options": [
+        "Ungoliant",
+        "Shelob",
+        "Aragog",
+        "Arachne"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which two hobbits are captured by the Uruk-hai and later meet Treebeard?",
+      "options": [
+        "Frodo and Sam",
+        "Merry and Pippin",
+        "Frodo and Merry",
+        "Sam and Pippin"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What ancient forest shepherd race aids Merry and Pippin?",
+      "options": [
+        "Ents",
+        "Dúnedain",
+        "Maiar",
+        "Istari"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which fortress is Saruman’s stronghold?",
+      "options": [
+        "Barad-dûr",
+        "Orthanc",
+        "Minas Tirith",
+        "Dol Guldur"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who carries Frodo up the slopes of Mount Doom when he can no longer walk?",
+      "options": [
+        "Aragorn",
+        "Gollum",
+        "Samwise Gamgee",
+        "Legolas"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the name of the city of the kings of Gondor?",
+      "options": [
+        "Minas Tirith",
+        "Osgiliath",
+        "Edoras",
+        "Pelargir"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Rohirrim king rides into the Battle of the Pelennor Fields?",
+      "options": [
+        "Théoden",
+        "Théodred",
+        "Denethor",
+        "Eomer"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who kills the Witch-king of Angmar during the Battle of the Pelennor Fields?",
+      "options": [
+        "Aragorn",
+        "Éowyn",
+        "Legolas",
+        "Gimli"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the homeland of the hobbits called?",
+      "options": [
+        "The Vale",
+        "The Shire",
+        "Bree",
+        "Eriador"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which steward of Gondor rules before Aragorn becomes king?",
+      "options": [
+        "Boromir",
+        "Denethor",
+        "Faramir",
+        "Imrahil"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What event ultimately destroys the One Ring?",
+      "options": [
+        "It is shattered by Aragorn",
+        "It is lost in the sea",
+        "It falls into the fires of Mount Doom",
+        "It is sealed in Rivendell"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}
