@@ -4,6 +4,14 @@ Quizter is a local-network (LAN) multiplayer quiz game.
 
 One person (the admin/host) runs the server on their computer. Everyone else joins from their phone or computer browser by scanning a QR code or opening a URL.
 
+![Quizter Logo](assets/images/Quizter_logo.png)
+
+**Software Version:** `v2.7.0`
+
+Copyright 2026 Numerius Engineering LLC.  
+Distributed under the terms of the MIT License  
+Contact numerius.engineering@gmail.com for support
+
 ## New to GitHub? How to Download Quizter
 
 If you have never used GitHub before, follow these exact steps:
@@ -43,10 +51,12 @@ No separate player or admin app download is needed.
    - macOS/Linux: double-click `quizter-server` (or run from terminal)
 5. Your browser should open automatically to the admin page.
 6. In admin page:
-   - create/update room
-   - login as admin
-   - select question bank files (if desired)
-   - start game
+   - open the **Lobby** tab to create/update room and login as admin
+   - open the **Game Settings** tab to set match rules
+   - open the **Question Pool** tab to select question bank files
+   - open the **Game Monitor** tab to watch the leaderboard and live feed
+   - open the **Help** tab for setup instructions, question-pack guidance, and artwork
+   - start game from the **Question Pool** tab
 7. Ask players to scan the **Player Join QR** shown at top of admin page.
 8. Players open on phones and join with room code + display name.
 
@@ -71,7 +81,7 @@ After opening admin page:
    - game settings in the **Game Settings** panel
 3. Click **Create/Update Room**.
 4. Click **Admin Login**.
-5. Optional: choose question banks in **Current Question Pool Filter**.
+5. Optional: choose question banks in **Question Pool Selection** on the **Question Pool** tab.
    - Default is all bank files off.
    - The server builds category groups dynamically from the pack files it finds.
    - Expand categories to add or clear whole groups of files at once, or check individual packs.

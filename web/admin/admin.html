@@ -53,6 +53,28 @@
     h1 { margin: 0 0 .5rem; color: var(--neon-gold); text-shadow: 0 0 10px #ff8f00aa; }
     h2 { margin: .1rem 0 .7rem; color: var(--neon-cyan); }
     .row { display: flex; gap: .55rem; flex-wrap: wrap; }
+    .tab-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .tab-btn {
+      padding: 0.7rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid #2d565b;
+      background: #0c1114;
+      color: var(--text);
+      font-weight: bold;
+    }
+    .tab-btn.active {
+      border-color: var(--neon-gold);
+      background: linear-gradient(135deg, #201000, #102025);
+      color: var(--neon-gold);
+      box-shadow: 0 0 16px #ff8f0040;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
     input, textarea, button {
       background: #0e0e0e;
       color: var(--text);
@@ -250,103 +272,230 @@
       .qr-panel { grid-template-columns: 1fr; }
       .qr-panel img { margin: 0 auto; }
     }
+    .splash-panel {
+      text-align: center;
+      padding: 2rem 1.25rem;
+    }
+    .splash-panel .brand {
+      justify-content: center;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .legal-box {
+      max-width: 720px;
+      margin: 1rem auto 0;
+      padding: 1rem 1.1rem;
+      border-radius: 14px;
+      border: 1px solid #2c4348;
+      background: linear-gradient(135deg, #101010, #0d1719);
+      white-space: pre-line;
+      color: #cce7f1;
+      line-height: 1.5;
+    }
+    .version-badge {
+      display: inline-block;
+      margin-top: 0.8rem;
+      padding: 0.3rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid #3a3a3a;
+      color: var(--neon-cyan);
+      background: #0b1214;
+      font-size: 0.9rem;
+    }
+    .prose {
+      line-height: 1.55;
+      color: #d9ebf6;
+    }
+    .prose h3 {
+      margin: 1rem 0 0.45rem;
+      color: var(--neon-gold);
+    }
+    .prose ul,
+    .prose ol {
+      margin: 0.35rem 0 0.8rem 1.25rem;
+    }
+    .prose li {
+      margin-bottom: 0.3rem;
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="panel" id="authPanel">
-      <div class="brand">
-        <img class="brand-logo" src="assets/images/Quizter_logo.png" alt="Quizter logo" />
-        <h1>Quizter Admin Console</h1>
+    <div class="tab-bar" role="tablist" aria-label="Admin Console Tabs">
+      <button class="tab-btn active" data-tab-target="welcomeTab">Welcome</button>
+      <button class="tab-btn" data-tab-target="lobbyTab">Lobby</button>
+      <button class="tab-btn" data-tab-target="settingsTab">Game Settings</button>
+      <button class="tab-btn" data-tab-target="questionPoolTab">Question Pool</button>
+      <button class="tab-btn" data-tab-target="gameMonitorTab">Game Monitor</button>
+      <button class="tab-btn" data-tab-target="helpTab">Help</button>
+    </div>
+
+    <section class="tab-panel active" id="welcomeTab">
+      <div class="panel splash-panel">
+        <div class="brand">
+          <img class="brand-logo" src="assets/images/Quizter_logo.png" alt="Quizter logo" />
+          <div>
+            <h1>Quizter Admin Console</h1>
+            <div class="status">LAN quiz hosting for players, admins, and spectators in one browser-based package.</div>
+            <div class="version-badge">Software Version: v2.7.0</div>
+          </div>
+        </div>
+        <div class="legal-box">Copyright 2026 Numerius Engineering LLC.
+Distributed under the terms of the MIT License
+Contact numerius.engineering@gmail.com for support</div>
       </div>
-      <div class="qr-panel">
-        <img id="joinQr" alt="Player join QR code" />
+    </section>
+
+    <section class="tab-panel" id="lobbyTab">
+      <div class="panel" id="authPanel">
+        <div class="brand">
+          <img class="brand-logo" src="assets/images/Quizter_logo.png" alt="Quizter logo" />
+          <h1>Lobby Setup</h1>
+        </div>
+        <div class="qr-panel">
+          <img id="joinQr" alt="Player join QR code" />
+          <div>
+            <h2 style="margin-top:0;">Player Join QR</h2>
+            <div class="status">Players can scan this code to open the hosted player page directly.</div>
+            <div class="row" style="margin-top:.5rem;">
+              <input id="joinUrl" readonly style="min-width:280px; width:100%;" />
+              <button id="copyJoinUrlBtn">Copy URL</button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <label class="field-label">Server URL <input id="serverUrl" style="min-width:260px" /></label>
+          <label class="field-label">Room Code <input id="roomCode" value="QUIZTER" placeholder="Room code" /></label>
+          <label class="field-label">Admin Passcode <input id="passcode" value="quizter-admin" placeholder="Admin passcode" /></label>
+          <label class="field-label">Rounds <input id="rounds" type="number" min="1" value="10" style="max-width:110px" /></label>
+          <button id="createRoomBtn">Create/Update Room</button>
+          <button id="loginBtn">Admin Login</button>
+        </div>
+        <p class="status" id="authStatus">Create room then login.</p>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="settingsTab">
+      <div class="panel" id="settingsPanel">
+        <h2>Game Settings</h2>
+        <div class="settings-grid">
+          <div class="settings-head">Option</div>
+          <div class="settings-head">Value</div>
+          <div class="settings-head">Description</div>
+
+          <div class="settings-cell settings-option">Enable response speed bonus to player's score</div>
+          <div class="settings-cell settings-value"><input id="speedBonusEnabled" type="checkbox" checked /></div>
+          <div class="settings-cell settings-desc">If enabled, faster correct answers earn extra points.</div>
+
+          <div class="settings-cell settings-option">Hide player scores until end of game</div>
+          <div class="settings-cell settings-value"><input id="hideScoresUntilEnd" type="checkbox" /></div>
+          <div class="settings-cell settings-desc">Players will not see leaderboard scores until the game ends.</div>
+
+          <div class="settings-cell settings-option">Enable power ups</div>
+          <div class="settings-cell settings-value"><input id="powerupsEnabled" type="checkbox" checked /></div>
+          <div class="settings-cell settings-desc">If disabled, players cannot activate or queue power ups.</div>
+
+          <div class="settings-cell settings-option">Seconds allowed for responses</div>
+          <div class="settings-cell settings-value"><input id="responseSeconds" type="number" min="1" max="300" value="15" /></div>
+          <div class="settings-cell settings-desc">Base answer timer for normal rounds.</div>
+
+          <div class="settings-cell settings-option">Enable automatic timed question issue</div>
+          <div class="settings-cell settings-value"><input id="autoIssueEnabled" type="checkbox" checked /></div>
+          <div class="settings-cell settings-desc">If enabled, Quizter automatically issues the next question after the selected delay.</div>
+
+          <div class="settings-cell settings-option">Seconds between automatic question issue</div>
+          <div class="settings-cell settings-value"><input id="autoIssueDelay" type="number" min="1" max="300" value="15" /></div>
+          <div class="settings-cell settings-desc">Delay after round results before the next question is issued automatically.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="questionPoolTab">
+      <div class="panel hidden" id="mainPanel">
+        <h2>Question Pool Selection</h2>
+        <div class="row" style="margin-bottom:.5rem;">
+          <button id="addAllBanksBtn">Add All Banks</button>
+          <button id="clearAllBanksBtn">Clear All Banks</button>
+        </div>
+        <div id="bankList" class="bank-list"></div>
+        <p class="status" id="bankSummary"></p>
+        <p class="status warning" id="bankWarning"></p>
+        <div class="row">
+          <button id="startGameBtn">Start Game</button>
+          <button id="nextRoundBtn">Issue Question</button>
+        </div>
+        <p class="status" id="gameState">Waiting for state...</p>
+      </div>
+      <div class="panel" id="questionPoolLocked">
+        <h2>Question Pool Selection</h2>
+        <p class="status">Admin login is required before you can manage the active question pool.</p>
+      </div>
+    </section>
+
+    <section class="tab-panel" id="gameMonitorTab">
+      <div class="split hidden" id="adminSplit">
         <div>
-          <h2 style="margin-top:0;">Player Join QR</h2>
-          <div class="status">Players can scan this code to open the hosted player page directly.</div>
-          <div class="row" style="margin-top:.5rem;">
-            <input id="joinUrl" readonly style="min-width:280px; width:100%;" />
-            <button id="copyJoinUrlBtn">Copy URL</button>
+          <div class="panel">
+            <h2>Live Feed</h2>
+            <div id="feed" class="status"></div>
+          </div>
+        </div>
+        <div>
+          <div class="panel">
+            <h2>Leaderboard</h2>
+            <div id="leaderboard"></div>
           </div>
         </div>
       </div>
-      <div class="row">
-        <label class="field-label">Server URL <input id="serverUrl" style="min-width:260px" /></label>
-        <label class="field-label">Room Code <input id="roomCode" value="QUIZTER" placeholder="Room code" /></label>
-        <label class="field-label">Admin Passcode <input id="passcode" value="quizter-admin" placeholder="Admin passcode" /></label>
-        <label class="field-label">Rounds <input id="rounds" type="number" min="1" value="10" style="max-width:110px" /></label>
-        <button id="createRoomBtn">Create/Update Room</button>
-        <button id="loginBtn">Admin Login</button>
+      <div class="panel" id="gameMonitorLocked">
+        <h2>Game Monitor</h2>
+        <p class="status">Admin login is required before live game monitoring is available.</p>
       </div>
-      <p class="status" id="authStatus">Create room then login.</p>
-    </div>
+    </section>
 
-    <div class="panel" id="settingsPanel">
-      <h2>Game Settings</h2>
-      <div class="settings-grid">
-        <div class="settings-head">Option</div>
-        <div class="settings-head">Value</div>
-        <div class="settings-head">Description</div>
+    <section class="tab-panel" id="helpTab">
+      <div class="split">
+        <div>
+          <div class="panel prose">
+            <h2>Admin Help</h2>
+            <h3>Quick Start</h3>
+            <ol>
+              <li>Go to the <strong>Lobby</strong> tab and confirm Server URL, Room Code, Admin Passcode, and Rounds.</li>
+              <li>Click <strong>Create/Update Room</strong>.</li>
+              <li>Click <strong>Admin Login</strong>.</li>
+              <li>Open <strong>Game Settings</strong> to configure the match rules.</li>
+              <li>Open <strong>Question Pool</strong> to choose which packs are in play.</li>
+              <li>Start the game and use <strong>Issue Question</strong> if automatic issue is disabled.</li>
+            </ol>
 
-        <div class="settings-cell settings-option">Enable response speed bonus to player's score</div>
-        <div class="settings-cell settings-value"><input id="speedBonusEnabled" type="checkbox" checked /></div>
-        <div class="settings-cell settings-desc">If enabled, faster correct answers earn extra points.</div>
+            <h3>Question Pack Setup</h3>
+            <p>The easiest setup is to place JSON question packs directly into <code>assets/questions/</code> on the server package. Each pack must use the <code>.json</code> extension. You can optionally define a single root <code>"category"</code> that applies to the whole pack.</p>
+            <div class="wizard-step">Step 1: Create or copy one or more JSON pack files into <code>assets/questions/</code>.</div>
+            <div class="wizard-step">Step 2: Restart the Quizter server so it reloads the available pack files.</div>
+            <div class="wizard-step">Step 3: Open <strong>Question Pool Selection</strong>, expand a discovered category, and check the groups or individual packs you want in play.</div>
+            <div class="wizard-step">Step 4: Confirm the status line shows the expected counts for available questions and questions in play.</div>
+            <div class="wizard-step">Adjust all game rules in the <strong>Game Settings</strong> tab before creating or updating the room.</div>
+            <div class="wizard-step">Round issue mode: leave <strong>Enable Automatic Timed Question Issue</strong> off to use the manual <strong>Issue Question</strong> button, or turn it on and set the number of seconds between automatically issued questions.</div>
+            <div class="wizard-step">If a pack has no root <code>"category"</code>, Quizter will place it under <strong>Generic</strong>.</div>
 
-        <div class="settings-cell settings-option">Hide player scores until end of game</div>
-        <div class="settings-cell settings-value"><input id="hideScoresUntilEnd" type="checkbox" /></div>
-        <div class="settings-cell settings-desc">Players will not see leaderboard scores until the game ends.</div>
+            <h3>Question Pack Format</h3>
+            <div class="copy-prompt">{
+  "category": "History",
+  "questions": [
+    {
+      "prompt": "Question text",
+      "options": ["A", "B", "C", "D"],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}</div>
 
-        <div class="settings-cell settings-option">Enable power ups</div>
-        <div class="settings-cell settings-value"><input id="powerupsEnabled" type="checkbox" checked /></div>
-        <div class="settings-cell settings-desc">If disabled, players cannot activate or queue power ups.</div>
-
-        <div class="settings-cell settings-option">Seconds allowed for responses</div>
-        <div class="settings-cell settings-value"><input id="responseSeconds" type="number" min="1" max="300" value="15" /></div>
-        <div class="settings-cell settings-desc">Base answer timer for normal rounds.</div>
-
-        <div class="settings-cell settings-option">Enable automatic timed question issue</div>
-        <div class="settings-cell settings-value"><input id="autoIssueEnabled" type="checkbox" checked /></div>
-        <div class="settings-cell settings-desc">If enabled, Quizter automatically issues the next question after the selected delay.</div>
-
-        <div class="settings-cell settings-option">Seconds between automatic question issue</div>
-        <div class="settings-cell settings-value"><input id="autoIssueDelay" type="number" min="1" max="300" value="15" /></div>
-        <div class="settings-cell settings-desc">Delay after round results before the next question is issued automatically.</div>
-      </div>
-    </div>
-
-    <div class="panel hidden" id="mainPanel">
-      <h2>Current Question Pool Filter</h2>
-      <div class="row" style="margin-bottom:.5rem;">
-        <button id="addAllBanksBtn">Add All Banks</button>
-        <button id="clearAllBanksBtn">Clear All Banks</button>
-      </div>
-      <div id="bankList" class="bank-list"></div>
-      <p class="status" id="bankSummary"></p>
-      <p class="status warning" id="bankWarning"></p>
-      <div class="row">
-        <button id="startGameBtn">Start Game</button>
-        <button id="nextRoundBtn">Issue Question</button>
-      </div>
-      <p class="status" id="gameState">Waiting for state...</p>
-    </div>
-
-    <div class="split hidden" id="adminSplit">
-      <div>
-        <div class="panel">
-          <h2>Question Pack Setup</h2>
-          <p class="status">
-            The easiest setup is to place JSON question packs directly into <code>assets/questions/</code> on the server package.
-            Each pack must use the <code>.json</code> extension. You can optionally define a single root <code>"category"</code> that applies to the whole pack.
-          </p>
-          <div class="wizard-step">Step 1: Create or copy one or more JSON pack files into <code>assets/questions/</code>.</div>
-          <div class="wizard-step">Step 2: Restart the Quizter server so it reloads the available pack files.</div>
-          <div class="wizard-step">Step 3: Open <strong>Current Question Pool Filter</strong>, expand a discovered category, and check the groups or individual packs you want in play.</div>
-          <div class="wizard-step">Step 4: Confirm the status line shows the expected counts for available questions and questions in play.</div>
-          <div class="wizard-step">Adjust all game rules in the <strong>Game Settings</strong> panel before creating or updating the room.</div>
-          <div class="wizard-step">Round issue mode: leave <strong>Enable Automatic Timed Question Issue</strong> off to use the manual <strong>Issue Question</strong> button, or turn it on and set the number of seconds between automatically issued questions.</div>
-          <div class="wizard-step">If a pack has no root <code>"category"</code>, Quizter will place it under <strong>Generic</strong>.</div>
-          <p class="status">Tip: an easy way to generate question packs is to ask an LLM such as ChatGPT with this prompt:</p>
-          <div class="copy-prompt">Please generate { } questions about { } using the JSON format provided in this example:
+            <h3>LLM Question Generation Prompt</h3>
+            <p class="status">Tip: an easy way to generate question packs is to ask an LLM such as ChatGPT with this prompt:</p>
+            <div class="copy-prompt">Please generate { } questions about { } using the JSON format provided in this example:
 {
   "category": "History",
   "questions": [
@@ -364,31 +513,38 @@
     }
   ]
 }</div>
-        </div>
-      </div>
 
-      <div>
-        <div class="panel">
-          <h2>Leaderboard</h2>
-          <div id="leaderboard"></div>
+            <h3>Game Instructions</h3>
+            <ul>
+              <li>Players join from the QR code or join URL and answer timed questions in a browser.</li>
+              <li>The player view shows the category, timer, leaderboard, and round progress.</li>
+              <li>Correct and incorrect result graphics flash after each round, and incorrect flashes show the correct answer.</li>
+              <li>Power-ups can be enabled or disabled from the Game Settings tab.</li>
+            </ul>
+
+            <h3>Troubleshooting</h3>
+            <ul>
+              <li>If players cannot connect, confirm everyone is on the same local network and the firewall allows the server executable.</li>
+              <li>If the browser does not open automatically, manually visit <code>http://127.0.0.1:8080/admin</code> on the host machine.</li>
+              <li>If new question packs do not appear, restart the server after adding them to <code>assets/questions/</code>.</li>
+            </ul>
+          </div>
         </div>
-        <div class="panel">
-          <h2>Live Feed</h2>
-          <div id="feed" class="status"></div>
-        </div>
-        <div class="panel">
-          <h2>Power-Up Art</h2>
-          <div class="icon-grid">
-            <div class="icon-tile"><img src="assets/images/Mix_Master.png" alt="Mix Master" /><span>Mix Master</span></div>
-            <div class="icon-tile"><img src="assets/images/Speed_Searcher.png" alt="Speed Searcher" /><span>Speed Searcher</span></div>
-            <div class="icon-tile"><img src="assets/images/Double_Downer.png" alt="Double Downer" /><span>Double Downer</span></div>
-            <div class="icon-tile"><img src="assets/images/Clone_Commander.png" alt="Clone Commander" /><span>Clone Commander</span></div>
-            <div class="icon-tile"><img src="assets/images/Super_Splitter.png" alt="Super Spliter" /><span>Super Spliter</span></div>
-            <div class="icon-tile"><img src="assets/images/Great_Gambler.png" alt="Great Gambler" /><span>Great Gambler</span></div>
+        <div>
+          <div class="panel">
+            <h2>Power-Up Art</h2>
+            <div class="icon-grid">
+              <div class="icon-tile"><img src="assets/images/Mix_Master.png" alt="Mix Master" /><span>Mix Master</span></div>
+              <div class="icon-tile"><img src="assets/images/Speed_Searcher.png" alt="Speed Searcher" /><span>Speed Searcher</span></div>
+              <div class="icon-tile"><img src="assets/images/Double_Downer.png" alt="Double Downer" /><span>Double Downer</span></div>
+              <div class="icon-tile"><img src="assets/images/Clone_Commander.png" alt="Clone Commander" /><span>Clone Commander</span></div>
+              <div class="icon-tile"><img src="assets/images/Super_Splitter.png" alt="Super Spliter" /><span>Super Spliter</span></div>
+              <div class="icon-tile"><img src="assets/images/Great_Gambler.png" alt="Great Gambler" /><span>Great Gambler</span></div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   </div>
 
   <script>
@@ -407,6 +563,15 @@
       line.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
       el("feed").prepend(line);
     };
+
+    function activateTab(tabId) {
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.tabTarget === tabId);
+      });
+      document.querySelectorAll(".tab-panel").forEach((panel) => {
+        panel.classList.toggle("active", panel.id === tabId);
+      });
+    }
 
     function syncAutoIssueControls() {
       const enabled = el("autoIssueEnabled").checked;
@@ -627,9 +792,12 @@
       adminId = data.admin_id;
       el("authStatus").textContent = "Admin logged in";
       el("mainPanel").classList.remove("hidden");
+      el("questionPoolLocked").classList.add("hidden");
       el("adminSplit").classList.remove("hidden");
+      el("gameMonitorLocked").classList.add("hidden");
       connectWs();
       loadBanks();
+      activateTab("questionPoolTab");
     }
 
     async function startGame() {
@@ -681,6 +849,9 @@
         feed("Could not copy URL; copy manually from the field.");
       }
     };
+    document.querySelectorAll(".tab-btn").forEach((btn) => {
+      btn.onclick = () => activateTab(btn.dataset.tabTarget);
+    });
     refreshServerInfo();
     applySettingsToControls(currentSettingsPayload());
   </script>

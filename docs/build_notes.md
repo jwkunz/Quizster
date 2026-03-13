@@ -480,3 +480,22 @@
   - Additional local question-pack edits remain outside this milestone.
 - Next stage:
   - Optional build, question-pack updates, and further gameplay polish.
+
+## v2.7.0 - 2026-03-12
+- Completed:
+  - Reorganized the admin console into six top-level tabs: `Welcome`, `Lobby`, `Game Settings`, `Question Pool`, `Game Monitor`, and `Help`.
+  - Added a Welcome splash screen with logo, software version, and legal/support text.
+  - Moved room setup, QR code, and admin login into the Lobby tab.
+  - Moved game rules into the Game Settings tab.
+  - Renamed `Current Question Pool Filter` to `Question Pool Selection` and placed it in the Question Pool tab.
+  - Moved live feed and leaderboard into the Game Monitor tab.
+  - Added a Help tab containing setup steps, question-pack instructions, game guidance, troubleshooting notes, LLM prompt guidance, and artwork.
+  - Updated the README to mirror the welcome/legal content and new admin tab structure.
+- Build artifacts:
+  - Not run for this milestone.
+- Test status:
+  - `cargo check` passes.
+- Known issues:
+  - Additional local question-pack edits remain outside this milestone.
+- Next stage:
+  - Optional build, question-pack updates, and further admin polish.
