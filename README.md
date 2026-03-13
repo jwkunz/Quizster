@@ -1,6 +1,6 @@
 # Quizter
 
-Quizter is a local-network (LAN) multiplayer quiz game.
+Quizter is a local-network (LAN) multiplayer quiz game with power ups and customizable questions.  Great fun for groups large or small!
 
 One person (the admin/host) runs the server on their computer. Everyone else joins from their phone or computer browser by scanning a QR code or opening a URL.
 
