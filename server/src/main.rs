@@ -957,6 +957,11 @@ fn apply_powerup_to_current_round(
     client_id: &str,
     powerup: PowerUp,
 ) -> Option<Value> {
+    let player_name = game
+        .players
+        .get(client_id)
+        .map(|p| p.name.clone())
+        .unwrap_or_else(|| client_id.to_string());
     let connected_other_players: Vec<String> = game
         .players
         .values()
@@ -1024,6 +1029,7 @@ fn apply_powerup_to_current_round(
         "event": "powerup_activated",
         "payload": {
             "player_id": client_id,
+            "player_name": player_name,
             "powerup": powerup,
             "details": powerup_payload,
             "affected_players": affected_players,

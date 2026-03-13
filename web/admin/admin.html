@@ -368,7 +368,8 @@
             el("startGameBtn").disabled = latestQuestionCount === 0;
           }
           if (msg.event === "powerup_activated") {
-            feed(`${msg.payload.player_id} used ${msg.payload.powerup}`);
+            const actor = msg.payload.player_name || msg.payload.player_id;
+            feed(`${actor} used ${msg.payload.powerup}`);
           }
           if (msg.event === "round_result") {
             feed(`Round ${msg.payload.round_number} complete.`);

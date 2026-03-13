@@ -450,7 +450,8 @@
           } else if (msg.event === "powerup_activated") {
             const p = msg.payload;
             mixedMode = p.powerup === "mix_master" ? true : mixedMode;
-            log(`${p.player_id} activated ${p.powerup}`);
+            const actor = p.player_name || p.player_id;
+            log(`${actor} activated ${p.powerup}`);
             if ((p.affected_players || []).includes(playerId)) {
               const banner = el("impactAlert");
               banner.textContent = p.alert_message || `${p.powerup} is affecting you this round.`;
