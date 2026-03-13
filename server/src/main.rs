@@ -148,6 +148,10 @@ struct GameState {
     admin_passcode: String,
     admin_id: Option<String>,
     status: GameStatus,
+    speed_bonus_enabled: bool,
+    hide_scores_until_end: bool,
+    powerups_enabled: bool,
+    response_seconds: u64,
     auto_issue_enabled: bool,
     auto_issue_delay_secs: u64,
     players: HashMap<String, PlayerState>,
@@ -172,8 +176,12 @@ impl GameState {
             admin_passcode: DEFAULT_ADMIN_PASSCODE.to_string(),
             admin_id: None,
             status: GameStatus::Lobby,
-            auto_issue_enabled: false,
-            auto_issue_delay_secs: 10,
+            speed_bonus_enabled: true,
+            hide_scores_until_end: false,
+            powerups_enabled: true,
+            response_seconds: 15,
+            auto_issue_enabled: true,
+            auto_issue_delay_secs: 15,
             players: HashMap::new(),
             manual_questions,
             file_question_banks,
@@ -323,6 +331,10 @@ impl GameState {
 struct CreateRoomRequest {
     admin_passcode: Option<String>,
     total_rounds: Option<usize>,
+    speed_bonus_enabled: Option<bool>,
+    hide_scores_until_end: Option<bool>,
+    powerups_enabled: Option<bool>,
+    response_seconds: Option<u64>,
     auto_issue_enabled: Option<bool>,
     auto_issue_delay_secs: Option<u64>,
 }
@@ -381,6 +393,10 @@ struct WsClientMessage {
     choice_index: Option<usize>,
     powerup: Option<PowerUp>,
     tutorial_seen: Option<bool>,
+    speed_bonus_enabled: Option<bool>,
+    hide_scores_until_end: Option<bool>,
+    powerups_enabled: Option<bool>,
+    response_seconds: Option<u64>,
     auto_issue_enabled: Option<bool>,
     auto_issue_delay_secs: Option<u64>,
 }
@@ -550,6 +566,18 @@ async fn create_room(
             rounds.max(1).min(game.questions.len())
         };
     }
+    if let Some(enabled) = req.speed_bonus_enabled {
+        game.speed_bonus_enabled = enabled;
+    }
+    if let Some(hidden) = req.hide_scores_until_end {
+        game.hide_scores_until_end = hidden;
+    }
+    if let Some(enabled) = req.powerups_enabled {
+        game.powerups_enabled = enabled;
+    }
+    if let Some(seconds) = req.response_seconds {
+        game.response_seconds = seconds.clamp(1, 300);
+    }
     if let Some(enabled) = req.auto_issue_enabled {
         game.auto_issue_enabled = enabled;
     }
@@ -563,6 +591,10 @@ async fn create_room(
         "questions_available": game.questions.len(),
         "questions_in_play": game.questions.len(),
         "available_questions": game.total_available_questions(),
+        "speed_bonus_enabled": game.speed_bonus_enabled,
+        "hide_scores_until_end": game.hide_scores_until_end,
+        "powerups_enabled": game.powerups_enabled,
+        "response_seconds": game.response_seconds,
         "auto_issue_enabled": game.auto_issue_enabled,
         "auto_issue_delay_secs": game.auto_issue_delay_secs
     }))
@@ -953,9 +985,21 @@ async fn handle_client_action(state: &AppState, client_id: &str, msg: WsClientMe
                 start_next_round(state.clone()).await;
             }
         }
-        "admin_set_auto_issue" => {
+        "admin_update_settings" => {
             if is_admin(state, client_id).await {
                 let mut game = state.game.lock().await;
+                if let Some(enabled) = msg.speed_bonus_enabled {
+                    game.speed_bonus_enabled = enabled;
+                }
+                if let Some(hidden) = msg.hide_scores_until_end {
+                    game.hide_scores_until_end = hidden;
+                }
+                if let Some(enabled) = msg.powerups_enabled {
+                    game.powerups_enabled = enabled;
+                }
+                if let Some(seconds) = msg.response_seconds {
+                    game.response_seconds = seconds.clamp(1, 300);
+                }
                 if let Some(enabled) = msg.auto_issue_enabled {
                     game.auto_issue_enabled = enabled;
                 }
@@ -1026,6 +1070,9 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
 
     {
         let mut game = state.game.lock().await;
+        if !game.powerups_enabled {
+            return;
+        }
         let status = game.status.clone();
         let player = match game.players.get_mut(client_id) {
             Some(p) => p,
@@ -1177,7 +1224,7 @@ async fn start_next_round(state: AppState) {
             if let Some(question_id) = next_id {
                 if let Some(question) = game.questions.iter().find(|q| q.id == question_id).cloned() {
                     let started_at = Instant::now();
-                    let deadline = started_at + Duration::from_secs(15);
+                    let deadline = started_at + Duration::from_secs(game.response_seconds);
                     let mut option_order = vec![0, 1, 2, 3];
                     option_order.shuffle(&mut rand::thread_rng());
                     game.current_round = Some(RoundState {
@@ -1185,7 +1232,7 @@ async fn start_next_round(state: AppState) {
                         question,
                         started_at,
                         deadline,
-                        answer_window_secs: 15,
+                        answer_window_secs: game.response_seconds,
                         answers: HashMap::new(),
                         speed_searcher_owner: None,
                         great_gambler_factor: None,
@@ -1304,6 +1351,7 @@ async fn finalize_round(state: AppState) {
     let end_game;
     let auto_issue_enabled;
     let auto_issue_delay_secs;
+    let speed_bonus_enabled;
 
     {
         let mut game = state.game.lock().await;
@@ -1315,6 +1363,7 @@ async fn finalize_round(state: AppState) {
             Some(r) => r,
             None => return,
         };
+        speed_bonus_enabled = game.speed_bonus_enabled;
 
         let mut round_scores: HashMap<String, f64> = HashMap::new();
         for player in game.players.values_mut() {
@@ -1330,6 +1379,7 @@ async fn finalize_round(state: AppState) {
                     elapsed_secs,
                     round.answer_window_secs as f64,
                     round.double_downers.contains(player_id),
+                    speed_bonus_enabled,
                 );
             }
             round_scores.insert(player_id.clone(), score);
@@ -1451,6 +1501,7 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
     } else {
         Role::Player
     };
+    let scores_hidden = matches!(role, Role::Player) && game.hide_scores_until_end && game.status != GameStatus::Ended;
 
     let your_state = game.players.get(client_id).map(|p| {
         json!({
@@ -1469,12 +1520,34 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
         "role": role,
         "total_rounds": game.total_rounds,
         "completed_rounds": game.completed_rounds,
+        "speed_bonus_enabled": game.speed_bonus_enabled,
+        "hide_scores_until_end": game.hide_scores_until_end,
+        "powerups_enabled": game.powerups_enabled,
+        "response_seconds": game.response_seconds,
         "auto_issue_enabled": game.auto_issue_enabled,
         "auto_issue_delay_secs": game.auto_issue_delay_secs,
+        "scores_hidden": scores_hidden,
         "questions_available": game.questions.len(),
         "questions_in_play": game.questions.len(),
         "available_questions": game.total_available_questions(),
-        "leaderboard": game.leaderboard(),
+        "leaderboard": if scores_hidden {
+            game.leaderboard()
+                .into_iter()
+                .map(|entry| {
+                    json!({
+                        "player_id": entry.player_id,
+                        "name": entry.name,
+                        "score": 0.0,
+                        "last_delta": 0.0
+                    })
+                })
+                .collect::<Vec<_>>()
+        } else {
+            game.leaderboard()
+                .into_iter()
+                .map(|entry| serde_json::to_value(entry).unwrap_or_else(|_| json!({})))
+                .collect::<Vec<_>>()
+        },
         "current_question": visible_question,
         "you": your_state,
     })
@@ -1723,9 +1796,19 @@ fn detect_lan_ip() -> Option<String> {
     Some(local.ip().to_string())
 }
 
-fn calculate_correct_score(points: u32, elapsed_secs: f64, total_secs: f64, doubled: bool) -> f64 {
+fn calculate_correct_score(
+    points: u32,
+    elapsed_secs: f64,
+    total_secs: f64,
+    doubled: bool,
+    speed_bonus_enabled: bool,
+) -> f64 {
     let speed_factor = ((total_secs - elapsed_secs) / total_secs).clamp(0.0, 1.0);
-    let speed_bonus = points as f64 * 0.5 * speed_factor;
+    let speed_bonus = if speed_bonus_enabled {
+        points as f64 * 0.5 * speed_factor
+    } else {
+        0.0
+    };
     let mut score = points as f64 + speed_bonus;
     if doubled {
         score *= 2.0;
@@ -1739,19 +1822,25 @@ mod tests {
 
     #[test]
     fn score_is_max_at_zero_elapsed() {
-        let score = calculate_correct_score(100, 0.0, 15.0, false);
+        let score = calculate_correct_score(100, 0.0, 15.0, false, true);
         assert!((score - 150.0).abs() < 0.0001);
     }
 
     #[test]
     fn score_is_base_at_timeout_boundary() {
-        let score = calculate_correct_score(100, 15.0, 15.0, false);
+        let score = calculate_correct_score(100, 15.0, 15.0, false, true);
         assert!((score - 100.0).abs() < 0.0001);
     }
 
     #[test]
     fn score_doubles_when_double_downer_is_active() {
-        let score = calculate_correct_score(100, 3.0, 15.0, true);
+        let score = calculate_correct_score(100, 3.0, 15.0, true, true);
         assert!(score > 200.0);
+    }
+
+    #[test]
+    fn score_has_no_speed_bonus_when_disabled() {
+        let score = calculate_correct_score(100, 0.0, 15.0, false, false);
+        assert!((score - 100.0).abs() < 0.0001);
     }
 }

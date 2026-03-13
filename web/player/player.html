@@ -249,10 +249,10 @@
         <div class="wizard-step"><strong>Goal:</strong> Score the most points by answering questions correctly and quickly.</div>
         <ul class="guide-list">
           <li>Each round has one question and a countdown timer.</li>
-          <li>Correct answers earn base points plus speed bonus.</li>
+          <li>Correct answers earn base points, and some games may also include a speed bonus.</li>
           <li>Incorrect answers earn zero points.</li>
           <li>Round-end graphics will flash Correct/Incorrect for quick feedback.</li>
-          <li>Use your one-time power-ups strategically.</li>
+          <li>Use your one-time power-ups strategically when the host has power-ups enabled.</li>
         </ul>
         <div class="wizard-step"><strong>Power-ups (one use each per game):</strong></div>
         <ul class="guide-list">
@@ -346,13 +346,18 @@
     function setPanelsJoined(isJoined) {
       el("joinPanel").classList.toggle("hidden", isJoined);
       el("gamePanel").classList.toggle("hidden", !isJoined);
-      el("powerupPanel").classList.toggle("hidden", !isJoined);
+      el("powerupPanel").classList.toggle("hidden", !isJoined || !state?.powerups_enabled);
       el("leaderboardPanel").classList.toggle("hidden", !isJoined);
       el("eventsPanel").classList.toggle("hidden", !isJoined);
       el("helpFooterWrap").classList.toggle("hidden", !isJoined);
     }
 
     function renderPowerups() {
+      if (!state?.powerups_enabled) {
+        el("powerupPanel").classList.add("hidden");
+        return;
+      }
+      el("powerupPanel").classList.remove("hidden");
       const used = new Set(state?.you?.used_powerups || []);
       const pending = state?.you?.pending_powerup || null;
       const wrap = el("powerups");
@@ -432,17 +437,22 @@
     function renderLeaderboard() {
       const lb = el("leaderboard");
       lb.innerHTML = "";
+      const scoresHidden = Boolean(state?.scores_hidden);
       (state?.leaderboard || []).forEach((p, idx) => {
         const line = document.createElement("div");
         line.className = "leader-item";
-        const delta = Number(p.last_delta || 0);
-        let ticker = "";
-        if (delta > 0) {
-          ticker = ` <span class="ticker-up">(+${delta.toFixed(2)})</span>`;
-        } else if (delta < 0) {
-          ticker = ` <span class="ticker-down">(${delta.toFixed(2)})</span>`;
+        let scoreMarkup = "Hidden";
+        if (!scoresHidden) {
+          const delta = Number(p.last_delta || 0);
+          let ticker = "";
+          if (delta > 0) {
+            ticker = ` <span class="ticker-up">(+${delta.toFixed(2)})</span>`;
+          } else if (delta < 0) {
+            ticker = ` <span class="ticker-down">(${delta.toFixed(2)})</span>`;
+          }
+          scoreMarkup = `${p.score.toFixed(2)}${ticker}`;
         }
-        line.innerHTML = `<span>${idx + 1}. ${p.name}</span><strong>${p.score.toFixed(2)}${ticker}</strong>`;
+        line.innerHTML = `<span>${idx + 1}. ${p.name}</span><strong>${scoreMarkup}</strong>`;
         lb.appendChild(line);
       });
     }

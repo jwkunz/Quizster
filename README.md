@@ -68,6 +68,7 @@ After opening admin page:
    - room code
    - admin passcode
    - number of rounds
+   - game settings in the **Game Settings** panel
 3. Click **Create/Update Room**.
 4. Click **Admin Login**.
 5. Optional: choose question banks in **Current Question Pool Filter**.
@@ -81,6 +82,27 @@ After opening admin page:
    - Turn **Enable Automatic Question Issue** on to have Quizter automatically issue the next question after the configured number of seconds.
 8. Click **Start Game**.
 9. Watch player join activity, issue questions manually or automatically, and monitor the live leaderboard.
+
+Game settings:
+
+- `Enable response speed bonus to player's score`
+  - Default: on
+  - Faster correct answers gain bonus points on top of base question points.
+- `Hide player scores until end of game`
+  - Default: off
+  - Player leaderboards show hidden scores until the game ends, while the admin can still monitor progress.
+- `Enable power ups`
+  - Default: on
+  - Disables all player power-up use when turned off.
+- `Seconds allowed for responses`
+  - Default: 15
+  - Sets the normal answer timer for each question.
+- `Enable automatic timed question issue`
+  - Default: on
+  - Automatically starts the next question after each round result.
+- `Seconds between automatic question issue`
+  - Default: 15
+  - Delay between one round result and the next question when automatic issue is enabled.
 
 ## Player Experience
 

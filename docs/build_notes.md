@@ -424,3 +424,28 @@
   - Automatic issue uses a simple server-side timer and does not currently display a separate admin countdown between rounds.
 - Next stage:
   - Consolidated admin game settings and additional rule toggles.
+
+## v2.4.0 - 2026-03-12
+- Completed:
+  - Consolidated gameplay controls into a dedicated admin `Game Settings` panel.
+  - Added configurable game settings:
+    - response speed bonus enable/disable
+    - hide player scores until end of game
+    - power-up enable/disable
+    - seconds allowed for responses
+    - automatic timed question issue enable/disable
+    - seconds between automatic question issue
+  - Updated server round handling to honor configurable response time and automatic issue delay.
+  - Updated scoring to optionally remove the response speed bonus while preserving base scoring.
+  - Updated player snapshots so score visibility can be hidden until game end for players only.
+  - Updated player UI to hide the power-up panel when power-ups are disabled.
+  - Updated README and admin help instructions to explain the consolidated settings and both question-issue flows.
+  - Changed bank selection startup behavior so no question packs are selected when the server boots.
+- Build artifacts:
+  - Not run for this milestone.
+- Test status:
+  - `cargo check` passes.
+- Known issues:
+  - Manual round issue remains available even when automatic issue is enabled, which allows an admin to issue the next question early if desired.
+- Next stage:
+  - Optional release build and more advanced admin orchestration polish.
