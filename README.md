@@ -74,9 +74,10 @@ After opening admin page:
 5. Optional: choose question banks in **Current Question Pool Filter**.
    - Default is all bank files off.
    - The server builds category groups dynamically from the pack files it finds.
-   - Expand categories to add or clear whole groups of files at once, or select individual packs.
+   - Expand categories to add or clear whole groups of files at once, or check individual packs.
+   - Changes take effect immediately from what is checked.
    - Changes during a game apply from the next round onward.
-6. Place JSON pack files in `assets/questions/`, restart the server if needed, then apply the filter.
+6. Place JSON pack files in `assets/questions/`, restart the server if needed, then check them in the filter.
 7. Choose how rounds should be issued:
    - Leave **Enable Automatic Question Issue** off to use the manual **Issue Question** button.
    - Turn **Enable Automatic Question Issue** on to have Quizter automatically issue the next question after the configured number of seconds.
@@ -110,9 +111,11 @@ Players open the hosted player page from QR/URL and can:
 
 - join by room code + name
 - answer timed questions
+- keep the live leaderboard at the top of the page
 - see each question's category while answering
 - use one-time power-ups
 - see a full instruction page with detailed power-up explanations
+- see a large centered power-up graphic flash when a power-up is activated
 - get red top alerts when other players trigger power-ups that affect them
 - see score updates and round progress
 
@@ -201,7 +204,8 @@ Then use the QR code at the top of admin page to let players join.
 
 ## Gameplay Notes
 
-- End-of-round result graphics flash full-screen for 1 second.
+- End-of-round result graphics flash full-screen for 2 seconds.
+- Incorrect or missed rounds show the correct answer during the result flash.
 - `Speed Searcher` now provides a 60-second exclusive answer window.
 - Affected-player power-up alerts appear as red push banners at top of player screen.
 

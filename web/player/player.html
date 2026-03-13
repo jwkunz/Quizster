@@ -113,7 +113,8 @@
       align-items: center;
       gap: 0.45rem;
       justify-content: flex-start;
-      min-height: 58px;
+      min-height: 46px;
+      padding: 0.45rem 0.55rem;
     }
     .power-label {
       display: flex;
@@ -126,8 +127,8 @@
       font-size: 0.78rem;
     }
     .power img {
-      width: min(168px, 28vw);
-      height: min(168px, 28vw);
+      width: min(56px, 12vw);
+      height: min(56px, 12vw);
       object-fit: contain;
       border-radius: 6px;
       border: 1px solid #2c2c2c;
@@ -207,6 +208,13 @@
       font-size: 1.2rem;
       font-weight: bold;
     }
+    .flash-subtext {
+      margin-top: 0.4rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.35;
+      max-width: min(420px, 70vw);
+    }
     .impact-alert {
       position: fixed;
       top: 0.8rem;
@@ -269,6 +277,11 @@
       </div>
     </div>
 
+    <div class="panel hidden" id="leaderboardPanel">
+      <h2>Leaderboard</h2>
+      <div id="leaderboard"></div>
+    </div>
+
     <div class="panel hidden" id="gamePanel">
       <h2 id="questionTitle">Waiting for round...</h2>
       <div class="category-chip hidden" id="questionCategory"></div>
@@ -291,11 +304,6 @@
       <div class="powerups" id="powerups"></div>
     </div>
 
-    <div class="panel hidden" id="leaderboardPanel">
-      <h2>Leaderboard</h2>
-      <div id="leaderboard"></div>
-    </div>
-
     <div class="panel hidden" id="eventsPanel">
       <h2>Game Feed</h2>
       <div id="events" class="event-log"></div>
@@ -307,7 +315,19 @@
   <div id="resultFlash" class="result-flash hidden">
     <div class="flash-card">
       <img id="resultFlashImage" alt="Round result graphic" />
-      <div class="flash-text" id="resultFlashText"></div>
+      <div>
+        <div class="flash-text" id="resultFlashText"></div>
+        <div class="flash-subtext" id="resultFlashSubtext"></div>
+      </div>
+    </div>
+  </div>
+  <div id="powerupFlash" class="result-flash hidden">
+    <div class="flash-card">
+      <img id="powerupFlashImage" alt="Power-up graphic" />
+      <div>
+        <div class="flash-text" id="powerupFlashText"></div>
+        <div class="flash-subtext" id="powerupFlashSubtext"></div>
+      </div>
     </div>
   </div>
   <div id="impactAlert" class="impact-alert hidden"></div>
@@ -328,6 +348,7 @@
     let playerId = null;
     let mixedMode = false;
     let resultFlashTimer = null;
+    let powerupFlashTimer = null;
     let impactAlertTimer = null;
 
     const el = (id) => document.getElementById(id);
@@ -336,6 +357,20 @@
       node.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
       el("events").prepend(node);
     };
+
+    function powerUpMeta(id) {
+      return powerUps.find((p) => p.id === id) || { id, label: id, image: "" };
+    }
+
+    function showPowerupFlash(powerupId, actor) {
+      const meta = powerUpMeta(powerupId);
+      el("powerupFlashImage").src = meta.image || "";
+      el("powerupFlashText").textContent = meta.label;
+      el("powerupFlashSubtext").textContent = actor ? `${actor} activated this power-up.` : "Power-up activated.";
+      el("powerupFlash").classList.remove("hidden");
+      if (powerupFlashTimer) clearTimeout(powerupFlashTimer);
+      powerupFlashTimer = setTimeout(() => el("powerupFlash").classList.add("hidden"), 2000);
+    }
 
     async function refreshServerUrl() {
       const manual = el("serverUrl")?.value?.trim();
@@ -479,6 +514,7 @@
             mixedMode = p.powerup === "mix_master" ? true : mixedMode;
             const actor = p.player_name || p.player_id;
             log(`${actor} activated ${p.powerup}`);
+            showPowerupFlash(p.powerup, actor);
             if ((p.affected_players || []).includes(playerId)) {
               const banner = el("impactAlert");
               banner.textContent = p.alert_message || `${p.powerup} is affecting you this round.`;
@@ -500,7 +536,11 @@
             const flash = el("resultFlash");
             const flashImage = el("resultFlashImage");
             const flashText = el("resultFlashText");
+            const flashSubtext = el("resultFlashSubtext");
+            const correctOption = state?.current_question?.options?.find((option) => option.index === msg.payload.correct_index);
+            const correctAnswerText = correctOption?.text || "Unavailable";
             feedback.classList.remove("hidden");
+            flashSubtext.textContent = "";
             if (myResult) {
               if (myResult.is_correct) {
                 resultImage.src = "assets/images/Celebrate_Correct.png";
@@ -509,15 +549,17 @@
                 flashText.textContent = "Correct!";
               } else {
                 resultImage.src = "assets/images/Dissappointed_Incorrect.png";
-                resultText.textContent = `Incorrect. +0 points this round.`;
+                resultText.textContent = `Incorrect. Correct answer: ${correctAnswerText}`;
                 flashImage.src = "assets/images/Dissappointed_Incorrect.png";
                 flashText.textContent = "Incorrect";
+                flashSubtext.textContent = `Correct answer: ${correctAnswerText}`;
               }
             } else {
               resultImage.src = "assets/images/Dissappointed_Incorrect.png";
-              resultText.textContent = "No answer submitted this round.";
+              resultText.textContent = `No answer submitted. Correct answer: ${correctAnswerText}`;
               flashImage.src = "assets/images/Dissappointed_Incorrect.png";
               flashText.textContent = "No Answer";
+              flashSubtext.textContent = `Correct answer: ${correctAnswerText}`;
             }
             flash.classList.remove("hidden");
             if (resultFlashTimer) clearTimeout(resultFlashTimer);

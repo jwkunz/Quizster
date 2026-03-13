@@ -319,7 +319,6 @@
       <div class="row" style="margin-bottom:.5rem;">
         <button id="addAllBanksBtn">Add All Banks</button>
         <button id="clearAllBanksBtn">Clear All Banks</button>
-        <button id="applyBanksBtn">Apply Filter</button>
       </div>
       <div id="bankList" class="bank-list"></div>
       <p class="status" id="bankSummary"></p>
@@ -341,7 +340,7 @@
           </p>
           <div class="wizard-step">Step 1: Create or copy one or more JSON pack files into <code>assets/questions/</code>.</div>
           <div class="wizard-step">Step 2: Restart the Quizter server so it reloads the available pack files.</div>
-          <div class="wizard-step">Step 3: Open <strong>Current Question Pool Filter</strong>, expand a discovered category, and add or remove whole groups of files or individual packs.</div>
+          <div class="wizard-step">Step 3: Open <strong>Current Question Pool Filter</strong>, expand a discovered category, and check the groups or individual packs you want in play.</div>
           <div class="wizard-step">Step 4: Confirm the status line shows the expected counts for available questions and questions in play.</div>
           <div class="wizard-step">Adjust all game rules in the <strong>Game Settings</strong> panel before creating or updating the room.</div>
           <div class="wizard-step">Round issue mode: leave <strong>Enable Automatic Timed Question Issue</strong> off to use the manual <strong>Issue Question</strong> button, or turn it on and set the number of seconds between automatically issued questions.</div>
@@ -401,7 +400,6 @@
     let availableBanks = [];
     let categoryTree = [];
     let selectedBanks = new Set();
-    let appliedBanks = new Set();
 
     const el = (id) => document.getElementById(id);
     const feed = (msg) => {
@@ -495,11 +493,10 @@
         list.appendChild(wrapper);
       });
       const selectedCount = [...selectedBanks].length;
-      const pendingChanges = JSON.stringify([...selectedBanks].sort()) !== JSON.stringify([...appliedBanks].sort());
-      el("bankSummary").textContent = `${selectedCount} bank(s) selected.${pendingChanges ? " Pending changes not applied." : ""}`;
+      el("bankSummary").textContent = `${selectedCount} bank(s) selected and currently in play.`;
       el("bankWarning").textContent = selectedCount === 0 ? "No bank files selected. File-based pool will be empty." : "";
       list.querySelectorAll("[data-category-action]").forEach((btn) => {
-        btn.onclick = () => {
+        btn.onclick = async () => {
           const targetCategory = categoryTree.find((entry) => entry.name === btn.getAttribute("data-category-name"));
           if (!targetCategory) return;
           const addAll = btn.getAttribute("data-category-action") === "all";
@@ -507,15 +504,15 @@
             if (addAll) selectedBanks.add(file.file);
             else selectedBanks.delete(file.file);
           });
-          renderBankList();
+          await pushBankSelection();
         };
       });
       list.querySelectorAll("input[type='checkbox']").forEach((cb) => {
-        cb.onchange = () => {
+        cb.onchange = async () => {
           const file = cb.getAttribute("data-bank");
           if (cb.checked) selectedBanks.add(file);
           else selectedBanks.delete(file);
-          renderBankList();
+          await pushBankSelection();
         };
       });
     }
@@ -528,7 +525,6 @@
       availableBanks = data.available_files || [];
       categoryTree = data.category_tree || [];
       selectedBanks = new Set(data.selected_files || []);
-      appliedBanks = new Set(data.selected_files || []);
       latestAvailableCount = Number(data.available_question_count || 0);
       latestQuestionCount = Number(data.effective_question_count || 0);
       renderBankList();
@@ -546,7 +542,6 @@
         })
       });
       if (res.ok) {
-        appliedBanks = new Set(selectedBanks);
         const data = await res.json().catch(() => ({}));
         latestQuestionCount = Number(data.effective_question_count || latestQuestionCount);
         latestAvailableCount = Number(data.available_question_count || latestAvailableCount);
@@ -667,17 +662,13 @@
     el("autoIssueDelay").onchange = pushSettingsUpdate;
     el("addAllBanksBtn").onclick = async () => {
       selectedBanks = new Set(availableBanks);
-      renderBankList();
-      feed("Selected all question banks in filter draft. Click Apply Filter.");
+      await pushBankSelection();
+      feed("Selected all question banks.");
     };
     el("clearAllBanksBtn").onclick = async () => {
       selectedBanks = new Set();
-      renderBankList();
-      feed("Cleared all question banks in filter draft. Click Apply Filter.");
-    };
-    el("applyBanksBtn").onclick = async () => {
       await pushBankSelection();
-      feed("Applied question pool filter.");
+      feed("Cleared all question banks.");
     };
     el("serverUrl").onchange = refreshServerInfo;
     el("copyJoinUrlBtn").onclick = async () => {

@@ -462,3 +462,21 @@
   - Additional local question-pack edits remain outside this milestone.
 - Next stage:
   - Optional build, art polish, and question-pack updates.
+
+## v2.6.0 - 2026-03-12
+- Completed:
+  - Removed the admin `Apply Filter` step so question-pack filtering now follows the live checked state immediately.
+  - Updated admin filter actions so category toggles and add-all/clear-all push the selection to the server right away.
+  - Moved the player leaderboard above the question panel for easier score visibility during gameplay.
+  - Reduced power-up button size while keeping the art visible.
+  - Added a centered power-up activation flash using the power-up artwork.
+  - Updated incorrect and missed-round result flashes to show the correct answer.
+  - Updated README and admin help text to match the live filter and player feedback behavior.
+- Build artifacts:
+  - Not run for this milestone.
+- Test status:
+  - `cargo check` passes.
+- Known issues:
+  - Additional local question-pack edits remain outside this milestone.
+- Next stage:
+  - Optional build, question-pack updates, and further gameplay polish.
