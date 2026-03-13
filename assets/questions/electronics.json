@@ -1,6 +1,5 @@
 [
   {
-    "id": "electronics-001",
     "prompt": "What does CPU stand for?",
     "options": [
       "Central Processing Unit",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "electronics-002",
     "prompt": "Which component stores data long-term in a typical computer?",
     "options": [
       "RAM",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "electronics-003",
     "prompt": "What is the purpose of a resistor in a circuit?",
     "options": [
       "Increase voltage infinitely",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "electronics-004",
     "prompt": "USB is primarily used for what?",
     "options": [
       "Wireless charging only",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "electronics-005",
     "prompt": "What does LED stand for?",
     "options": [
       "Light Emitting Diode",
@@ -62,6 +61,7 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   }
 ]

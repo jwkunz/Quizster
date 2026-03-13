@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-061",
     "prompt": "What does CPU stand for in computing?",
     "options": [
       "Central Processing Unit",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-062",
     "prompt": "Which component of a computer temporarily stores data and programs currently in use?",
     "options": [
       "Hard drive",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-063",
     "prompt": "What does the acronym 'HTTP' stand for?",
     "options": [
       "HyperText Transfer Protocol",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-064",
     "prompt": "Which device is primarily used to display visual output from a computer?",
     "options": [
       "Printer",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-065",
     "prompt": "Which programming language is primarily used for structuring content on web pages?",
     "options": [
       "Python",
@@ -62,10 +61,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-066",
     "prompt": "What is the primary function of an operating system?",
     "options": [
       "Manage hardware and software resources",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-067",
     "prompt": "Which storage device typically has no moving parts and uses flash memory?",
     "options": [
       "Hard Disk Drive",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-068",
     "prompt": "What does 'URL' stand for?",
     "options": [
       "Universal Resource Locator",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-069",
     "prompt": "Which company developed the Windows operating system?",
     "options": [
       "Apple",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-070",
     "prompt": "What unit is commonly used to measure computer memory?",
     "options": [
       "Volt",
@@ -127,10 +126,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-071",
     "prompt": "Which programming concept refers to repeating a block of code multiple times?",
     "options": [
       "Loop",
@@ -140,10 +139,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-072",
     "prompt": "Which network device directs internet traffic between networks?",
     "options": [
       "Router",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-073",
     "prompt": "What type of malware disguises itself as legitimate software?",
     "options": [
       "Virus",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-074",
     "prompt": "Which part of a computer performs most of the calculations?",
     "options": [
       "CPU",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-075",
     "prompt": "Which programming language is widely used for data science and machine learning?",
     "options": [
       "Python",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-076",
     "prompt": "What does GPU stand for?",
     "options": [
       "General Processing Unit",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-077",
     "prompt": "Which protocol is commonly used to securely transfer data over the web?",
     "options": [
       "FTP",
@@ -218,10 +217,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-078",
     "prompt": "Which company created the Linux kernel?",
     "options": [
       "Linus Torvalds",
@@ -231,10 +230,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-079",
     "prompt": "What is the binary number system based on?",
     "options": [
       "Base 2",
@@ -244,10 +243,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-080",
     "prompt": "Which type of software allows users to browse the internet?",
     "options": [
       "Spreadsheet",
@@ -257,6 +256,7 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   }
 ]

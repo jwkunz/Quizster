@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-381",
     "prompt": "What is ecology the study of?",
     "options": [
       "The structure of atoms",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-382",
     "prompt": "What term describes all the living organisms in a particular area?",
     "options": [
       "Population",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-383",
     "prompt": "What is the role of producers in an ecosystem?",
     "options": [
       "They consume other organisms",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-384",
     "prompt": "Which organisms break down dead organic matter and recycle nutrients?",
     "options": [
       "Producers",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-385",
     "prompt": "What is a food chain?",
     "options": [
       "A series of organisms linked by energy transfer through eating",
@@ -62,10 +61,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-386",
     "prompt": "Which biome is characterized by very low rainfall and sparse vegetation?",
     "options": [
       "Tropical rainforest",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-387",
     "prompt": "What term describes a group of individuals of the same species living in a specific area?",
     "options": [
       "Community",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-388",
     "prompt": "What is biodiversity?",
     "options": [
       "The number of ecosystems on Earth",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-389",
     "prompt": "Which process do plants use to convert sunlight into energy?",
     "options": [
       "Respiration",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-390",
     "prompt": "What term describes an organism that eats plants?",
     "options": [
       "Carnivore",
@@ -127,10 +126,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-391",
     "prompt": "Which gas is removed from the atmosphere during photosynthesis?",
     "options": [
       "Oxygen",
@@ -140,10 +139,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-392",
     "prompt": "What is an ecosystem?",
     "options": [
       "A group of animals living together",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-393",
     "prompt": "What type of consumer eats both plants and animals?",
     "options": [
       "Herbivore",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-394",
     "prompt": "Which biome contains dense forests, high rainfall, and high biodiversity?",
     "options": [
       "Tundra",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-395",
     "prompt": "What is the primary source of energy for most ecosystems on Earth?",
     "options": [
       "The Moon",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-396",
     "prompt": "What term describes a species that has a disproportionately large impact on its ecosystem?",
     "options": [
       "Indicator species",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-397",
     "prompt": "What is the role of a predator in an ecosystem?",
     "options": [
       "To produce oxygen",
@@ -218,10 +217,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-398",
     "prompt": "What term describes the gradual change in species composition in an ecosystem over time?",
     "options": [
       "Evolution",
@@ -231,10 +230,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-399",
     "prompt": "Which layer of the ocean receives the most sunlight and supports most marine life?",
     "options": [
       "Abyssal zone",
@@ -244,10 +243,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-400",
     "prompt": "What term describes non-living components of an ecosystem such as water, sunlight, and temperature?",
     "options": [
       "Biotic factors",
@@ -257,6 +256,7 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   }
 ]

@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-361",
     "prompt": "What is the chemical symbol for water?",
     "options": [
       "O2",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-362",
     "prompt": "What is the atomic number of carbon?",
     "options": [
       "6",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-363",
     "prompt": "Which particle in an atom has a negative charge?",
     "options": [
       "Proton",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-364",
     "prompt": "What gas do humans exhale as a waste product of respiration?",
     "options": [
       "Oxygen",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-365",
     "prompt": "What is the pH of a neutral solution at room temperature?",
     "options": [
       "0",
@@ -62,10 +61,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-366",
     "prompt": "Which element has the chemical symbol 'Na'?",
     "options": [
       "Nitrogen",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-367",
     "prompt": "Which state of matter has a definite volume but no definite shape?",
     "options": [
       "Solid",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-368",
     "prompt": "What is the chemical formula for table salt?",
     "options": [
       "NaCl",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-369",
     "prompt": "Which type of chemical bond involves the sharing of electron pairs between atoms?",
     "options": [
       "Ionic bond",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-370",
     "prompt": "Which gas is most abundant in Earth's atmosphere?",
     "options": [
       "Oxygen",
@@ -127,10 +126,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-371",
     "prompt": "Which element is represented by the symbol 'Fe'?",
     "options": [
       "Fluorine",
@@ -140,10 +139,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-372",
     "prompt": "What is the center of an atom called?",
     "options": [
       "Electron shell",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-373",
     "prompt": "Which element is required for combustion to occur?",
     "options": [
       "Nitrogen",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-374",
     "prompt": "What type of reaction releases energy to the surroundings?",
     "options": [
       "Endothermic reaction",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-375",
     "prompt": "What is the smallest unit of an element that retains its chemical properties?",
     "options": [
       "Molecule",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-376",
     "prompt": "Which scientist developed the periodic table of elements?",
     "options": [
       "Marie Curie",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-377",
     "prompt": "What type of bond forms when one atom transfers electrons to another?",
     "options": [
       "Covalent bond",
@@ -218,10 +217,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-378",
     "prompt": "What is the chemical symbol for gold?",
     "options": [
       "Ag",
@@ -231,10 +230,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-379",
     "prompt": "Which subatomic particle has no electrical charge?",
     "options": [
       "Proton",
@@ -244,10 +243,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-380",
     "prompt": "What type of mixture has a uniform composition throughout?",
     "options": [
       "Heterogeneous mixture",
@@ -257,6 +256,7 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   }
 ]

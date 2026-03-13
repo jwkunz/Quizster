@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-221",
     "prompt": "What is the largest continent on Earth?",
     "options": [
       "Africa",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-222",
     "prompt": "Which river is the longest in the world?",
     "options": [
       "Amazon River",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-223",
     "prompt": "What is the capital city of France?",
     "options": [
       "Paris",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-224",
     "prompt": "Which ocean is the largest on Earth?",
     "options": [
       "Atlantic Ocean",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-225",
     "prompt": "Which mountain is the highest above sea level?",
     "options": [
       "K2",
@@ -62,10 +61,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-226",
     "prompt": "Which country has the largest population in the world?",
     "options": [
       "United States",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-227",
     "prompt": "What is the largest desert in the world?",
     "options": [
       "Sahara Desert",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-228",
     "prompt": "Which U.S. state is the largest by area?",
     "options": [
       "Texas",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-229",
     "prompt": "What line divides the Earth into the Northern and Southern Hemispheres?",
     "options": [
       "Prime Meridian",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-230",
     "prompt": "Which continent is the Sahara Desert located on?",
     "options": [
       "Asia",
@@ -127,10 +126,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-231",
     "prompt": "Which country has the largest land area in the world?",
     "options": [
       "China",
@@ -140,10 +139,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-232",
     "prompt": "What is the capital of Japan?",
     "options": [
       "Osaka",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-233",
     "prompt": "Which continent contains the Amazon Rainforest?",
     "options": [
       "Africa",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-234",
     "prompt": "Which country is home to the Great Barrier Reef?",
     "options": [
       "Indonesia",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-235",
     "prompt": "What is the capital of Canada?",
     "options": [
       "Toronto",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-236",
     "prompt": "Which sea separates Europe and Africa?",
     "options": [
       "Black Sea",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-237",
     "prompt": "Which country has the most time zones?",
     "options": [
       "United States",
@@ -218,23 +217,23 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-238",
     "prompt": "What is the longest river in South America?",
     "options": [
       "Amazon River",
       "Orinoco River",
-      "Paraná River",
+      "Paran\u00e1 River",
       "Magdalena River"
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-239",
     "prompt": "Which mountain range runs along the western edge of South America?",
     "options": [
       "Rocky Mountains",
@@ -244,10 +243,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   },
   {
-    "id": "q-240",
     "prompt": "Which U.S. state contains the Grand Canyon?",
     "options": [
       "Nevada",
@@ -257,6 +256,7 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Geography"
   }
 ]

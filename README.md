@@ -70,11 +70,11 @@ After opening admin page:
    - number of rounds
 3. Click **Create/Update Room**.
 4. Click **Admin Login**.
-5. Optional: choose question banks in **Question Bank Files**.
+5. Optional: choose question banks in **Current Question Pool Filter**.
    - Default is all bank files off.
-   - Use checkboxes, **Add All Banks**, or **Clear All Banks**.
+   - Expand categories to add or clear whole groups of files at once, or select individual packs.
    - Changes during a game apply from the next round onward.
-6. Add manual questions (guided form) or import JSON packs (manual pool).
+6. Place JSON pack files in `assets/questions/`, restart the server if needed, then apply the filter.
 7. Click **Start Game**.
 8. Watch player join activity and leaderboard live.
 
@@ -84,6 +84,7 @@ Players open the hosted player page from QR/URL and can:
 
 - join by room code + name
 - answer timed questions
+- see each question's category while answering
 - use one-time power-ups
 - see a full instruction page with detailed power-up explanations
 - get red top alerts when other players trigger power-ups that affect them
@@ -100,15 +101,16 @@ Question bank JSON files live under:
 File-bank behavior:
 
 - File-bank list is read from `assets/questions/*.json`.
+- The admin filter groups pack files into a category tree.
 - Bank file selection is persisted on the server.
 - Default first-run bank selection is all-off.
-- Effective playable pool = selected file-bank questions + manual/imported questions.
+- Effective playable pool = selected file-bank questions.
 
 Question format per item:
 
 ```json
 {
-  "id": "optional-source-id",
+  "category": "History",
   "prompt": "Question text",
   "options": ["A", "B", "C", "D"],
   "correct_index": 1,
@@ -125,7 +127,7 @@ Easy question generation with an LLM:
 ```text
 Please generate { } questions about { } using the JSON format provided in this example: 
   {
-    "id": "q-001",
+    "category": "History",
     "prompt": "Which document first established the principle that government derives its authority from the consent of the governed?",
     "options": [
       "The Articles of Confederation",
@@ -141,14 +143,14 @@ Please generate { } questions about { } using the JSON format provided in this e
 
 - Replace the first `{ }` with the number of questions.
 - Replace the second `{ }` with the topic.
-- After generation, paste the JSON into the admin page under `Import JSON Question Pack`.
+- After generation, save the JSON as a `.json` file under `assets/questions/`, restart the server if needed, and enable it from the category filter.
 
 Rules:
 
 - `options` must have exactly 4 entries
 - `correct_index` must be 0 to 3
 - `points` must be > 0
-- source `id` values are ignored during merge/import; server assigns fresh unique IDs
+- `category` should be one of: `History`, `Religion`, `STEM`, `Literature`, `Geography`
 
 ## If Browser Does Not Open Automatically
 

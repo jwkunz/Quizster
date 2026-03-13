@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-341",
     "prompt": "What is the term for money set aside for unexpected expenses?",
     "options": [
       "Emergency fund",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-342",
     "prompt": "What is a budget?",
     "options": [
       "A type of loan",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-343",
     "prompt": "What does APR stand for in finance?",
     "options": [
       "Annual Percentage Rate",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-344",
     "prompt": "Which type of account typically earns interest while holding savings?",
     "options": [
       "Checking account",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-345",
     "prompt": "What does diversification mean in investing?",
     "options": [
       "Investing in only one company",
@@ -62,10 +61,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-346",
     "prompt": "What is the term for borrowing money with the promise to repay it later?",
     "options": [
       "Investing",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-347",
     "prompt": "Which financial product represents ownership in a company?",
     "options": [
       "Bond",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-348",
     "prompt": "What is compound interest?",
     "options": [
       "Interest paid only once",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-349",
     "prompt": "What is the purpose of a credit score?",
     "options": [
       "To measure a person's income",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-350",
     "prompt": "Which type of investment is generally considered the least risky?",
     "options": [
       "Stocks",
@@ -127,10 +126,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-351",
     "prompt": "What is inflation?",
     "options": [
       "A decrease in prices over time",
@@ -140,10 +139,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-352",
     "prompt": "What is a 401(k)?",
     "options": [
       "A type of mortgage",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-353",
     "prompt": "What does liquidity refer to in finance?",
     "options": [
       "The ability to quickly convert assets to cash",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-354",
     "prompt": "Which type of loan is commonly used to buy a home?",
     "options": [
       "Auto loan",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-355",
     "prompt": "What is net income?",
     "options": [
       "Income before taxes and expenses",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-356",
     "prompt": "What does ROI stand for?",
     "options": [
       "Rate of Income",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-357",
     "prompt": "What is a deductible in insurance?",
     "options": [
       "The amount paid before insurance coverage begins",
@@ -218,10 +217,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-358",
     "prompt": "Which financial document summarizes income and expenses over a period of time?",
     "options": [
       "Balance sheet",
@@ -231,10 +230,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-359",
     "prompt": "What is a credit card minimum payment?",
     "options": [
       "The total amount owed",
@@ -244,10 +243,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-360",
     "prompt": "What is the main purpose of insurance?",
     "options": [
       "To increase income",
@@ -257,6 +256,7 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   }
 ]

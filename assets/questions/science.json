@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-021",
     "prompt": "What is the basic unit of life in all living organisms?",
     "options": [
       "Atom",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-022",
     "prompt": "Which organelle is responsible for producing energy (ATP) in a cell?",
     "options": [
       "Nucleus",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-023",
     "prompt": "What gas do plants absorb from the atmosphere during photosynthesis?",
     "options": [
       "Oxygen",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-024",
     "prompt": "Which planet is known as the Red Planet?",
     "options": [
       "Venus",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-025",
     "prompt": "What force keeps planets in orbit around the Sun?",
     "options": [
       "Magnetism",
@@ -62,10 +61,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-026",
     "prompt": "What is the chemical symbol for gold?",
     "options": [
       "Ag",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-027",
     "prompt": "Which scientist developed the theory of relativity?",
     "options": [
       "Isaac Newton",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-028",
     "prompt": "What is the center of an atom called?",
     "options": [
       "Electron",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-029",
     "prompt": "Which process allows plants to convert sunlight into chemical energy?",
     "options": [
       "Respiration",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-030",
     "prompt": "What type of rock is formed from cooled molten lava or magma?",
     "options": [
       "Sedimentary",
@@ -127,10 +126,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-031",
     "prompt": "Which blood cells are primarily responsible for fighting infections?",
     "options": [
       "Red blood cells",
@@ -140,10 +139,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-032",
     "prompt": "What is the most abundant gas in Earth's atmosphere?",
     "options": [
       "Oxygen",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-033",
     "prompt": "Which part of the human brain controls balance and coordination?",
     "options": [
       "Cerebrum",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-034",
     "prompt": "What is the speed of light in a vacuum approximately?",
     "options": [
       "300,000 km/s",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-035",
     "prompt": "Which layer of the Earth is directly beneath the crust?",
     "options": [
       "Inner core",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-036",
     "prompt": "Which vitamin is produced by the human body when skin is exposed to sunlight?",
     "options": [
       "Vitamin A",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-037",
     "prompt": "What law states that energy cannot be created or destroyed, only transformed?",
     "options": [
       "Newton's First Law",
@@ -218,10 +217,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-038",
     "prompt": "Which type of wave requires a medium to travel through?",
     "options": [
       "Electromagnetic wave",
@@ -231,10 +230,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-039",
     "prompt": "What is the largest organ in the human body?",
     "options": [
       "Liver",
@@ -244,10 +243,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-040",
     "prompt": "Which scientist proposed the theory of evolution by natural selection?",
     "options": [
       "Gregor Mendel",
@@ -257,6 +256,7 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   }
 ]

@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-321",
     "prompt": "In the board game Chess, which piece can move in an L-shaped pattern?",
     "options": [
       "Bishop",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-322",
     "prompt": "In Monopoly, what happens when a player lands on 'Go'?",
     "options": [
       "They pay a tax",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-323",
     "prompt": "How many spaces are on a standard Scrabble board?",
     "options": [
       "196",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-324",
     "prompt": "In Checkers, what happens when a piece reaches the opposite end of the board?",
     "options": [
       "It is removed",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-325",
     "prompt": "Which board game involves guessing a hidden word using letter tiles?",
     "options": [
       "Scrabble",
@@ -62,10 +61,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-326",
     "prompt": "In the game Risk, what is the primary objective?",
     "options": [
       "Collect the most money",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-327",
     "prompt": "In Clue (Cluedo), what are players trying to determine?",
     "options": [
       "Who won the game",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-328",
     "prompt": "How many players typically play a standard game of chess?",
     "options": [
       "2",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-329",
     "prompt": "In Scrabble, how many points is the letter 'Q' typically worth?",
     "options": [
       "8",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-330",
     "prompt": "Which board game features the pieces called 'pawn', 'rook', 'bishop', and 'queen'?",
     "options": [
       "Checkers",
@@ -127,23 +126,23 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-331",
     "prompt": "In the game Sorry!, what is the goal?",
     "options": [
       "Move all your pawns to the home space",
-      "Capture the opponent’s king",
+      "Capture the opponent\u2019s king",
       "Collect the most properties",
       "Spell the longest word"
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-332",
     "prompt": "Which ancient strategy board game originated in China and uses black and white stones?",
     "options": [
       "Checkers",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-333",
     "prompt": "In Monopoly, what happens if a player cannot pay their debts?",
     "options": [
       "They lose a turn",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-334",
     "prompt": "How many squares are on a standard chessboard?",
     "options": [
       "64",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-335",
     "prompt": "In Backgammon, what do players use to determine how far they move their pieces?",
     "options": [
       "Cards",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-336",
     "prompt": "Which board game involves building words from letter tiles on a board?",
     "options": [
       "Boggle",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-337",
     "prompt": "In the game Clue, which room is commonly included on the board?",
     "options": [
       "Kitchen",
@@ -218,11 +217,11 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-338",
-    "prompt": "In chess, what is the term for threatening the opponent’s king?",
+    "prompt": "In chess, what is the term for threatening the opponent\u2019s king?",
     "options": [
       "Capture",
       "Check",
@@ -231,10 +230,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-339",
     "prompt": "In Risk, what determines the outcome of battles?",
     "options": [
       "Card draws",
@@ -244,19 +243,20 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   },
   {
-    "id": "q-340",
     "prompt": "In chess, what is the objective of the game?",
     "options": [
       "Capture all pieces",
-      "Checkmate the opponent’s king",
+      "Checkmate the opponent\u2019s king",
       "Reach the opposite side",
       "Control the center"
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Literature"
   }
 ]

@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-481",
     "prompt": "Who was the President of the Church of Jesus Christ of Latter-day Saints at the time of the April 2025 General Conference?",
     "options": [
       "Thomas S. Monson",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-482",
     "prompt": "What major theme was frequently emphasized during the April 2025 General Conference?",
     "options": [
       "Political engagement",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-483",
     "prompt": "Which member of the First Presidency often conducted sessions during the April 2025 conference?",
     "options": [
       "Henry B. Eyring",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-484",
     "prompt": "Which apostle frequently spoke about personal revelation and spiritual preparation?",
     "options": [
       "David A. Bednar",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-485",
     "prompt": "Which apostle often emphasized the importance of remembering and following Jesus Christ?",
     "options": [
       "Ulisses Soares",
@@ -62,10 +61,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-486",
     "prompt": "Which leader encouraged members to strengthen their homes as centers of faith?",
     "options": [
       "Dallin H. Oaks",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-487",
     "prompt": "Which apostle frequently taught about missionary work and sharing the gospel?",
     "options": [
       "Neil L. Andersen",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-488",
     "prompt": "What event traditionally occurs during the Saturday morning session of General Conference?",
     "options": [
       "Temple dedications",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-489",
     "prompt": "Which apostle often spoke about the joy of discipleship and hope through Jesus Christ?",
     "options": [
       "Dieter F. Uchtdorf",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-490",
     "prompt": "Which principle was frequently discussed in conference messages about strengthening families?",
     "options": [
       "Financial independence",
@@ -127,10 +126,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-491",
     "prompt": "Which apostle frequently spoke about unity and belonging in the Church?",
     "options": [
       "Gerrit W. Gong",
@@ -140,10 +139,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-492",
     "prompt": "Which apostle emphasized service and ministering to others?",
     "options": [
       "Quentin L. Cook",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-493",
     "prompt": "Which General Authority frequently taught about repentance and forgiveness through Christ?",
     "options": [
       "Dale G. Renlund",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-494",
     "prompt": "Which apostle often spoke about strengthening testimonies through scripture study?",
     "options": [
       "David A. Bednar",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-495",
     "prompt": "What central invitation is often extended during General Conference messages?",
     "options": [
       "Increase business success",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-496",
     "prompt": "Which session of General Conference traditionally focuses on messages to all members worldwide?",
     "options": [
       "Saturday morning",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 3,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-497",
     "prompt": "Which apostle frequently taught about the importance of temples and temple worship?",
     "options": [
       "Dale G. Renlund",
@@ -218,10 +217,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-498",
     "prompt": "Which General Conference session traditionally concludes the conference weekend?",
     "options": [
       "Saturday afternoon",
@@ -231,10 +230,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-499",
     "prompt": "What is the main purpose of General Conference according to Church leaders?",
     "options": [
       "Announce Church finances",
@@ -244,10 +243,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-500",
     "prompt": "How often is General Conference held by the Church of Jesus Christ of Latter-day Saints?",
     "options": [
       "Once per year",
@@ -257,6 +256,7 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   }
 ]

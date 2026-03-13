@@ -362,3 +362,26 @@
   - None release-blocking.
 - Next stage:
   - Post-2.0 polish and additional gameplay features.
+
+## v2.1.0 - 2026-03-12
+- Completed:
+  - Replaced question-pack JSON field usage from `id` to `category` across all files in `assets/questions/`.
+  - Sorted built-in question packs into five categories:
+    - `History`
+    - `Religion`
+    - `STEM`
+    - `Literature`
+    - `Geography`
+  - Updated server question handling to preserve an internal runtime ID while exposing category-driven pack data.
+  - Added category metadata to player question state so the live player UI shows the question category during each round.
+  - Reworked the admin question pool filter into a category tree with per-category bulk add/clear controls plus per-file checkboxes.
+  - Updated README and admin help text to describe the new `category` field and category-based filter flow.
+- Build artifacts:
+  - Not run for this milestone.
+- Test status:
+  - `cargo check` passes.
+  - Verified all `assets/questions/*.json` files now use `category` and no longer use `id`.
+- Known issues:
+  - Existing legacy manual question files may still deserialize without a category and will default to `Uncategorized`.
+- Next stage:
+  - Optional release build and broader category-aware admin/player polish.

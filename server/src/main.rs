@@ -67,7 +67,10 @@ enum PowerUp {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 struct Question {
+    #[serde(default = "new_question_id", skip_serializing)]
     id: String,
+    #[serde(default = "default_question_category")]
+    category: String,
     prompt: String,
     options: Vec<String>,
     correct_index: usize,
@@ -190,6 +193,55 @@ impl GameState {
         let mut files: Vec<String> = self.file_question_banks.keys().cloned().collect();
         files.sort();
         files
+    }
+
+    fn question_bank_tree(&self) -> Vec<Value> {
+        let mut grouped: HashMap<String, Vec<Value>> = HashMap::new();
+        for file_name in self.available_bank_files() {
+            if let Some(questions) = self.file_question_banks.get(&file_name) {
+                let mut categories: Vec<String> = questions
+                    .iter()
+                    .map(|q| q.category.clone())
+                    .collect::<HashSet<_>>()
+                    .into_iter()
+                    .collect();
+                categories.sort();
+                let category_name = if categories.len() == 1 {
+                    categories[0].clone()
+                } else {
+                    "Mixed".to_string()
+                };
+                grouped.entry(category_name).or_default().push(json!({
+                    "file": file_name,
+                    "question_count": questions.len(),
+                    "selected": self.selected_bank_files.contains(&file_name),
+                }));
+            }
+        }
+
+        let mut category_names: Vec<String> = grouped.keys().cloned().collect();
+        category_names.sort();
+        category_names
+            .into_iter()
+            .map(|name| {
+                let mut files = grouped.remove(&name).unwrap_or_default();
+                files.sort_by(|a, b| {
+                    a["file"]
+                        .as_str()
+                        .unwrap_or_default()
+                        .cmp(b["file"].as_str().unwrap_or_default())
+                });
+                let question_count: usize = files
+                    .iter()
+                    .map(|file| file["question_count"].as_u64().unwrap_or(0) as usize)
+                    .sum();
+                json!({
+                    "name": name,
+                    "question_count": question_count,
+                    "files": files,
+                })
+            })
+            .collect()
     }
 
     fn total_available_questions(&self) -> usize {
@@ -552,6 +604,7 @@ async fn add_question(
 
     let question = Question {
         id: Uuid::new_v4().to_string(),
+        category: default_question_category(),
         prompt: req.prompt,
         options: req.options,
         correct_index: req.correct_index,
@@ -595,8 +648,10 @@ async fn import_questions(
             .questions
             .into_iter()
             .map(|mut q| {
-                // Ignore source IDs and always assign unique IDs on import.
                 q.id = Uuid::new_v4().to_string();
+                if q.category.trim().is_empty() {
+                    q.category = default_question_category();
+                }
                 q
             })
             .collect();
@@ -638,6 +693,9 @@ async fn import_questions_as_bank(
     let mut imported = Vec::with_capacity(req.questions.len());
     for mut q in req.questions {
         q.id = Uuid::new_v4().to_string();
+        if q.category.trim().is_empty() {
+            q.category = default_question_category();
+        }
         imported.push(q);
     }
 
@@ -695,6 +753,7 @@ async fn get_question_banks(State(state): State<AppState>) -> Json<Value> {
     Json(json!({
         "available_files": game.available_bank_files(),
         "selected_files": selected,
+        "category_tree": game.question_bank_tree(),
         "effective_question_count": game.questions.len(),
         "available_question_count": game.total_available_questions(),
     }))
@@ -1286,6 +1345,7 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
 
         visible_question = Some(json!({
             "id": round.question.id,
+            "category": round.question.category,
             "prompt": round.question.prompt,
             "image_url": round.question.image_url,
             "points": round.question.points,
@@ -1363,7 +1423,8 @@ async fn is_admin(state: &AppState, client_id: &str) -> bool {
 fn load_manual_questions(data_dir: &PathBuf) -> Vec<Question> {
     let file = data_dir.join("manual_questions.json");
     if let Ok(raw) = fs::read_to_string(&file) {
-        if let Ok(questions) = serde_json::from_str::<Vec<Question>>(&raw) {
+        if let Ok(mut questions) = serde_json::from_str::<Vec<Question>>(&raw) {
+            ensure_question_runtime_fields(&mut questions);
             return questions;
         }
     }
@@ -1409,8 +1470,10 @@ fn load_file_question_banks(runtime_root: &FsPath) -> HashMap<String, Vec<Questi
         };
 
         for mut question in parsed {
-            // Ignore source IDs and assign fresh IDs while merging banks.
             question.id = Uuid::new_v4().to_string();
+            if question.category.trim().is_empty() {
+                question.category = infer_category_from_file_name(&file_name);
+            }
             if question.options.len() != 4 || question.correct_index > 3 || question.points == 0 {
                 tracing::warn!(
                     "Skipping invalid question '{}' from {}",
@@ -1475,6 +1538,71 @@ fn sanitized_bank_name(input: Option<&str>) -> String {
         slug = "imported_pack".to_string();
     }
     format!("{}.json", slug)
+}
+
+fn new_question_id() -> String {
+    Uuid::new_v4().to_string()
+}
+
+fn default_question_category() -> String {
+    "Uncategorized".to_string()
+}
+
+fn ensure_question_runtime_fields(questions: &mut [Question]) {
+    for question in questions {
+        if question.id.trim().is_empty() {
+            question.id = new_question_id();
+        }
+        if question.category.trim().is_empty() {
+            question.category = default_question_category();
+        }
+    }
+}
+
+fn infer_category_from_file_name(file_name: &str) -> String {
+    let lower = file_name.to_ascii_lowercase();
+    if matches!(
+        lower.as_str(),
+        "american_history.json"
+            | "black_history.json"
+            | "church_of_jesus_christ_history.json"
+            | "world_history.json"
+    ) {
+        return "History".to_string();
+    }
+    if matches!(
+        lower.as_str(),
+        "book_of_mormon.json"
+            | "doctrine_and_covenants.json"
+            | "general_conference_april_2025.json"
+            | "general_conference_october_2025.json"
+            | "new_testament.json"
+            | "old_testament.json"
+            | "preach_my_gospel.json"
+            | "prophets.json"
+    ) {
+        return "Religion".to_string();
+    }
+    if matches!(
+        lower.as_str(),
+        "chemistry.json"
+            | "computers.json"
+            | "ecology.json"
+            | "electronics.json"
+            | "health.json"
+            | "mathmatics.json"
+            | "personal_finance.json"
+            | "science.json"
+    ) {
+        return "STEM".to_string();
+    }
+    if matches!(lower.as_str(), "board_games.json" | "classic_literature.json" | "music.json") {
+        return "Literature".to_string();
+    }
+    if matches!(lower.as_str(), "geography.json" | "us_states.json") {
+        return "Geography".to_string();
+    }
+    default_question_category()
 }
 
 fn append_history(data_dir: &PathBuf, entry: HistoryEntry) {

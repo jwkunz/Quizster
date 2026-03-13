@@ -77,6 +77,18 @@
     button:hover { transform: translateY(-1px); box-shadow: 0 0 14px #00f6ff44; }
     button:disabled { opacity: 0.4; cursor: not-allowed; }
     .status { color: var(--muted); font-size: 0.9rem; }
+    .category-chip {
+      display: inline-block;
+      margin: 0.15rem 0 0.55rem;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid #00f6ff55;
+      color: var(--neon-cyan);
+      background: #091317;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
     .timer {
       font-size: 2.1rem;
       color: var(--neon-orange);
@@ -259,6 +271,7 @@
 
     <div class="panel hidden" id="gamePanel">
       <h2 id="questionTitle">Waiting for round...</h2>
+      <div class="category-chip hidden" id="questionCategory"></div>
       <div class="row" style="align-items:center;">
         <div>Time left: <span class="timer" id="timer">--</span></div>
         <div class="status" id="progress">Round 0/0</div>
@@ -374,6 +387,7 @@
       el("progress").textContent = `Round ${state?.completed_rounds + (q ? 1 : 0)}/${state?.total_rounds || 0}`;
       if (!q) {
         el("questionTitle").textContent = state?.status === "ended" ? "Game complete" : "Waiting for next round";
+        el("questionCategory").classList.add("hidden");
         el("questionPrompt").textContent = "No active question.";
         el("options").innerHTML = "";
         el("timer").textContent = "--";
@@ -381,6 +395,9 @@
         return;
       }
       el("questionTitle").textContent = `Round ${q.round_number} - ${q.points} pts`;
+      const category = el("questionCategory");
+      category.textContent = q.category || "Uncategorized";
+      category.classList.remove("hidden");
       el("questionPrompt").textContent = q.prompt;
       el("timer").textContent = q.seconds_left;
       const image = el("questionImage");

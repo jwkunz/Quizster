@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-181",
     "prompt": "Who wrote the play 'Romeo and Juliet'?",
     "options": [
       "William Shakespeare",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-182",
     "prompt": "Who is the author of the novel 'Moby-Dick'?",
     "options": [
       "Herman Melville",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-183",
     "prompt": "Which novel by Jane Austen features the characters Elizabeth Bennet and Mr. Darcy?",
     "options": [
       "Sense and Sensibility",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-184",
     "prompt": "Who wrote the epic poem 'The Odyssey'?",
     "options": [
       "Homer",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-185",
     "prompt": "Which Charles Dickens novel begins with the line 'It was the best of times, it was the worst of times'?",
     "options": [
       "Oliver Twist",
@@ -62,10 +61,10 @@
     ],
     "correct_index": 3,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-186",
     "prompt": "Who wrote 'The Adventures of Tom Sawyer'?",
     "options": [
       "Mark Twain",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-187",
     "prompt": "Which novel tells the story of Victor Frankenstein and his creation?",
     "options": [
       "Dracula",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-188",
     "prompt": "Who wrote 'The Divine Comedy', which includes the sections Inferno, Purgatorio, and Paradiso?",
     "options": [
       "Dante Alighieri",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-189",
     "prompt": "Which Russian author wrote the novel 'War and Peace'?",
     "options": [
       "Fyodor Dostoevsky",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-190",
     "prompt": "Who wrote the tragedy 'Hamlet'?",
     "options": [
       "William Shakespeare",
@@ -127,10 +126,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-191",
     "prompt": "Which novel by George Orwell depicts a dystopian society under constant surveillance?",
     "options": [
       "Animal Farm",
@@ -140,10 +139,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-192",
     "prompt": "Who wrote the novel 'The Great Gatsby'?",
     "options": [
       "Ernest Hemingway",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-193",
     "prompt": "Which author wrote 'The Canterbury Tales'?",
     "options": [
       "Geoffrey Chaucer",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-194",
     "prompt": "Which novel by Harper Lee centers on the trial of Tom Robinson?",
     "options": [
       "To Kill a Mockingbird",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-195",
     "prompt": "Who wrote the novel 'The Scarlet Letter'?",
     "options": [
       "Nathaniel Hawthorne",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-196",
     "prompt": "Which American author wrote 'The Grapes of Wrath'?",
     "options": [
       "John Steinbeck",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-197",
     "prompt": "Who wrote the epic poem 'Paradise Lost'?",
     "options": [
       "John Milton",
@@ -218,10 +217,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-198",
     "prompt": "Which novel by Mary Shelley is considered one of the earliest works of science fiction?",
     "options": [
       "Dracula",
@@ -231,23 +230,23 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-199",
     "prompt": "Who wrote 'Don Quixote', often considered one of the first modern novels?",
     "options": [
       "Miguel de Cervantes",
-      "Gabriel García Márquez",
+      "Gabriel Garc\u00eda M\u00e1rquez",
       "Jorge Luis Borges",
       "Lope de Vega"
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   },
   {
-    "id": "q-200",
     "prompt": "Which novel features the characters Lennie Small and George Milton?",
     "options": [
       "The Grapes of Wrath",
@@ -257,6 +256,7 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "STEM"
   }
 ]

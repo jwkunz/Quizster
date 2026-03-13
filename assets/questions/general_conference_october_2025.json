@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-461",
     "prompt": "Who opened the October 2025 General Conference with introductory remarks following the death of President Russell M. Nelson?",
     "options": [
       "Henry B. Eyring",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-462",
     "prompt": "Which apostle taught that 'peacemaking is a Christlike attribute' during the October 2025 conference?",
     "options": [
       "Gary E. Stevenson",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-463",
     "prompt": "Which speaker gave the talk titled 'Blessed Are the Peacemakers'?",
     "options": [
       "Jeffrey R. Holland",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-464",
     "prompt": "Which talk emphasized the importance of Primary music in helping children feel the Spirit?",
     "options": [
       "The Eternal Gift of Testimony",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-465",
     "prompt": "Which apostle spoke about faith in Jesus Christ growing stronger when it is tested?",
     "options": [
       "Dieter F. Uchtdorf",
@@ -62,11 +61,11 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-466",
-    "prompt": "Which apostle referenced Charles Dickens’ 'A Tale of Two Cities' when speaking about challenging times?",
+    "prompt": "Which apostle referenced Charles Dickens\u2019 'A Tale of Two Cities' when speaking about challenging times?",
     "options": [
       "Quentin L. Cook",
       "Jeffrey R. Holland",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-467",
     "prompt": "Which apostle gave the message titled 'They Are Their Own Judges'?",
     "options": [
       "David A. Bednar",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-468",
     "prompt": "Which apostle spoke about 'Taking on the Name of Jesus Christ'?",
     "options": [
       "Dale G. Renlund",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-469",
     "prompt": "Which talk title encouraged members to 'Do Your Part With All Your Heart'?",
     "options": [
       "Elder Dieter F. Uchtdorf",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-470",
     "prompt": "Which theme emphasized that members should create an environment where 'no one sits alone' in the Church?",
     "options": [
       "Temple worship",
@@ -127,10 +126,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-471",
     "prompt": "Which apostle encouraged members to judge less and show greater compassion toward others?",
     "options": [
       "Gerrit W. Gong",
@@ -140,11 +139,11 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-472",
-    "prompt": "Which leader emphasized the role of families in God’s eternal plan?",
+    "prompt": "Which leader emphasized the role of families in God\u2019s eternal plan?",
     "options": [
       "Dallin H. Oaks",
       "Henry B. Eyring",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-473",
     "prompt": "Which apostle spoke during the Sunday morning session about evidences of faith in Jesus Christ?",
     "options": [
       "Jeffrey R. Holland",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-474",
     "prompt": "What major event shortly preceded the October 2025 General Conference?",
     "options": [
       "Dedication of a new temple",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-475",
     "prompt": "What did leaders encourage members to seek during General Conference?",
     "options": [
       "Financial success",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-476",
     "prompt": "Which talk theme emphasized reconciling with God through repentance and discipleship?",
     "options": [
       "Be Reconciled to God",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-477",
     "prompt": "Which session traditionally includes the sustaining of General Authorities and officers?",
     "options": [
       "Sunday afternoon",
@@ -218,10 +217,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-478",
     "prompt": "How often does the Church hold General Conference worldwide broadcasts?",
     "options": [
       "Once a year",
@@ -231,10 +230,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-479",
     "prompt": "What central message did many October 2025 conference speakers emphasize?",
     "options": [
       "Economic self-reliance",
@@ -244,10 +243,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-480",
     "prompt": "Which phrase best describes the overall purpose of General Conference messages?",
     "options": [
       "Church policy debates",
@@ -257,6 +256,7 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   }
 ]

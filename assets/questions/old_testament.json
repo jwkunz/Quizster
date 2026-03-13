@@ -1,6 +1,5 @@
 [
   {
-    "id": "q-101",
     "prompt": "Who led the Israelites out of Egypt according to the book of Exodus?",
     "options": [
       "Abraham",
@@ -10,10 +9,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-102",
     "prompt": "What is the first book of the Old Testament?",
     "options": [
       "Exodus",
@@ -23,10 +22,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-103",
     "prompt": "Which Old Testament figure built an ark to survive a great flood?",
     "options": [
       "Noah",
@@ -36,10 +35,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-104",
     "prompt": "Who was the first king of Israel?",
     "options": [
       "David",
@@ -49,10 +48,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-105",
     "prompt": "Which king of Israel built the first temple in Jerusalem?",
     "options": [
       "David",
@@ -62,10 +61,10 @@
     ],
     "correct_index": 2,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-106",
     "prompt": "Who defeated the Philistine giant Goliath?",
     "options": [
       "Samson",
@@ -75,10 +74,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-107",
     "prompt": "What mountain did Moses receive the Ten Commandments on?",
     "options": [
       "Mount Carmel",
@@ -88,10 +87,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-108",
     "prompt": "Who was swallowed by a great fish after trying to flee from God's command?",
     "options": [
       "Jonah",
@@ -101,10 +100,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-109",
     "prompt": "Which Old Testament book contains many poetic psalms traditionally attributed to King David?",
     "options": [
       "Proverbs",
@@ -114,10 +113,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-110",
     "prompt": "Who was thrown into a den of lions but survived?",
     "options": [
       "Joseph",
@@ -127,10 +126,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-111",
     "prompt": "Which patriarch was known for his coat of many colors?",
     "options": [
       "Isaac",
@@ -140,10 +139,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-112",
     "prompt": "Which Old Testament book records the creation of the world?",
     "options": [
       "Genesis",
@@ -153,10 +152,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-113",
     "prompt": "Who succeeded Moses and led the Israelites into the Promised Land?",
     "options": [
       "Joshua",
@@ -166,10 +165,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-114",
     "prompt": "Which judge of Israel was known for his great strength and long hair?",
     "options": [
       "Gideon",
@@ -179,10 +178,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-115",
     "prompt": "Which book of the Old Testament is known for its reflections on the meaning of life and the phrase 'vanity of vanities'?",
     "options": [
       "Ecclesiastes",
@@ -192,10 +191,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-116",
     "prompt": "Which prophet challenged the prophets of Baal on Mount Carmel?",
     "options": [
       "Elijah",
@@ -205,10 +204,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-117",
     "prompt": "Which Old Testament book tells the story of a queen who saved the Jewish people from destruction in Persia?",
     "options": [
       "Ruth",
@@ -218,10 +217,10 @@
     ],
     "correct_index": 1,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-118",
     "prompt": "Which patriarch was the father of Isaac?",
     "options": [
       "Abraham",
@@ -231,11 +230,11 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-119",
-    "prompt": "What city’s walls fell after the Israelites marched around it for seven days?",
+    "prompt": "What city\u2019s walls fell after the Israelites marched around it for seven days?",
     "options": [
       "Jericho",
       "Babylon",
@@ -244,10 +243,10 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   },
   {
-    "id": "q-120",
     "prompt": "Which Old Testament book tells the story of a righteous man who endured great suffering and remained faithful to God?",
     "options": [
       "Job",
@@ -257,6 +256,7 @@
     ],
     "correct_index": 0,
     "points": 100,
-    "image_url": null
+    "image_url": null,
+    "category": "Religion"
   }
 ]
