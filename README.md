@@ -4,6 +4,12 @@ Quizter is a browser-based multiplayer quiz game server.
 
 One person runs the server, opens the Quizter homepage, creates a room, and lets players join from their phone or computer browser by room code or QR code.
 
+Current product status:
+- hosted-only flow
+- host entry: `/`
+- player entry: `/player`
+- legacy admin console removed
+
 ![Quizter Logo](assets/images/Quizter_logo.png)
 
 **Software Version:** `v4.0.0`

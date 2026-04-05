@@ -12,6 +12,11 @@ Run one hosted Quizter server on a public HTTPS domain so:
 - QR codes point at the public domain
 - owner-token room control still works in the browser
 
+Current app shape:
+- host entry: `/`
+- player entry: `/player`
+- packaged server zip includes hosted home page and player page
+
 ## Minimum Runtime Expectations
 
 Quizter needs:

@@ -1,5 +1,10 @@
 # Quizter Hosted Transformation Plan
 
+Status:
+- Completed for the first hosted-only release target.
+- The hosted homepage at `/` is the only supported host entry point.
+- The legacy `/admin` console and its server APIs have been removed.
+
 ## Purpose
 
 This document captures the agreed plan for transforming Quizter from a

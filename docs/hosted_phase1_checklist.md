@@ -1,5 +1,11 @@
 # Quizter Hosted Phase 1 Checklist
 
+Status:
+- Completed.
+- The room-registry and hosted owner-token foundation from this checklist has
+  already been implemented and carried forward into the current hosted-only
+  app.
+
 ## Phase Goal
 
 Phase 1 is the backend architecture refactor that replaces the single global
