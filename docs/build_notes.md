@@ -704,6 +704,9 @@
     and only shown during active play or final scored end states.
   - Expanded the hosted smoke script to assert lobby leaderboard hiding and the
     late-join wait-until-next-round behavior through `/api/state`.
+  - Added unit tests covering hosted title/name validation, late-join
+    eligibility, and player leaderboard visibility rules alongside the existing
+    scoring tests.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -721,6 +724,9 @@
   - `cargo check` passes after late-join and between-game player-state fixes.
   - `scripts/smoke_hosted_flow.sh` passes with state-level late-join and lobby
     assertions.
+  - `cargo test` passes with hosted validation and lifecycle unit tests.
+  - `scripts/smoke_hosted_flow.sh` still passes after the new unit-tested
+    lifecycle helpers were introduced.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

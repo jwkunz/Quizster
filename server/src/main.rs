@@ -395,6 +395,26 @@ fn normalize_player_name(raw: &str) -> Result<String, &'static str> {
     Ok(name.to_string())
 }
 
+fn eligible_from_round_for_new_player(game: &GameState) -> usize {
+    game.current_round
+        .as_ref()
+        .map(|round| round.round_number + 1)
+        .unwrap_or(game.completed_rounds + 1)
+}
+
+fn player_can_participate_in_current_round(player: Option<&PlayerState>, round: Option<&RoundState>) -> bool {
+    match (player, round) {
+        (_, None) => true,
+        (Some(player), Some(round)) => player.eligible_from_round <= round.round_number,
+        (None, Some(_)) => false,
+    }
+}
+
+fn should_show_player_leaderboard(status: &GameStatus, completed_rounds: usize) -> bool {
+    matches!(status, GameStatus::InRound | GameStatus::RoundResult)
+        || (*status == GameStatus::Ended && completed_rounds > 0)
+}
+
 fn room_from_template(
     template: &GameState,
     room_code: String,
@@ -1585,11 +1605,7 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
                         score: 0.0,
                         last_score_delta: 0.0,
                         connected: true,
-                        eligible_from_round: game
-                            .current_round
-                            .as_ref()
-                            .map(|round| round.round_number + 1)
-                            .unwrap_or(game.completed_rounds + 1),
+                        eligible_from_round: eligible_from_round_for_new_player(game),
                         used_powerups: HashSet::new(),
                         pending_powerup: None,
                         tutorial_seen: false,
@@ -2118,12 +2134,7 @@ async fn submit_answer(state: &AppState, client_id: &str, choice_index: usize) {
         if game
             .players
             .get(client_id)
-            .map(|player| {
-                game.current_round
-                    .as_ref()
-                    .map(|round| player.eligible_from_round > round.round_number)
-                    .unwrap_or(false)
-            })
+            .map(|player| !player_can_participate_in_current_round(Some(player), game.current_round.as_ref()))
             .unwrap_or(true)
         {
             return;
@@ -2614,16 +2625,10 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
         let mut visible_question = None;
         let mut waiting_for_next_round = false;
 
-        let player_eligible_for_round = game
-            .players
-            .get(client_id)
-            .map(|player| {
-                game.current_round
-                    .as_ref()
-                    .map(|round| player.eligible_from_round <= round.round_number)
-                    .unwrap_or(true)
-            })
-            .unwrap_or(true);
+        let player_eligible_for_round = player_can_participate_in_current_round(
+            game.players.get(client_id),
+            game.current_round.as_ref(),
+        );
 
         if let Some(round) = &game.current_round {
             if player_eligible_for_round {
@@ -2671,8 +2676,7 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
         };
         let scores_hidden =
             matches!(role, Role::Player) && game.hide_scores_until_end && game.status != GameStatus::Ended;
-        let show_leaderboard = matches!(game.status, GameStatus::InRound | GameStatus::RoundResult)
-            || (game.status == GameStatus::Ended && game.completed_rounds > 0);
+        let show_leaderboard = should_show_player_leaderboard(&game.status, game.completed_rounds);
 
         let your_state = game.players.get(client_id).map(|p| {
             json!({
@@ -3139,7 +3143,13 @@ fn calculate_correct_score(
 
 #[cfg(test)]
 mod tests {
-    use super::calculate_correct_score;
+    use super::{
+        calculate_correct_score, eligible_from_round_for_new_player, normalize_player_name,
+        normalize_room_title, player_can_participate_in_current_round,
+        should_show_player_leaderboard, GameState, GameStatus, PlayerState, RoundState,
+    };
+    use std::collections::{HashMap, HashSet};
+    use std::time::{Duration, Instant};
 
     #[test]
     fn score_is_max_at_zero_elapsed() {
@@ -3163,5 +3173,105 @@ mod tests {
     fn score_has_no_speed_bonus_when_disabled() {
         let score = calculate_correct_score(100, 0.0, 15.0, false, false);
         assert!((score - 100.0).abs() < 0.0001);
+    }
+
+    #[test]
+    fn room_title_is_trimmed_and_validated() {
+        assert_eq!(normalize_room_title("  Friday Night  ").unwrap(), "Friday Night");
+        assert_eq!(normalize_room_title("   ").unwrap_err(), "room_title_required");
+        assert_eq!(
+            normalize_room_title(&"X".repeat(81)).unwrap_err(),
+            "room_title_too_long"
+        );
+    }
+
+    #[test]
+    fn player_name_is_trimmed_and_validated() {
+        assert_eq!(normalize_player_name("  Alice  ").unwrap(), "Alice");
+        assert_eq!(normalize_player_name("   ").unwrap_err(), "display_name_required");
+        assert_eq!(
+            normalize_player_name(&"Y".repeat(33)).unwrap_err(),
+            "display_name_too_long"
+        );
+    }
+
+    #[test]
+    fn new_players_join_next_round_if_a_round_is_active() {
+        let mut game = GameState::new(Vec::new(), HashMap::new(), HashSet::new());
+        game.completed_rounds = 2;
+        game.current_round = Some(RoundState {
+            round_number: 3,
+            question: super::Question {
+                id: "q-1".to_string(),
+                category: "Test".to_string(),
+                prompt: "Prompt".to_string(),
+                options: vec!["A".to_string(), "B".to_string(), "C".to_string(), "D".to_string()],
+                correct_index: 0,
+                points: 100,
+                image_url: None,
+            },
+            started_at: Instant::now(),
+            deadline: Instant::now() + Duration::from_secs(15),
+            answer_window_secs: 15,
+            answers: HashMap::new(),
+            speed_searcher_owner: None,
+            great_gambler_factor: None,
+            double_downers: HashSet::new(),
+            clone_commanders: HashSet::new(),
+            super_spliter_targets: HashMap::new(),
+            mix_master_owner: None,
+            option_order: vec![0, 1, 2, 3],
+        });
+
+        assert_eq!(eligible_from_round_for_new_player(&game), 4);
+    }
+
+    #[test]
+    fn late_joiner_cannot_participate_in_current_round() {
+        let round = RoundState {
+            round_number: 2,
+            question: super::Question {
+                id: "q-1".to_string(),
+                category: "Test".to_string(),
+                prompt: "Prompt".to_string(),
+                options: vec!["A".to_string(), "B".to_string(), "C".to_string(), "D".to_string()],
+                correct_index: 0,
+                points: 100,
+                image_url: None,
+            },
+            started_at: Instant::now(),
+            deadline: Instant::now() + Duration::from_secs(15),
+            answer_window_secs: 15,
+            answers: HashMap::new(),
+            speed_searcher_owner: None,
+            great_gambler_factor: None,
+            double_downers: HashSet::new(),
+            clone_commanders: HashSet::new(),
+            super_spliter_targets: HashMap::new(),
+            mix_master_owner: None,
+            option_order: vec![0, 1, 2, 3],
+        };
+        let player = PlayerState {
+            id: "player-1".to_string(),
+            name: "Late".to_string(),
+            score: 0.0,
+            last_score_delta: 0.0,
+            connected: true,
+            eligible_from_round: 3,
+            used_powerups: HashSet::new(),
+            pending_powerup: None,
+            tutorial_seen: false,
+        };
+
+        assert!(!player_can_participate_in_current_round(Some(&player), Some(&round)));
+    }
+
+    #[test]
+    fn player_leaderboard_is_hidden_between_games() {
+        assert!(!should_show_player_leaderboard(&GameStatus::Lobby, 0));
+        assert!(should_show_player_leaderboard(&GameStatus::InRound, 0));
+        assert!(should_show_player_leaderboard(&GameStatus::RoundResult, 1));
+        assert!(should_show_player_leaderboard(&GameStatus::Ended, 1));
+        assert!(!should_show_player_leaderboard(&GameStatus::Ended, 0));
     }
 }
