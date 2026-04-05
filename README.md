@@ -259,6 +259,15 @@ Run with a different port:
 Then open `http://127.0.0.1:9090/admin`.
 Or open `http://127.0.0.1:9090/` for the hosted homepage.
 
+### Hosted Deployment Base URL
+
+For managed hosting or any public deployment behind a real domain, set:
+
+- `QUIZTER_PUBLIC_BASE_URL=https://your-domain.example`
+
+This makes Quizter generate the correct player join URLs and QR codes for the
+public hosted address instead of the detected LAN IP.
+
 ## For Developers
 
 Build and package locally:

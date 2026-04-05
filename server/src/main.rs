@@ -40,6 +40,7 @@ struct AppState {
     owner_index: Arc<Mutex<HashMap<String, String>>>,
     clients: Arc<Mutex<HashMap<String, ClientConnection>>>,
     data_dir: Arc<PathBuf>,
+    public_base_url: Arc<String>,
     player_join_url: Arc<String>,
     host_ip: Arc<String>,
     port: u16,
@@ -416,6 +417,28 @@ fn should_show_player_leaderboard(status: &GameStatus, completed_rounds: usize) 
         || (*status == GameStatus::Ended && completed_rounds > 0)
 }
 
+fn normalized_public_base_url(raw: Option<String>, port: u16, detected_lan_ip: &str) -> String {
+    if let Some(value) = raw {
+        let trimmed = value.trim().trim_end_matches('/');
+        if !trimmed.is_empty() {
+            return trimmed.to_string();
+        }
+    }
+    format!("http://{}:{}", detected_lan_ip, port)
+}
+
+fn host_label_from_base_url(base_url: &str) -> String {
+    let without_scheme = base_url
+        .strip_prefix("https://")
+        .or_else(|| base_url.strip_prefix("http://"))
+        .unwrap_or(base_url);
+    without_scheme
+        .split('/')
+        .next()
+        .unwrap_or(without_scheme)
+        .to_string()
+}
+
 fn room_from_template(
     template: &GameState,
     room_code: String,
@@ -643,8 +666,14 @@ async fn main() {
     let addr: SocketAddr = format!("{}:{}", host, port)
         .parse()
         .unwrap_or_else(|_| SocketAddr::from(([0, 0, 0, 0], 8080)));
-    let host_ip = detect_lan_ip().unwrap_or_else(|| "127.0.0.1".to_string());
-    let player_join_url = format!("http://{}:{}/player", host_ip, port);
+    let detected_lan_ip = detect_lan_ip().unwrap_or_else(|| "127.0.0.1".to_string());
+    let public_base_url = normalized_public_base_url(
+        env::var("QUIZTER_PUBLIC_BASE_URL").ok(),
+        port,
+        &detected_lan_ip,
+    );
+    let host_ip = host_label_from_base_url(&public_base_url);
+    let player_join_url = format!("{}/player", public_base_url);
 
     let runtime_root = runtime_root_dir();
     let data_dir = runtime_root.join("data");
@@ -680,6 +709,7 @@ async fn main() {
         owner_index: Arc::new(Mutex::new(owner_index)),
         clients: Arc::new(Mutex::new(HashMap::new())),
         data_dir: Arc::new(data_dir),
+        public_base_url: Arc::new(public_base_url.clone()),
         player_join_url: Arc::new(player_join_url),
         host_ip: Arc::new(host_ip),
         port,
@@ -724,7 +754,7 @@ async fn main() {
         .with_state(state.clone());
 
     tracing::info!("Quizter server listening on {}", addr);
-    tracing::info!("Player join URL: http://{}:{}/player", detect_lan_ip().unwrap_or_else(|| "127.0.0.1".to_string()), port);
+    tracing::info!("Player join URL: {}/player", public_base_url);
 
     let listener = tokio::net::TcpListener::bind(addr)
         .await
@@ -765,11 +795,12 @@ async fn server_info(State(state): State<AppState>) -> Json<ServerInfoResponse> 
     let player_url = state.player_join_url.as_ref().clone();
     let host_ip = state.host_ip.as_ref().clone();
     let port = state.port;
+    let public_base_url = state.public_base_url.as_ref().clone();
 
     Json(ServerInfoResponse {
         host_ip: host_ip.clone(),
         port,
-        admin_url: format!("http://{}:{}/admin", host_ip, port),
+        admin_url: format!("{}/admin", public_base_url),
         player_url,
     })
 }
@@ -3156,8 +3187,9 @@ fn calculate_correct_score(
 #[cfg(test)]
 mod tests {
     use super::{
-        calculate_correct_score, eligible_from_round_for_new_player, normalize_player_name,
-        normalize_room_title, player_can_participate_in_current_round,
+        calculate_correct_score, eligible_from_round_for_new_player, host_label_from_base_url,
+        normalize_player_name, normalize_room_title, normalized_public_base_url,
+        player_can_participate_in_current_round,
         should_show_player_leaderboard, GameState, GameStatus, PlayerState, RoundState,
     };
     use std::collections::{HashMap, HashSet};
@@ -3285,5 +3317,30 @@ mod tests {
         assert!(should_show_player_leaderboard(&GameStatus::RoundResult, 1));
         assert!(should_show_player_leaderboard(&GameStatus::Ended, 1));
         assert!(!should_show_player_leaderboard(&GameStatus::Ended, 0));
+    }
+
+    #[test]
+    fn public_base_url_defaults_to_lan_when_not_configured() {
+        assert_eq!(
+            normalized_public_base_url(None, 8080, "192.168.1.10"),
+            "http://192.168.1.10:8080"
+        );
+    }
+
+    #[test]
+    fn public_base_url_uses_configured_origin_without_trailing_slash() {
+        assert_eq!(
+            normalized_public_base_url(Some("https://quizter.example.com/".to_string()), 8080, "192.168.1.10"),
+            "https://quizter.example.com"
+        );
+    }
+
+    #[test]
+    fn host_label_is_extracted_from_public_base_url() {
+        assert_eq!(
+            host_label_from_base_url("https://quizter.example.com/path"),
+            "quizter.example.com"
+        );
+        assert_eq!(host_label_from_base_url("http://127.0.0.1:8080"), "127.0.0.1:8080");
     }
 }

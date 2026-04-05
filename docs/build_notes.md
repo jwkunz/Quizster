@@ -726,6 +726,9 @@
   - Added a clear legacy banner to `/admin` that points users back to the
     hosted homepage so the old admin-login console is no longer presented as a
     primary entry point.
+  - Added `QUIZTER_PUBLIC_BASE_URL` support so hosted player links, QR codes,
+    and server info can target a real public origin instead of always using the
+    detected LAN IP.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -760,6 +763,7 @@
   - `cargo test` passes after hosted wizard-progress UX polish.
   - `cargo test` passes after hosted wizard-state guidance polish.
   - `cargo test` passes after legacy admin-path de-emphasis.
+  - `cargo test` passes after public-base-URL deployment support.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
