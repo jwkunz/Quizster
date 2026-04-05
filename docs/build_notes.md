@@ -670,10 +670,13 @@
   - Updated the README and legacy admin welcome text to describe the hosted
     homepage flow as the default product entry point while preserving `/admin`
     as a legacy console path.
+  - Tightened hosted owner-page validation so round controls clamp to playable
+    question counts, start is blocked when no playable questions are selected,
+    and game controls reflect current room status more clearly.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after hosted launch-surface transition updates.
+  - `cargo check` passes after hosted owner-control validation polish.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

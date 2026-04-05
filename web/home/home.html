@@ -379,6 +379,7 @@
     const STORAGE_KEY = "quizter_hosted_owner_room";
     const ROOM_POLL_MS = 5000;
     let roomPollTimer = null;
+    let latestRoomStatus = null;
 
     function el(id) {
       return document.getElementById(id);
@@ -429,6 +430,7 @@
     }
 
     function resetHostedRoomUi(message = "") {
+      latestRoomStatus = null;
       clearRoom();
       stopRoomPolling();
       el("roomPanel").classList.add("hidden");
@@ -441,6 +443,8 @@
       el("playerMonitor").innerHTML = '<div class="mini">No players joined yet.</div>';
       el("leaderMonitor").innerHTML = '<div class="mini">No scores yet.</div>';
       el("blockedMonitor").innerHTML = '<div class="mini">No blocked names.</div>';
+      el("startGameBtn").disabled = false;
+      el("endGameBtn").disabled = true;
       if (message) {
         setStatus("resumeStatus", message);
         setStatus("roomStatus", message);
@@ -488,6 +492,19 @@
       el("responseSeconds").value = Number(room.response_seconds || 15);
       el("autoIssueEnabled").checked = Boolean(room.auto_issue_enabled);
       el("autoIssueDelay").value = Number(room.auto_issue_delay_secs || 15);
+    }
+
+    function updateGameControls(room) {
+      const questionsInPlay = Number(room.questions_in_play || 0);
+      const completedRounds = Number(room.completed_rounds || 0);
+      const totalRounds = Math.max(1, Number(room.total_rounds || 1));
+      const maxRounds = Math.max(1, questionsInPlay || 1);
+      const currentRounds = Math.max(1, Math.min(totalRounds, maxRounds));
+
+      el("roundCount").max = maxRounds;
+      el("roundCount").value = currentRounds;
+      el("startGameBtn").disabled = questionsInPlay < 1;
+      el("endGameBtn").disabled = room.status === "ended" || completedRounds < 1;
     }
 
     function renderPlayers(room) {
@@ -616,6 +633,7 @@
         `Selection applied. Questions in play: ${payload.effective_question_count ?? 0}.`
       );
       await loadQuestionBanks();
+      await refreshRoomStatus(true);
     }
 
     async function saveSettings() {
@@ -654,7 +672,13 @@
         setStatus("startStatus", "No saved room to start.");
         return;
       }
-      const totalRounds = Math.max(1, Number(el("roundCount").value || "1"));
+      const questionsInPlay = Number(latestRoomStatus?.questions_in_play || 0);
+      if (questionsInPlay < 1) {
+        setStatus("startStatus", "Select at least one pack with playable questions before starting.");
+        return;
+      }
+      const totalRounds = Math.max(1, Math.min(Number(el("roundCount").value || "1"), questionsInPlay));
+      el("roundCount").value = totalRounds;
       setStatus("startStatus", "Starting game...");
       const res = await fetch("/api/rooms/start", {
         method: "POST",
@@ -749,6 +773,7 @@
     }
 
     function renderRoom(room) {
+      latestRoomStatus = room;
       el("roomPanel").classList.remove("hidden");
       el("activeRoomTitle").textContent = room.room_title || "";
       el("activeRoomCode").textContent = room.room_code || "";
@@ -756,9 +781,10 @@
       el("joinQr").src = `/api/qr.svg?text=${encodeURIComponent(room.player_url || "")}`;
       setStatus(
         "roomStatus",
-        `Status: ${room.status || "room_ready"} | Questions available on server: ${room.available_questions ?? 0} | Questions currently in play: ${room.questions_in_play ?? 0}`
+        `Status: ${room.status || "room_ready"} | Rounds: ${room.completed_rounds ?? 0}/${room.total_rounds ?? 0} | Questions available on server: ${room.available_questions ?? 0} | Questions currently in play: ${room.questions_in_play ?? 0}`
       );
       renderSettings(room);
+      updateGameControls(room);
       renderPlayers(room);
       renderLeaderboard(room);
       renderBlockedNames(room);
