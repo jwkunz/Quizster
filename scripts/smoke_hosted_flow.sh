@@ -126,6 +126,16 @@ resume_status="$(printf '%s' "${resume_result}" | sed -n '1p')"
 resume_body="$(printf '%s' "${resume_result}" | sed -n '2p')"
 expect_status "${resume_status}" "200" "resume room"
 
+echo "Verifying joins are blocked before launch"
+prelaunch_join_result="$(post_json "/api/join" "{\"room_code\":\"${ROOM_CODE}\",\"display_name\":\"TooEarly\"}")"
+prelaunch_join_status="$(printf '%s' "${prelaunch_join_result}" | sed -n '1p')"
+prelaunch_join_body="$(printf '%s' "${prelaunch_join_result}" | sed -n '2p')"
+expect_status "${prelaunch_join_status}" "400" "prelaunch join"
+if [[ "$(printf '%s' "${prelaunch_join_body}" | json_get error)" != "room_not_open" ]]; then
+  echo "FAIL: prelaunch join did not return room_not_open"
+  exit 1
+fi
+
 echo "Loading question banks"
 banks_result="$(get_json "/api/rooms/question_banks?room_code=${ROOM_CODE}&owner_token=${OWNER_TOKEN}")"
 banks_status="$(printf '%s' "${banks_result}" | sed -n '1p')"
@@ -149,6 +159,11 @@ if [[ -z "${QUESTIONS_IN_PLAY}" || "${QUESTIONS_IN_PLAY}" == "0" ]]; then
   echo "FAIL: selected pack did not produce playable questions"
   exit 1
 fi
+
+echo "Launching hosted room"
+launch_result="$(post_json "/api/rooms/launch" "{\"room_code\":\"${ROOM_CODE}\",\"owner_token\":\"${OWNER_TOKEN}\"}")"
+launch_status="$(printf '%s' "${launch_result}" | sed -n '1p')"
+expect_status "${launch_status}" "200" "launch room"
 
 echo "Joining player SmokePlayer"
 join_result="$(post_json "/api/join" "{\"room_code\":\"${ROOM_CODE}\",\"display_name\":\"SmokePlayer\"}")"

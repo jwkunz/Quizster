@@ -687,6 +687,12 @@
     limits directly in the browser.
   - Expanded the hosted smoke script to assert the new public validation paths
     for blank and oversized room titles plus oversized player display names.
+  - Added an explicit hosted room launch step so newly created rooms stay in
+    setup mode until the owner launches them for player joins.
+  - Blocked public joins before room launch and updated the hosted homepage to
+    hide the player QR/link until the room is live.
+  - Expanded the hosted smoke script to verify prelaunch join rejection and the
+    owner launch step before player entry.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -697,6 +703,8 @@
     hardening.
   - `scripts/smoke_hosted_flow.sh` passes with explicit hosted validation-path
     assertions.
+  - `cargo check` passes after hosted room-launch gating.
+  - `scripts/smoke_hosted_flow.sh` passes after hosted room-launch gating.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

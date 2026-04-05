@@ -748,6 +748,8 @@
             el("joinStatus").textContent = "Join failed: enter a display name.";
           } else if (data?.error === "display_name_too_long") {
             el("joinStatus").textContent = "Join failed: display name is too long.";
+          } else if (data?.error === "room_not_open") {
+            el("joinStatus").textContent = "Join failed: the host has not launched this room yet.";
           } else if (data?.error === "player_blocked") {
             el("joinStatus").textContent = "Join failed: this player name is blocked in the room.";
           } else if (data?.error === "invalid_room_code") {

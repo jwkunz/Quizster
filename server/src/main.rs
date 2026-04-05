@@ -51,6 +51,7 @@ struct AppState {
 struct RoomState {
     room_title: String,
     owner_token: String,
+    launched: bool,
     blocked_names: HashSet<String>,
     last_activity_at: Instant,
     game: GameState,
@@ -416,6 +417,7 @@ fn room_from_template(
     RoomState {
         room_title,
         owner_token,
+        launched: false,
         blocked_names: HashSet::new(),
         last_activity_at: Instant::now(),
         game,
@@ -504,6 +506,12 @@ struct OwnerStartGameRequest {
     room_code: String,
     owner_token: String,
     total_rounds: usize,
+}
+
+#[derive(Deserialize)]
+struct OwnerLaunchRoomRequest {
+    room_code: String,
+    owner_token: String,
 }
 
 #[derive(Deserialize)]
@@ -630,6 +638,7 @@ async fn main() {
         RoomState {
             room_title: "Quizter Legacy Room".to_string(),
             owner_token: "legacy-default-room".to_string(),
+            launched: true,
             blocked_names: HashSet::new(),
             last_activity_at: Instant::now(),
             game: default_game,
@@ -668,6 +677,7 @@ async fn main() {
         .route("/api/rooms/question_banks", get(get_owner_question_banks))
         .route("/api/rooms/question_banks/selection", post(set_owner_question_bank_selection))
         .route("/api/rooms/settings", post(update_owner_room_settings))
+        .route("/api/rooms/launch", post(launch_owner_room))
         .route("/api/rooms/start", post(start_owner_game))
         .route("/api/rooms/end_game", post(end_owner_game))
         .route("/api/rooms/kick", post(kick_owner_player))
@@ -924,6 +934,7 @@ async fn owner_room_payload(state: &AppState, room_code: &str) -> Option<Value> 
         json!({
             "room_code": room.game.room_code,
             "room_title": room.room_title,
+            "launched": room.launched,
             "status": room.game.status,
             "available_questions": room.game.total_available_questions(),
             "questions_in_play": room.game.questions.len(),
@@ -938,7 +949,11 @@ async fn owner_room_payload(state: &AppState, room_code: &str) -> Option<Value> 
             "players": players,
             "blocked_names": blocked_names,
             "leaderboard": room.game.leaderboard(),
-            "player_url": format!("{}?room={}", state.player_join_url, room.game.room_code),
+            "player_url": if room.launched {
+                format!("{}?room={}", state.player_join_url, room.game.room_code)
+            } else {
+                String::new()
+            },
         })
     })
     .await
@@ -1269,6 +1284,44 @@ async fn update_owner_room_settings(
     (StatusCode::OK, Json(payload))
 }
 
+async fn launch_owner_room(
+    State(state): State<AppState>,
+    Json(req): Json<OwnerLaunchRoomRequest>,
+) -> impl IntoResponse {
+    let Some(room_code) =
+        validate_owner_room_access(&state, &req.room_code, &req.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+
+    let launched = with_room_mut(&state, &room_code, |room| {
+        room.last_activity_at = Instant::now();
+        if room.game.questions.is_empty() {
+            return false;
+        }
+        room.launched = true;
+        true
+    })
+    .await;
+
+    match launched {
+        Some(true) => {}
+        Some(false) => {
+            return (StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
+        }
+        None => {
+            return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+        }
+    }
+
+    let Some(payload) = owner_room_payload(&state, &room_code).await else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
+
+    broadcast_room_state(&state, &room_code).await;
+    (StatusCode::OK, Json(payload))
+}
+
 async fn start_owner_game(
     State(state): State<AppState>,
     Json(req): Json<OwnerStartGameRequest>,
@@ -1281,9 +1334,12 @@ async fn start_owner_game(
 
     let startable = with_room_mut(&state, &room_code, |room| {
         room.last_activity_at = Instant::now();
+        if !room.launched {
+            return Err("room_not_open");
+        }
         let game = &mut room.game;
         if game.questions.is_empty() {
-            return false;
+            return Err("no_questions");
         }
 
         game.total_rounds = req.total_rounds.max(1).min(game.questions.len());
@@ -1299,15 +1355,13 @@ async fn start_owner_game(
 
         game.shuffled_question_ids = game.questions.iter().map(|q| q.id.clone()).collect();
         game.shuffled_question_ids.shuffle(&mut rand::thread_rng());
-        true
+        Ok(())
     })
     .await;
 
     match startable {
-        Some(true) => {}
-        Some(false) => {
-            return (StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
-        }
+        Some(Ok(())) => {}
+        Some(Err(error)) => return (StatusCode::BAD_REQUEST, Json(json!({"error": error}))),
         None => {
             return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
         }
@@ -1487,6 +1541,12 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
     let player_id = {
         with_room_mut(&state, &room_code, |room| {
             room.last_activity_at = Instant::now();
+            if !room.launched {
+                return Err((
+                    axum::http::StatusCode::BAD_REQUEST,
+                    Json(json!({"error": "room_not_open"})),
+                ));
+            }
             let game = &mut room.game;
             if req.room_code != game.room_code {
                 return Err((
