@@ -588,12 +588,19 @@
     single global game model with a room registry.
   - Bumped version markers to `v4.0.0` and aligned Cargo package versioning with
     the published app version.
+  - Began Phase 1 backend implementation by introducing a room registry and
+    room-scoped client connection metadata while preserving the legacy default
+    room behavior.
+  - Converted server broadcast and state snapshot plumbing to resolve room
+    context from connected clients instead of relying only on one global app
+    game handle.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - Not run for this planning milestone.
+  - `cargo check` passes after the initial room-registry scaffolding.
 - Known issues:
-  - Hosted architecture has not been implemented yet.
-  - Current code still uses the legacy single-room model.
+  - Hosted architecture is still only partially implemented.
+  - Current routes and UI still operate through the legacy default room.
 - Next stage:
-  - Implement Phase 1 server architecture refactor.
+  - Continue Phase 1 by introducing explicit room/game session types beyond the
+    legacy default room compatibility path.
