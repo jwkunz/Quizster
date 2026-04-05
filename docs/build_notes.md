@@ -732,6 +732,9 @@
   - Added a managed-hosting checklist and updated the acceptance checklist so
     release verification now reflects the hosted homepage flow instead of the
     old admin-login path.
+  - Expanded the hosted homepage from a flat setup dashboard into a clearer
+    four-step flow: choose packs, choose settings, review and launch, then run
+    game.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -769,6 +772,7 @@
   - `cargo test` passes after public-base-URL deployment support.
 - `cargo test` passes after hosted deployment checklist and acceptance-doc
   alignment.
+- `cargo test` passes after hosted review-and-launch wizard polish.
 - Known issues:
   - Hosted deployment still relies on in-memory room state in a single running
     server instance.
