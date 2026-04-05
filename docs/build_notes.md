@@ -750,6 +750,9 @@
   - Consolidated duplicated start-game and end-game reset logic into shared
     server helpers so hosted-owner and legacy-admin flows now use the same
     game-lifecycle reset path.
+  - Updated the server-info payload and browser auto-open helper naming so the
+    hosted homepage is represented as the primary URL and the admin console is
+    explicitly treated as a legacy fallback path.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -794,6 +797,7 @@
   public-origin test value.
 - `cargo test` passes after the final legacy-console copy cleanup.
 - `cargo test` passes with shared game-lifecycle helper coverage.
+- `cargo test` passes after hosted-first server-info cleanup.
 - Known issues:
   - Hosted deployment still relies on in-memory room state in a single running
     server instance.

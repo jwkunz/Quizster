@@ -669,8 +669,9 @@ struct HealthResponse {
 struct ServerInfoResponse {
     host_ip: String,
     port: u16,
+    home_url: String,
     player_url: String,
-    admin_url: String,
+    legacy_admin_url: String,
 }
 
 #[derive(Deserialize)]
@@ -794,7 +795,7 @@ async fn main() {
         .expect("failed to bind listener");
 
     spawn_room_cleanup_task(state.clone());
-    maybe_open_admin_browser(port);
+    maybe_open_home_browser(port);
 
     axum::serve(listener, app)
         .with_graceful_shutdown(async move {
@@ -825,16 +826,17 @@ async fn health() -> Json<HealthResponse> {
 }
 
 async fn server_info(State(state): State<AppState>) -> Json<ServerInfoResponse> {
+    let home_url = state.public_base_url.as_ref().clone();
     let player_url = state.player_join_url.as_ref().clone();
     let host_ip = state.host_ip.as_ref().clone();
     let port = state.port;
-    let public_base_url = state.public_base_url.as_ref().clone();
 
     Json(ServerInfoResponse {
-        host_ip: host_ip.clone(),
+        host_ip,
         port,
-        admin_url: format!("{}/admin", public_base_url),
+        home_url: home_url.clone(),
         player_url,
+        legacy_admin_url: format!("{}/admin", home_url),
     })
 }
 
@@ -3039,7 +3041,7 @@ fn read_web_html(runtime_root: &FsPath, role: &str) -> String {
     fs::read_to_string(path).unwrap_or_else(|_| format!("Missing {}.html", role))
 }
 
-fn maybe_open_admin_browser(port: u16) {
+fn maybe_open_home_browser(port: u16) {
     if env::var("QUIZTER_OPEN_BROWSER")
         .map(|v| v == "0" || v.eq_ignore_ascii_case("false"))
         .unwrap_or(false)
