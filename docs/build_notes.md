@@ -723,6 +723,9 @@
     then run game.
   - Added wizard-state locking and a next-step guidance banner so later hosted
     setup panels stay visually subordinate until earlier steps are complete.
+  - Added a clear legacy banner to `/admin` that points users back to the
+    hosted homepage so the old admin-login console is no longer presented as a
+    primary entry point.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -756,6 +759,7 @@
     refresh.
   - `cargo test` passes after hosted wizard-progress UX polish.
   - `cargo test` passes after hosted wizard-state guidance polish.
+  - `cargo test` passes after legacy admin-path de-emphasis.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

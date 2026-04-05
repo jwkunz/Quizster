@@ -91,6 +91,32 @@
     .danger-btn:hover {
       box-shadow: 0 0 18px #ff6b6b55;
     }
+    .legacy-banner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      border: 1px solid #5a4520;
+      border-radius: 14px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #1d1709, #121212);
+      color: #ffe3aa;
+    }
+    .legacy-banner a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      border: 1px solid #ff8f0055;
+      background: #140d04;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: bold;
+      padding: 0.65rem 0.9rem;
+      box-shadow: 0 0 12px #ff8f0022;
+    }
     input, textarea, button {
       background: #0e0e0e;
       color: var(--text);
@@ -365,6 +391,10 @@
 </head>
 <body>
   <div class="wrap">
+    <div class="legacy-banner">
+      <div>This page is now the legacy admin console. The primary hosted flow starts from the homepage and uses room creation, launch, and owner-token resume instead of admin login.</div>
+      <a href="/">Open Hosted Homepage</a>
+    </div>
     <div class="top-actions">
       <button id="shutdownBtn" class="danger-btn" disabled>Exit and Close</button>
     </div>
