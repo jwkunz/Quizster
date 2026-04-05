@@ -596,10 +596,13 @@
     game handle.
   - Added reusable room access helpers and explicit room-scoped broadcast
     helpers to reduce direct default-room lock plumbing in server handlers.
+  - Moved round progression, timer dispatch, and round finalization onto
+    explicit room-code-based functions so the gameplay engine no longer hard
+    codes the legacy default room path internally.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after the room-helper and room-broadcast refactor.
+  - `cargo check` passes after room-scoping round progression and timer logic.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

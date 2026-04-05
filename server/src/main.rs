@@ -1047,7 +1047,7 @@ async fn start_game(
         game.shuffled_question_ids.shuffle(&mut rand::thread_rng());
     }
 
-    start_next_round(state.clone()).await;
+    start_next_round_in_room(state.clone(), DEFAULT_ROOM_CODE).await;
     (axum::http::StatusCode::OK, Json(json!({"ok": true})))
 }
 
@@ -1170,7 +1170,7 @@ async fn handle_client_action(state: &AppState, client_id: &str, msg: WsClientMe
         }
         "admin_next_round" => {
             if is_admin(state, client_id).await {
-                start_next_round(state.clone()).await;
+                start_next_round_in_room(state.clone(), DEFAULT_ROOM_CODE).await;
             }
         }
         "admin_update_settings" => {
@@ -1263,7 +1263,7 @@ async fn submit_answer(state: &AppState, client_id: &str, choice_index: usize) {
 
     broadcast_state(state).await;
     if should_finalize {
-        finalize_round(state.clone()).await;
+        finalize_round_in_room(state.clone(), &room_code_for_client(state, client_id).await).await;
     }
 }
 
@@ -1415,17 +1415,15 @@ fn apply_powerup_to_current_round(
     }))
 }
 
-async fn start_next_round(state: AppState) {
+async fn start_next_round_in_room(state: AppState, room_code: &str) {
     let mut round_started = false;
     let mut should_end_game = false;
     let mut queued_activations = Vec::new();
+    let room_code = room_code.to_string();
     {
-        let mut rooms = state.rooms.lock().await;
-        let room = rooms
-            .get_mut(DEFAULT_ROOM_CODE)
-            .expect("default room missing");
-        room.last_activity_at = Instant::now();
-        let game = &mut room.game;
+        let Some(()) = with_room_mut(&state, &room_code, |room| {
+            room.last_activity_at = Instant::now();
+            let game = &mut room.game;
         if game.status == GameStatus::InRound || game.status == GameStatus::Ended {
             return;
         }
@@ -1486,214 +1484,223 @@ async fn start_next_round(state: AppState) {
                 should_end_game = true;
             }
         }
+        })
+        .await else {
+            return;
+        };
     }
 
     if should_end_game {
         {
-            let mut rooms = state.rooms.lock().await;
-            let room = rooms
-                .get_mut(DEFAULT_ROOM_CODE)
-                .expect("default room missing");
-            room.last_activity_at = Instant::now();
-            let game = &mut room.game;
-            game.status = GameStatus::Ended;
-            game.current_round = None;
-            let history = HistoryEntry {
-                finished_at: Utc::now().to_rfc3339(),
-                rounds_played: game.completed_rounds,
-                leaderboard: game.leaderboard(),
-            };
-            append_history(&state.data_dir, history);
+            let _ = with_room_mut(&state, &room_code, |room| {
+                room.last_activity_at = Instant::now();
+                let game = &mut room.game;
+                game.status = GameStatus::Ended;
+                game.current_round = None;
+                let history = HistoryEntry {
+                    finished_at: Utc::now().to_rfc3339(),
+                    rounds_played: game.completed_rounds,
+                    leaderboard: game.leaderboard(),
+                };
+                append_history(&state.data_dir, history);
+            })
+            .await;
         }
-        broadcast_state(&state).await;
+        broadcast_room_state(&state, &room_code).await;
         return;
     }
 
     if round_started {
-        broadcast_state(&state).await;
+        broadcast_room_state(&state, &room_code).await;
         for message in queued_activations {
-            broadcast_json(&state, message).await;
+            broadcast_room_json(&state, &room_code, message).await;
         }
-        spawn_round_timer(state).await;
+        spawn_round_timer(state, room_code).await;
     }
 }
 
-async fn spawn_round_timer(state: AppState) {
+async fn spawn_round_timer(state: AppState, room_code: String) {
     tokio::spawn(async move {
         loop {
             tokio::time::sleep(Duration::from_secs(1)).await;
             let (status, remaining) = {
-                let rooms = state.rooms.lock().await;
-                let game = match rooms.get(DEFAULT_ROOM_CODE) {
-                    Some(room) => &room.game,
-                    None => break,
-                };
-                if game.status != GameStatus::InRound {
-                    break;
-                }
-                if let Some(round) = &game.current_round {
-                    let now = Instant::now();
-                    let rem = if round.deadline > now {
-                        (round.deadline - now).as_secs()
+                let Some(result) = with_room(&state, &room_code, |room| {
+                    let game = &room.game;
+                    if game.status != GameStatus::InRound {
+                        return None;
+                    }
+                    if let Some(round) = &game.current_round {
+                        let now = Instant::now();
+                        let rem = if round.deadline > now {
+                            (round.deadline - now).as_secs()
+                        } else {
+                            0
+                        };
+                        Some((game.status.clone(), rem))
                     } else {
-                        0
-                    };
-                    (game.status.clone(), rem)
-                } else {
+                        None
+                    }
+                })
+                .await else {
                     break;
+                };
+                match result {
+                    Some(result) => result,
+                    None => break,
                 }
             };
 
             if status == GameStatus::InRound {
-                broadcast_json(&state, json!({"event": "timer_tick", "payload": {"seconds_left": remaining}})).await;
+                broadcast_room_json(&state, &room_code, json!({"event": "timer_tick", "payload": {"seconds_left": remaining}})).await;
             }
 
             if remaining == 0 {
-                finalize_round(state.clone()).await;
+                finalize_round_in_room(state.clone(), &room_code).await;
                 break;
             }
         }
     });
 }
 
-fn spawn_auto_issue_timer(state: AppState, delay_secs: u64) {
+fn spawn_auto_issue_timer(state: AppState, room_code: String, delay_secs: u64) {
     tokio::spawn(async move {
         tokio::time::sleep(Duration::from_secs(delay_secs)).await;
         let should_issue = {
-            let rooms = state.rooms.lock().await;
-            let game = match rooms.get(DEFAULT_ROOM_CODE) {
-                Some(room) => &room.game,
-                None => return,
+            let Some(result) = with_room(&state, &room_code, |room| {
+                let game = &room.game;
+                game.status == GameStatus::RoundResult
+                    && game.current_round.is_none()
+                    && game.auto_issue_enabled
+            })
+            .await else {
+                return;
             };
-            game.status == GameStatus::RoundResult
-                && game.current_round.is_none()
-                && game.auto_issue_enabled
+            result
         };
         if should_issue {
-            start_next_round(state.clone()).await;
+            start_next_round_in_room(state.clone(), &room_code).await;
         }
     });
 }
 
-async fn finalize_round(state: AppState) {
-    let result_payload;
-    let end_game;
-    let auto_issue_enabled;
-    let auto_issue_delay_secs;
-    let speed_bonus_enabled;
+async fn finalize_round_in_room(state: AppState, room_code: &str) {
+    let room_code = room_code.to_string();
 
-    {
-        let mut rooms = state.rooms.lock().await;
-        let room = rooms
-            .get_mut(DEFAULT_ROOM_CODE)
-            .expect("default room missing");
-        room.last_activity_at = Instant::now();
-        let game = &mut room.game;
-        if game.status != GameStatus::InRound {
-            return;
-        }
+    let Some(Some((result_payload, end_game, auto_issue_enabled, auto_issue_delay_secs))) =
+        with_room_mut(&state, &room_code, |room| {
+            room.last_activity_at = Instant::now();
+            let game = &mut room.game;
+            if game.status != GameStatus::InRound {
+                return None;
+            }
 
-        let round = match game.current_round.take() {
-            Some(r) => r,
-            None => return,
-        };
-        speed_bonus_enabled = game.speed_bonus_enabled;
+            let round = match game.current_round.take() {
+                Some(r) => r,
+                None => return None,
+            };
+            let speed_bonus_enabled = game.speed_bonus_enabled;
 
-        let mut round_scores: HashMap<String, f64> = HashMap::new();
-        for player in game.players.values_mut() {
-            player.last_score_delta = 0.0;
-        }
-        for (player_id, ans) in &round.answers {
-            let mut score = 0.0;
-            let is_correct = ans.choice_index == round.question.correct_index;
-            if is_correct {
-                let elapsed_secs = ans.submitted_at.duration_since(round.started_at).as_secs_f64();
-                score = calculate_correct_score(
-                    round.question.points,
-                    elapsed_secs,
-                    round.answer_window_secs as f64,
-                    round.double_downers.contains(player_id),
-                    speed_bonus_enabled,
+            let mut round_scores: HashMap<String, f64> = HashMap::new();
+            for player in game.players.values_mut() {
+                player.last_score_delta = 0.0;
+            }
+            for (player_id, ans) in &round.answers {
+                let mut score = 0.0;
+                let is_correct = ans.choice_index == round.question.correct_index;
+                if is_correct {
+                    let elapsed_secs = ans.submitted_at.duration_since(round.started_at).as_secs_f64();
+                    score = calculate_correct_score(
+                        round.question.points,
+                        elapsed_secs,
+                        round.answer_window_secs as f64,
+                        round.double_downers.contains(player_id),
+                        speed_bonus_enabled,
+                    );
+                }
+                round_scores.insert(player_id.clone(), score);
+            }
+
+            if let Some(multiplier) = round.great_gambler_factor {
+                for score in round_scores.values_mut() {
+                    *score *= multiplier;
+                }
+            }
+
+            let top_round_score = round_scores
+                .values()
+                .copied()
+                .max_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal))
+                .unwrap_or(0.0);
+
+            for player_id in round.clone_commanders {
+                round_scores.insert(player_id, top_round_score);
+            }
+
+            for (player_id, gain) in &round_scores {
+                if let Some(player) = game.players.get_mut(player_id) {
+                    player.score += gain;
+                    player.last_score_delta = *gain;
+                }
+            }
+
+            game.completed_rounds += 1;
+            game.status = GameStatus::RoundResult;
+
+            let mut details = serde_json::Map::new();
+            for (player_id, answer) in round.answers {
+                let gained = round_scores.get(&player_id).copied().unwrap_or(0.0);
+                details.insert(
+                    player_id,
+                    json!({
+                        "choice_index": answer.choice_index,
+                        "is_correct": answer.choice_index == round.question.correct_index,
+                        "score_delta": (gained * 100.0).round() / 100.0,
+                    }),
                 );
             }
-            round_scores.insert(player_id.clone(), score);
-        }
 
-        if let Some(multiplier) = round.great_gambler_factor {
-            for score in round_scores.values_mut() {
-                *score *= multiplier;
-            }
-        }
+            let result_payload = json!({
+                "round_number": round.round_number,
+                "correct_index": round.question.correct_index,
+                "question_id": round.question.id,
+                "scores": details,
+                "leaderboard": game.leaderboard(),
+                "great_gambler_factor": round.great_gambler_factor,
+            });
 
-        let top_round_score = round_scores
-            .values()
-            .copied()
-            .max_by(|a, b| a.partial_cmp(b).unwrap_or(std::cmp::Ordering::Equal))
-            .unwrap_or(0.0);
+            Some((
+                result_payload,
+                game.completed_rounds >= game.total_rounds,
+                game.auto_issue_enabled,
+                game.auto_issue_delay_secs,
+            ))
+        })
+        .await
+    else {
+            return;
+        };
 
-        for player_id in round.clone_commanders {
-            round_scores.insert(player_id, top_round_score);
-        }
-
-        for (player_id, gain) in &round_scores {
-            if let Some(player) = game.players.get_mut(player_id) {
-                player.score += gain;
-                player.last_score_delta = *gain;
-            }
-        }
-
-        game.completed_rounds += 1;
-        game.status = GameStatus::RoundResult;
-
-        let mut details = serde_json::Map::new();
-        for (player_id, answer) in round.answers {
-            let gained = round_scores.get(&player_id).copied().unwrap_or(0.0);
-            details.insert(
-                player_id,
-                json!({
-                    "choice_index": answer.choice_index,
-                    "is_correct": answer.choice_index == round.question.correct_index,
-                    "score_delta": (gained * 100.0).round() / 100.0,
-                }),
-            );
-        }
-
-        result_payload = json!({
-            "round_number": round.round_number,
-            "correct_index": round.question.correct_index,
-            "question_id": round.question.id,
-            "scores": details,
-            "leaderboard": game.leaderboard(),
-            "great_gambler_factor": round.great_gambler_factor,
-        });
-
-        end_game = game.completed_rounds >= game.total_rounds;
-        auto_issue_enabled = game.auto_issue_enabled;
-        auto_issue_delay_secs = game.auto_issue_delay_secs;
-    }
-
-    broadcast_json(&state, json!({"event": "round_result", "payload": result_payload})).await;
-    broadcast_state(&state).await;
+    broadcast_room_json(&state, &room_code, json!({"event": "round_result", "payload": result_payload})).await;
+    broadcast_room_state(&state, &room_code).await;
 
     if end_game {
         {
-            let mut rooms = state.rooms.lock().await;
-            let room = rooms
-                .get_mut(DEFAULT_ROOM_CODE)
-                .expect("default room missing");
-            room.last_activity_at = Instant::now();
-            let game = &mut room.game;
-            game.status = GameStatus::Ended;
-            let history = HistoryEntry {
-                finished_at: Utc::now().to_rfc3339(),
-                rounds_played: game.completed_rounds,
-                leaderboard: game.leaderboard(),
-            };
-            append_history(&state.data_dir, history);
+            let _ = with_room_mut(&state, &room_code, |room| {
+                room.last_activity_at = Instant::now();
+                let game = &mut room.game;
+                game.status = GameStatus::Ended;
+                let history = HistoryEntry {
+                    finished_at: Utc::now().to_rfc3339(),
+                    rounds_played: game.completed_rounds,
+                    leaderboard: game.leaderboard(),
+                };
+                append_history(&state.data_dir, history);
+            })
+            .await;
         }
-        broadcast_state(&state).await;
+        broadcast_room_state(&state, &room_code).await;
     } else if auto_issue_enabled {
-        spawn_auto_issue_timer(state.clone(), auto_issue_delay_secs);
+        spawn_auto_issue_timer(state.clone(), room_code, auto_issue_delay_secs);
     }
 }
 
