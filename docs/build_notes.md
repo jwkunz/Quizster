@@ -707,6 +707,9 @@
   - Added unit tests covering hosted title/name validation, late-join
     eligibility, and player leaderboard visibility rules alongside the existing
     scoring tests.
+  - Updated hosted room creation to return the full owner-room snapshot instead
+    of a partial payload so the homepage has correct settings and launch state
+    immediately after room creation.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -727,6 +730,9 @@
   - `cargo test` passes with hosted validation and lifecycle unit tests.
   - `scripts/smoke_hosted_flow.sh` still passes after the new unit-tested
     lifecycle helpers were introduced.
+  - `cargo test` passes after the hosted room-create snapshot fix.
+  - `scripts/smoke_hosted_flow.sh` passes after the hosted room-create snapshot
+    fix.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

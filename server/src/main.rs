@@ -1094,27 +1094,24 @@ async fn create_hosted_room(
             room_title.clone(),
             owner_token.clone(),
         );
-        let available_questions = room.game.total_available_questions();
         rooms.insert(room_code.clone(), room);
-        (room_code, room_title, available_questions, owner_token)
+        (room_code, room_title, owner_token)
     };
     state
         .owner_index
         .lock()
         .await
-        .insert(room_info.3.clone(), room_info.0.clone());
+        .insert(room_info.2.clone(), room_info.0.clone());
 
-    let player_url = format!("{}?room={}", state.player_join_url, room_info.0);
-    (
-        StatusCode::OK,
-        Json(json!({
-            "room_code": room_info.0,
-            "room_title": room_info.1,
-            "available_questions": room_info.2,
-            "owner_token": room_info.3,
-            "player_url": player_url
-        })),
-    )
+    let Some(mut payload) = owner_room_payload(&state, &room_info.0).await else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
+
+    if let Some(object) = payload.as_object_mut() {
+        object.insert("owner_token".to_string(), json!(room_info.2));
+    }
+
+    (StatusCode::OK, Json(payload))
 }
 
 async fn resume_hosted_room(
