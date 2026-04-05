@@ -230,6 +230,27 @@
       border-color: #5a4520;
       background: #1d1709;
     }
+    .wizard-banner {
+      margin-top: 1rem;
+      border: 1px solid #2b2b2b;
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      background: linear-gradient(135deg, #0c1417, #111111);
+    }
+    .wizard-banner strong {
+      color: var(--gold);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .step-panel.locked {
+      opacity: 0.6;
+      border-color: #3b341e;
+      box-shadow: none;
+    }
+    .step-panel.active {
+      border-color: #2d565b;
+      box-shadow: 0 0 18px #00f6ff22;
+    }
     .monitor-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -363,8 +384,13 @@
         </div>
       </div>
 
+      <div class="wizard-banner">
+        <strong id="wizardBannerTitle">Current Step</strong>
+        <div id="wizardBannerText" class="mini">Choose question packs to prepare the room.</div>
+      </div>
+
       <div class="control-grid">
-        <div class="panel" style="margin:0;">
+        <div id="packsStepPanel" class="panel step-panel active" style="margin:0;">
           <h2>Step 1: Question Packs</h2>
           <div class="statline" id="packSummary">Load a room to inspect available packs.</div>
           <div id="bankList" class="bank-list" style="margin-top:0.75rem;"></div>
@@ -375,7 +401,7 @@
           <div class="status" id="bankStatus" style="margin-top:0.75rem;"></div>
         </div>
 
-        <div class="panel" style="margin:0;">
+        <div id="gameStepPanel" class="panel step-panel locked" style="margin:0;">
           <h2>Step 3: Run Game</h2>
           <div class="stack">
             <label>
@@ -389,7 +415,7 @@
         </div>
       </div>
 
-      <div class="panel" style="margin-top:1rem;">
+      <div id="settingsStepPanel" class="panel step-panel locked" style="margin-top:1rem;">
         <h2>Step 2: Game Settings</h2>
         <div class="control-grid">
           <div class="stack">
@@ -586,6 +612,12 @@
       node.classList.toggle("pending", !ready);
     }
 
+    function setPanelState(id, mode) {
+      const node = el(id);
+      node.classList.toggle("locked", mode === "locked");
+      node.classList.toggle("active", mode === "active");
+    }
+
     function renderWizardState(room) {
       const questionsInPlay = Number(room.questions_in_play || 0);
       const launched = Boolean(room.launched);
@@ -600,6 +632,34 @@
         setStepState("stepGameState", "Game complete", true);
       } else {
         setStepState("stepGameState", "Waiting", false);
+      }
+
+      if (questionsInPlay < 1) {
+        setPanelState("packsStepPanel", "active");
+        setPanelState("settingsStepPanel", "locked");
+        setPanelState("gameStepPanel", "locked");
+        el("wizardBannerTitle").textContent = "Current Step: Choose Packs";
+        el("wizardBannerText").textContent = "Select at least one server-side pack with playable questions before you configure launch and gameplay.";
+      } else if (!launched) {
+        setPanelState("packsStepPanel", "active");
+        setPanelState("settingsStepPanel", "active");
+        setPanelState("gameStepPanel", "locked");
+        el("wizardBannerTitle").textContent = "Current Step: Launch Room";
+        el("wizardBannerText").textContent = "Your question pool is ready. Review settings, then launch the room so players can join.";
+      } else {
+        setPanelState("packsStepPanel", "active");
+        setPanelState("settingsStepPanel", "active");
+        setPanelState("gameStepPanel", "active");
+        if (hasStarted) {
+          el("wizardBannerTitle").textContent = "Current Step: Game In Progress";
+          el("wizardBannerText").textContent = "The room is live and the game is running. Monitor players, leaderboard, and blocked names here.";
+        } else if (hasEndedWithScore) {
+          el("wizardBannerTitle").textContent = "Current Step: Start Another Game";
+          el("wizardBannerText").textContent = "This room stays open after a game ends. Adjust packs or settings if needed, then start the next game.";
+        } else {
+          el("wizardBannerTitle").textContent = "Current Step: Start Game";
+          el("wizardBannerText").textContent = "The room is live for joins. Start the game when the players are ready.";
+        }
       }
 
       el("monitorGrid").classList.toggle("hidden", !launched);
