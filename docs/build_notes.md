@@ -673,10 +673,16 @@
   - Tightened hosted owner-page validation so round controls clamp to playable
     question counts, start is blocked when no playable questions are selected,
     and game controls reflect current room status more clearly.
+  - Added `scripts/smoke_hosted_flow.sh` to exercise hosted room creation,
+    resume, pack selection, player join, moderation, game start, game end, and
+    room close against a live local server.
+  - Updated developer and acceptance docs to include the hosted smoke script as
+    a repeatable validation step.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
   - `cargo check` passes after hosted owner-control validation polish.
+  - `scripts/smoke_hosted_flow.sh` passes against a local localhost server run.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

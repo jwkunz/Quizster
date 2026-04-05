@@ -264,6 +264,7 @@ Build and package locally:
 ```bash
 scripts/build_release.sh "$(cat VERSION)" local
 scripts/verify_artifacts.sh "$(cat VERSION)" local
+scripts/smoke_hosted_flow.sh
 ```
 
 Current release model is server-only artifacts.
