@@ -602,11 +602,16 @@
   - Updated admin login, player join, and websocket client attachment to resolve
     room membership by room code or known client identity instead of always
     binding connections to the compatibility default room.
+  - Added generated 4-character room-code creation, room-template cloning, and
+    a new backend `POST /api/rooms/create` endpoint that inserts real separate
+    rooms into the in-memory registry.
+  - Added room titles to room state and to the serialized state snapshot for
+    future hosted UI work.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after room-aware login, join, and websocket attachment
-    changes.
+  - `cargo check` passes after backend multi-room creation primitives were
+    added.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

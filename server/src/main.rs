@@ -27,6 +27,8 @@ use uuid::Uuid;
 
 const DEFAULT_ADMIN_PASSCODE: &str = "quizter-admin";
 const DEFAULT_ROOM_CODE: &str = "QUIZTER";
+const ROOM_CODE_LENGTH: usize = 4;
+const ROOM_CODE_ALPHABET: &[u8] = b"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
 #[derive(Clone)]
 struct AppState {
@@ -42,6 +44,7 @@ struct AppState {
 
 #[derive(Debug)]
 struct RoomState {
+    room_title: String,
     last_activity_at: Instant,
     game: GameState,
 }
@@ -156,7 +159,7 @@ struct RoundState {
     option_order: Vec<usize>,
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 struct GameState {
     room_code: String,
     admin_passcode: String,
@@ -341,6 +344,44 @@ impl GameState {
     }
 }
 
+fn generate_room_code(existing_codes: &HashSet<String>) -> Option<String> {
+    let mut rng = rand::thread_rng();
+    for _ in 0..512 {
+        let code: String = (0..ROOM_CODE_LENGTH)
+            .map(|_| {
+                let idx = rng.gen_range(0..ROOM_CODE_ALPHABET.len());
+                ROOM_CODE_ALPHABET[idx] as char
+            })
+            .collect();
+        if !existing_codes.contains(&code) {
+            return Some(code);
+        }
+    }
+    None
+}
+
+fn room_from_template(template: &GameState, room_code: String, room_title: String) -> RoomState {
+    let mut game = template.clone();
+    game.room_code = room_code;
+    game.admin_passcode = DEFAULT_ADMIN_PASSCODE.to_string();
+    game.admin_id = None;
+    game.status = GameStatus::Lobby;
+    game.players.clear();
+    game.selected_bank_files.clear();
+    game.questions.clear();
+    game.shuffled_question_ids.clear();
+    game.current_round = None;
+    game.completed_rounds = 0;
+    game.total_rounds = 10;
+    game.rebuild_effective_question_pool();
+
+    RoomState {
+        room_title,
+        last_activity_at: Instant::now(),
+        game,
+    }
+}
+
 #[derive(Deserialize)]
 struct CreateRoomRequest {
     admin_passcode: Option<String>,
@@ -351,6 +392,11 @@ struct CreateRoomRequest {
     response_seconds: Option<u64>,
     auto_issue_enabled: Option<bool>,
     auto_issue_delay_secs: Option<u64>,
+}
+
+#[derive(Deserialize)]
+struct CreateHostedRoomRequest {
+    room_title: String,
 }
 
 #[derive(Deserialize)]
@@ -478,6 +524,7 @@ async fn main() {
     rooms.insert(
         DEFAULT_ROOM_CODE.to_string(),
         RoomState {
+            room_title: "Quizter Legacy Room".to_string(),
             last_activity_at: Instant::now(),
             game: default_game,
         },
@@ -502,6 +549,7 @@ async fn main() {
         .route("/admin", get(admin_page))
         .route("/api/server_info", get(server_info))
         .route("/api/qr.svg", get(qr_svg))
+        .route("/api/rooms/create", post(create_hosted_room))
         .route("/api/admin/create_room", post(create_room))
         .route("/api/admin/login", post(admin_login))
         .route("/api/join", post(join_room))
@@ -703,6 +751,51 @@ async fn create_room(
     .await;
 
     Json(payload)
+}
+
+async fn create_hosted_room(
+    State(state): State<AppState>,
+    Json(req): Json<CreateHostedRoomRequest>,
+) -> impl IntoResponse {
+    let room_title = req.room_title.trim();
+    if room_title.is_empty() {
+        return (
+            StatusCode::BAD_REQUEST,
+            Json(json!({"error": "room_title_required"})),
+        );
+    }
+
+    let room_info = {
+        let mut rooms = state.rooms.lock().await;
+        let existing_codes: HashSet<String> = rooms.keys().cloned().collect();
+        let Some(room_code) = generate_room_code(&existing_codes) else {
+            return (
+                StatusCode::CONFLICT,
+                Json(json!({"error": "room_code_unavailable"})),
+            );
+        };
+
+        let template = rooms
+            .get(DEFAULT_ROOM_CODE)
+            .expect("default room missing")
+            .game
+            .clone();
+        let room = room_from_template(&template, room_code.clone(), room_title.to_string());
+        let available_questions = room.game.total_available_questions();
+        rooms.insert(room_code.clone(), room);
+        (room_code, room_title.to_string(), available_questions)
+    };
+
+    let player_url = format!("{}?room={}", state.player_join_url, room_info.0);
+    (
+        StatusCode::OK,
+        Json(json!({
+            "room_code": room_info.0,
+            "room_title": room_info.1,
+            "available_questions": room_info.2,
+            "player_url": player_url
+        })),
+    )
 }
 
 async fn admin_login(
@@ -1814,6 +1907,7 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
         json!({
             "status": game.status,
             "room_code": game.room_code,
+            "room_title": room.room_title,
             "role": role,
             "total_rounds": game.total_rounds,
             "completed_rounds": game.completed_rounds,
