@@ -613,11 +613,14 @@
   - Moved question-pack export, pack listing, and pack selection APIs onto the
     admin's actual room so each created room can inspect and modify its own
     effective content pool independently.
+  - Moved manual question add/import and question-bank import APIs onto the
+    admin's actual room so question-pool mutations no longer write only to the
+    legacy default room.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after room-scoping question-bank inspection and
-    selection.
+  - `cargo check` passes after room-scoping manual question and bank mutation
+    APIs.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

@@ -907,6 +907,9 @@ async fn add_question(
     if !is_admin(&state, &req.admin_id).await {
         return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
     }
+    let Some(room_code) = room_code_for_known_client(&state, &req.admin_id).await else {
+        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
+    };
     if req.options.len() != 4 || req.correct_index > 3 || req.points == 0 {
         return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_question"})));
     }
@@ -921,20 +924,19 @@ async fn add_question(
         image_url: req.image_url,
     };
 
-    {
-        let mut rooms = state.rooms.lock().await;
-        let room = rooms
-            .get_mut(DEFAULT_ROOM_CODE)
-            .expect("default room missing");
+    let Some(()) = with_room_mut(&state, &room_code, |room| {
         room.last_activity_at = Instant::now();
         let game = &mut room.game;
         game.manual_questions.push(question.clone());
         save_manual_questions(&state.data_dir, &game.manual_questions);
         game.rebuild_effective_question_pool();
         game.reflow_future_rounds_after_pool_change();
-    }
+    })
+    .await else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
 
-    broadcast_state(&state).await;
+    broadcast_room_state(&state, &room_code).await;
     (axum::http::StatusCode::OK, Json(json!({"ok": true, "question": question})))
 }
 
@@ -945,6 +947,9 @@ async fn import_questions(
     if !is_admin(&state, &req.admin_id).await {
         return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
     }
+    let Some(room_code) = room_code_for_known_client(&state, &req.admin_id).await else {
+        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
+    };
 
     if req.questions.is_empty() {
         return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
@@ -956,11 +961,7 @@ async fn import_questions(
         }
     }
 
-    {
-        let mut rooms = state.rooms.lock().await;
-        let room = rooms
-            .get_mut(DEFAULT_ROOM_CODE)
-            .expect("default room missing");
+    let Some(()) = with_room_mut(&state, &room_code, |room| {
         room.last_activity_at = Instant::now();
         let game = &mut room.game;
         let imported: Vec<Question> = req
@@ -983,9 +984,12 @@ async fn import_questions(
         save_manual_questions(&state.data_dir, &game.manual_questions);
         game.rebuild_effective_question_pool();
         game.reflow_future_rounds_after_pool_change();
-    }
+    })
+    .await else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
 
-    broadcast_state(&state).await;
+    broadcast_room_state(&state, &room_code).await;
     (axum::http::StatusCode::OK, Json(json!({"ok": true})))
 }
 
@@ -996,6 +1000,9 @@ async fn import_questions_as_bank(
     if !is_admin(&state, &req.admin_id).await {
         return (StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
     }
+    let Some(room_code) = room_code_for_known_client(&state, &req.admin_id).await else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
+    };
     if req.questions.is_empty() {
         return (StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
     }
@@ -1034,11 +1041,7 @@ async fn import_questions_as_bank(
         return (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"error": "write_failed"})));
     }
 
-    {
-        let mut rooms = state.rooms.lock().await;
-        let room = rooms
-            .get_mut(DEFAULT_ROOM_CODE)
-            .expect("default room missing");
+    let Some(()) = with_room_mut(&state, &room_code, |room| {
         room.last_activity_at = Instant::now();
         let game = &mut room.game;
         game.file_question_banks
@@ -1046,9 +1049,12 @@ async fn import_questions_as_bank(
         // Do not auto-select this bank; it becomes available in filter only.
         game.rebuild_effective_question_pool();
         game.reflow_future_rounds_after_pool_change();
-    }
+    })
+    .await else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
 
-    broadcast_state(&state).await;
+    broadcast_room_state(&state, &room_code).await;
     (
         StatusCode::OK,
         Json(json!({"ok": true, "bank_file": bank_name})),
