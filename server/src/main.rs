@@ -3189,11 +3189,56 @@ mod tests {
     use super::{
         calculate_correct_score, eligible_from_round_for_new_player, host_label_from_base_url,
         normalize_player_name, normalize_room_title, normalized_public_base_url,
-        player_can_participate_in_current_round,
-        should_show_player_leaderboard, GameState, GameStatus, PlayerState, RoundState,
+        player_can_participate_in_current_round, remove_room_and_clients, room_from_template,
+        should_show_player_leaderboard, validate_owner_room_access, AppState, ClientConnection,
+        GameState, GameStatus, PlayerState, RoomState, RoundState,
     };
     use std::collections::{HashMap, HashSet};
+    use std::path::PathBuf;
+    use std::sync::Arc;
     use std::time::{Duration, Instant};
+    use tokio::sync::{mpsc, oneshot, Mutex};
+
+    fn build_test_state_with_hosted_room(room_code: &str, owner_token: &str) -> AppState {
+        let template = GameState::new(Vec::new(), HashMap::new(), HashSet::new());
+        let hosted_room = room_from_template(
+            &template,
+            room_code.to_string(),
+            "Hosted Test Room".to_string(),
+            owner_token.to_string(),
+        );
+        let default_room = RoomState {
+            room_title: "Legacy Default Room".to_string(),
+            owner_token: "legacy-default-room".to_string(),
+            launched: false,
+            clear_blocked_names_on_new_game: false,
+            blocked_names: HashSet::new(),
+            last_activity_at: Instant::now(),
+            game: template,
+        };
+
+        let mut rooms = HashMap::new();
+        rooms.insert(super::DEFAULT_ROOM_CODE.to_string(), default_room);
+        rooms.insert(room_code.to_string(), hosted_room);
+
+        let mut owner_index = HashMap::new();
+        owner_index.insert(owner_token.to_string(), room_code.to_string());
+
+        let (shutdown_tx, _shutdown_rx) = oneshot::channel();
+
+        AppState {
+            rooms: Arc::new(Mutex::new(rooms)),
+            owner_index: Arc::new(Mutex::new(owner_index)),
+            clients: Arc::new(Mutex::new(HashMap::new())),
+            data_dir: Arc::new(PathBuf::from(".")),
+            public_base_url: Arc::new("http://127.0.0.1:8080".to_string()),
+            player_join_url: Arc::new("http://127.0.0.1:8080/player".to_string()),
+            host_ip: Arc::new("127.0.0.1".to_string()),
+            port: 8080,
+            runtime_root: Arc::new(PathBuf::from(".")),
+            shutdown_tx: Arc::new(Mutex::new(Some(shutdown_tx))),
+        }
+    }
 
     #[test]
     fn score_is_max_at_zero_elapsed() {
@@ -3342,5 +3387,45 @@ mod tests {
             "quizter.example.com"
         );
         assert_eq!(host_label_from_base_url("http://127.0.0.1:8080"), "127.0.0.1:8080");
+    }
+
+    #[tokio::test]
+    async fn owner_token_must_match_the_room_it_controls() {
+        let state = build_test_state_with_hosted_room("AB12", "owner-123");
+
+        assert_eq!(
+            validate_owner_room_access(&state, "AB12", "owner-123").await,
+            Some("AB12".to_string())
+        );
+        assert_eq!(
+            validate_owner_room_access(&state, "ZZ99", "owner-123").await,
+            None
+        );
+        assert_eq!(
+            validate_owner_room_access(&state, "AB12", "wrong-token").await,
+            None
+        );
+    }
+
+    #[tokio::test]
+    async fn removing_a_hosted_room_cleans_up_owner_token_and_clients() {
+        let state = build_test_state_with_hosted_room("AB12", "owner-123");
+        let (tx, _rx) = mpsc::unbounded_channel();
+        state.clients.lock().await.insert(
+            "player-1".to_string(),
+            ClientConnection {
+                room_code: "AB12".to_string(),
+                tx,
+            },
+        );
+
+        let removed_title =
+            remove_room_and_clients(&state, "AB12", "owner-123", "room_closed").await;
+
+        assert_eq!(removed_title, Some("Hosted Test Room".to_string()));
+        assert!(state.rooms.lock().await.get("AB12").is_none());
+        assert!(state.owner_index.lock().await.get("owner-123").is_none());
+        assert!(state.clients.lock().await.get("player-1").is_none());
+        assert!(state.rooms.lock().await.get(super::DEFAULT_ROOM_CODE).is_some());
     }
 }

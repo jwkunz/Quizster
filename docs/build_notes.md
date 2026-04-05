@@ -735,6 +735,9 @@
   - Expanded the hosted homepage from a flat setup dashboard into a clearer
     four-step flow: choose packs, choose settings, review and launch, then run
     game.
+  - Added hosted lifecycle tests for owner-token validation and room-removal
+    cleanup so token ownership, room eviction, and client cleanup regressions
+    are now covered by unit tests.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -773,6 +776,7 @@
 - `cargo test` passes after hosted deployment checklist and acceptance-doc
   alignment.
 - `cargo test` passes after hosted review-and-launch wizard polish.
+- `cargo test` passes with hosted owner-token cleanup lifecycle coverage.
 - Known issues:
   - Hosted deployment still relies on in-memory room state in a single running
     server instance.
