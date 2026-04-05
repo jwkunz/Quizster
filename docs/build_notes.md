@@ -582,235 +582,36 @@
 
 ## v4.0.0 - 2026-04-04
 - Completed:
-  - Defined the hosted-product transformation plan for moving Quizter from a
-    single-room LAN app to a multi-room public hosted service.
-  - Added a Phase 1 backend architecture checklist focused on replacing the
-    single global game model with a room registry.
-  - Bumped version markers to `v4.0.0` and aligned Cargo package versioning with
-    the published app version.
-  - Began Phase 1 backend implementation by introducing a room registry and
-    room-scoped client connection metadata while preserving the legacy default
-    room behavior.
-  - Converted server broadcast and state snapshot plumbing to resolve room
-    context from connected clients instead of relying only on one global app
-    game handle.
-  - Added reusable room access helpers and explicit room-scoped broadcast
-    helpers to reduce direct default-room lock plumbing in server handlers.
-  - Moved round progression, timer dispatch, and round finalization onto
-    explicit room-code-based functions so the gameplay engine no longer hard
-    codes the legacy default room path internally.
-  - Updated admin login, player join, and websocket client attachment to resolve
-    room membership by room code or known client identity instead of always
-    binding connections to the compatibility default room.
-  - Added generated 4-character room-code creation, room-template cloning, and
-    a new backend `POST /api/rooms/create` endpoint that inserts real separate
-    rooms into the in-memory registry.
-  - Added room titles to room state and to the serialized state snapshot for
-    future hosted UI work.
-  - Updated `start_game` to resolve the admin's actual room membership so
-    independently created rooms can run their own game loop instead of only the
-    legacy default room being startable.
-  - Moved question-pack export, pack listing, and pack selection APIs onto the
-    admin's actual room so each created room can inspect and modify its own
-    effective content pool independently.
-  - Moved manual question add/import and question-bank import APIs onto the
-    admin's actual room so question-pool mutations no longer write only to the
-    legacy default room.
-  - Added owner tokens and an owner-token index for hosted rooms.
-  - Updated hosted room creation to return an owner token and added
-    `POST /api/rooms/resume` so a hosted room can be resumed without relying on
-    the legacy admin passcode flow.
-  - Added `POST /api/rooms/close` so a hosted room can be explicitly closed by
-    owner token, with owner-index cleanup and room-scoped client disconnect
-    cleanup.
-  - Added a background room cleanup task that expires non-legacy rooms after 30
-    minutes of inactivity using the tracked `last_activity_at` field.
-  - Unified explicit close and inactivity expiration through a shared room
-    removal helper that cleans room state, owner-token mappings, and
-    room-scoped clients.
-  - Added owner-token-authenticated hosted room control endpoints for question
-    bank inspection, question bank selection, and game start so future hosted UI
-    work does not need to depend on the legacy admin login flow.
-  - Added an owner-token room settings endpoint for response timing, score
-    visibility, powerups, and auto-issue behavior.
-  - Added a new hosted landing page at `/` with `Create Room`, `Resume Room`,
-    and `Join Room` flows backed by the owner-token room APIs.
-  - Updated the player page to honor `?room=CODE` query parameters so hosted
-    landing-page joins can prefill the room code automatically.
-  - Extended the hosted landing page into an initial owner control surface that
-    can load question packs, apply pack selection, choose rounds, and start a
-    game through the owner-token room APIs.
-  - Added owner-token room status and end-game endpoints.
-  - Extended the hosted landing page so the host can refresh room state and end
-    a running game from the hosted control surface.
-  - Expanded the owner room status payload with player roster and leaderboard
-    data.
-  - Added basic hosted room monitoring to the landing page so the host can see
-    connected players and the live leaderboard without falling back to the
-    legacy admin page.
-  - Added automatic hosted room status polling on the landing page so the host
-    monitor refreshes without requiring manual reload actions.
-  - Added room-level blocked-name moderation state plus owner-token kick and
-    unban endpoints.
-  - Extended the hosted landing page so the host can kick players and manage the
-    blocked-name list from the hosted control surface.
-  - Extended the hosted landing page so the host can edit room settings from the
-    hosted control surface instead of depending on the legacy admin page.
-  - Updated the player page to handle hosted lifecycle events for room closure,
-    room expiration, and player kicks more cleanly.
-  - Improved player join error messages for blocked names and invalid room
-    codes in the hosted flow.
-  - Enforced the one-active-room-per-browser hosted UX rule in the landing page
-    by blocking new room creation while a saved owned room still exists.
-  - Centralized hosted room reset behavior in the landing page so stale,
-    expired, resumed-invalid, and explicitly closed hosted rooms clear browser
-    ownership state and monitoring UI consistently.
-  - Switched the default browser auto-open target from `/admin` to the hosted
-    homepage at `/`.
-  - Updated the README and legacy admin welcome text to describe the hosted
-    homepage flow as the default product entry point while preserving `/admin`
-    as a legacy console path.
-  - Tightened hosted owner-page validation so round controls clamp to playable
-    question counts, start is blocked when no playable questions are selected,
-    and game controls reflect current room status more clearly.
-  - Added `scripts/smoke_hosted_flow.sh` to exercise hosted room creation,
-    resume, pack selection, player join, moderation, game start, game end, and
-    room close against a live local server.
-  - Updated developer and acceptance docs to include the hosted smoke script as
-    a repeatable validation step.
-  - Updated the hosted landing page so browser ownership state hides or shows
-    the resume action and disables room creation proactively instead of only
-    rejecting a duplicate create request after click.
-  - Added server-side validation for hosted room titles and player display names
-    so the public hosted APIs reject blank or oversized inputs consistently.
-  - Updated the hosted homepage and player page inputs to match those server
-    limits directly in the browser.
-  - Expanded the hosted smoke script to assert the new public validation paths
-    for blank and oversized room titles plus oversized player display names.
-  - Added an explicit hosted room launch step so newly created rooms stay in
-    setup mode until the owner launches them for player joins.
-  - Blocked public joins before room launch and updated the hosted homepage to
-    hide the player QR/link until the room is live.
-  - Expanded the hosted smoke script to verify prelaunch join rejection and the
-    owner launch step before player entry.
-  - Polished the hosted homepage copy so setup, launch, and game-run steps read
-    more like a guided flow instead of a flat dashboard.
-  - Updated the README and acceptance checklist to describe the new setup,
-    launch, then start sequence for hosted rooms.
-  - Added late-join eligibility tracking so players who enter during an active
-    round wait until the next question instead of seeing or answering the
-    current one.
-  - Updated player-state rendering so the leaderboard is hidden between games
-    and only shown during active play or final scored end states.
-  - Expanded the hosted smoke script to assert lobby leaderboard hiding and the
-    late-join wait-until-next-round behavior through `/api/state`.
-  - Added unit tests covering hosted title/name validation, late-join
-    eligibility, and player leaderboard visibility rules alongside the existing
-    scoring tests.
-  - Updated hosted room creation to return the full owner-room snapshot instead
-    of a partial payload so the homepage has correct settings and launch state
-    immediately after room creation.
-  - Added a hosted room setting for whether blocked names should be cleared when
-    a new game starts, defaulting to permanent blocks until manually unbanned.
-  - Expanded the hosted smoke flow to verify both blocked-name retention modes:
-    blocked by default across games, and optional automatic clearing when a new
-    game starts.
-  - Updated hosted room creation so each new room snapshots the current
-    filesystem question-bank library at creation time instead of inheriting only
-    the server-start snapshot.
-  - Added visible step progress and smarter panel visibility to the hosted
-    homepage so the setup flow reads more clearly as choose packs, launch room,
-    then run game.
-  - Added wizard-state locking and a next-step guidance banner so later hosted
-    setup panels stay visually subordinate until earlier steps are complete.
-  - Added a clear legacy banner to `/admin` that points users back to the
-    hosted homepage so the old admin-login console is no longer presented as a
-    primary entry point.
-  - Added `QUIZTER_PUBLIC_BASE_URL` support so hosted player links, QR codes,
-    and server info can target a real public origin instead of always using the
-    detected LAN IP.
-  - Added a managed-hosting checklist and updated the acceptance checklist so
-    release verification now reflects the hosted homepage flow instead of the
-    old admin-login path.
-  - Expanded the hosted homepage from a flat setup dashboard into a clearer
-    four-step flow: choose packs, choose settings, review and launch, then run
-    game.
-  - Added hosted lifecycle tests for owner-token validation and room-removal
-    cleanup so token ownership, room eviction, and client cleanup regressions
-    are now covered by unit tests.
-  - Removed the old hard-coded `QUIZTER` default from the player join screen and
-    updated the README so the hosted homepage is described as the primary entry
-    point while `/admin` is treated as legacy fallback only.
-  - Expanded the hosted smoke script so `QUIZTER_PUBLIC_BASE_URL` is now
-    verified against the launched room join URL, giving the managed-deployment
-    path real end-to-end coverage.
-  - Cleaned the remaining user-facing legacy-console guidance so the admin page
-    now points people back to `/` as the normal host entry point even when they
-    intentionally visit `/admin`.
-  - Consolidated duplicated start-game and end-game reset logic into shared
-    server helpers so hosted-owner and legacy-admin flows now use the same
-    game-lifecycle reset path.
-  - Updated the server-info payload and browser auto-open helper naming so the
-    hosted homepage is represented as the primary URL and the admin console is
-    explicitly treated as a legacy fallback path.
+  - Completed the product transition from the earlier LAN/admin model to a
+    hosted-only room-owner model.
+  - Implemented an in-memory multi-room backend with owner-token creation,
+    resume, close, expiration, and room-scoped broadcasts.
+  - Built the hosted homepage flow at `/` for room creation, setup, launch,
+    monitoring, moderation, game control, and multi-game room reuse.
+  - Updated the player flow to support room-code joins, QR joins, prelaunch
+    join blocking, late-join wait-until-next-round behavior, and between-game
+    leaderboard hiding.
+  - Switched question-pack management to per-room server-side snapshots with
+    dynamic hosted selection and hosted settings control.
+  - Added hosted lifecycle and validation coverage plus a repeatable
+    end-to-end smoke script for the public room flow.
+  - Added `QUIZTER_PUBLIC_BASE_URL` support and managed-hosting docs for a real
+    public deployment target.
   - Removed the legacy `/admin` page, deleted the admin-only APIs and default
     compatibility room, and converted packaging/docs to a hosted-only model.
-  - Updated the repo planning docs so they now mark the hosted-only cutover as
-    complete instead of continuing to describe it as an in-progress transition.
 - Build artifacts:
-  - Not run for this planning milestone.
+  - `quizter-server-local-v4.0.0.zip`
 - Test status:
-  - `cargo check` passes after hosted owner-control validation polish.
-  - `scripts/smoke_hosted_flow.sh` passes against a local localhost server run.
-  - `cargo check` passes after hosted input-validation hardening.
-  - `scripts/smoke_hosted_flow.sh` still passes after hosted input-validation
-    hardening.
-  - `scripts/smoke_hosted_flow.sh` passes with explicit hosted validation-path
-    assertions.
-  - `cargo check` passes after hosted room-launch gating.
-  - `scripts/smoke_hosted_flow.sh` passes after hosted room-launch gating.
-  - `cargo check` passes after hosted setup-flow copy polish.
-  - `cargo check` passes after hosted launch-flow docs alignment.
-  - `cargo check` passes after late-join and between-game player-state fixes.
-  - `scripts/smoke_hosted_flow.sh` passes with state-level late-join and lobby
-    assertions.
-  - `cargo test` passes with hosted validation and lifecycle unit tests.
-  - `scripts/smoke_hosted_flow.sh` still passes after the new unit-tested
-    lifecycle helpers were introduced.
-  - `cargo test` passes after the hosted room-create snapshot fix.
-  - `scripts/smoke_hosted_flow.sh` passes after the hosted room-create snapshot
-    fix.
-  - `cargo test` passes after blocked-name retention setting support.
-  - `scripts/smoke_hosted_flow.sh` passes after blocked-name retention setting
-    support.
-  - `scripts/smoke_hosted_flow.sh` passes with explicit blocked-name retention
-    mode assertions.
-  - `cargo test` passes after per-room question-bank snapshot refresh.
-  - `scripts/smoke_hosted_flow.sh` passes after per-room question-bank snapshot
-    refresh.
-  - `cargo test` passes after hosted wizard-progress UX polish.
-  - `cargo test` passes after hosted wizard-state guidance polish.
-  - `cargo test` passes after legacy admin-path de-emphasis.
-  - `cargo test` passes after public-base-URL deployment support.
-- `cargo test` passes after hosted deployment checklist and acceptance-doc
-  alignment.
-- `cargo test` passes after hosted review-and-launch wizard polish.
-- `cargo test` passes with hosted owner-token cleanup lifecycle coverage.
-- `cargo test` passes after hosted README and player-entry cleanup.
-- `scripts/smoke_hosted_flow.sh` passes with `QUIZTER_PUBLIC_BASE_URL` set to a
-  public-origin test value.
-- `cargo test` passes after the final legacy-console copy cleanup.
-- `cargo test` passes with shared game-lifecycle helper coverage.
-- `cargo test` passes after hosted-first server-info cleanup.
-- `cargo test` and `scripts/smoke_hosted_flow.sh` pass after the hosted-only
-  cutover that removed the legacy admin flow.
-- `scripts/build_release.sh "$(cat VERSION)" local` and
-  `scripts/verify_artifacts.sh "$(cat VERSION)" local` pass for the hosted-only
-  artifact layout.
+  - `cargo test` passes.
+  - `scripts/smoke_hosted_flow.sh` passes.
+  - `scripts/smoke_hosted_flow.sh` passes with `QUIZTER_PUBLIC_BASE_URL` set to
+    a public-origin test value.
+  - `scripts/build_release.sh "$(cat VERSION)" local` passes.
+  - `scripts/verify_artifacts.sh "$(cat VERSION)" local` passes.
 - Known issues:
   - Hosted deployment still relies on in-memory room state in a single running
     server instance.
   - `server/src/main.rs` still carries too much of the hosted lifecycle logic.
 - Next stage:
-  - Continue hosted finish work with more UX polish, lifecycle coverage, and
-    server modularization.
+  - Future work is now optional cleanup or new product work, not unfinished
+    hosted migration work.
