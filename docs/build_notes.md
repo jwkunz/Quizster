@@ -660,10 +660,12 @@
     room expiration, and player kicks more cleanly.
   - Improved player join error messages for blocked names and invalid room
     codes in the hosted flow.
+  - Enforced the one-active-room-per-browser hosted UX rule in the landing page
+    by blocking new room creation while a saved owned room still exists.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after player-side hosted lifecycle polish.
+  - `cargo check` passes after hosted browser-ownership guardrails.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

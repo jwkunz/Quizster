@@ -745,6 +745,11 @@
     }
 
     async function createRoom() {
+      const saved = loadSavedRoom();
+      if (saved?.room_code && saved?.owner_token) {
+        setStatus("createStatus", `This browser already owns room ${saved.room_code}. Resume or close it before creating another room.`);
+        return;
+      }
       const roomTitle = el("roomTitle").value.trim();
       if (!roomTitle) {
         setStatus("createStatus", "Enter a room title.");
