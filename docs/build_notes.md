@@ -656,10 +656,14 @@
     blocked-name list from the hosted control surface.
   - Extended the hosted landing page so the host can edit room settings from the
     hosted control surface instead of depending on the legacy admin page.
+  - Updated the player page to handle hosted lifecycle events for room closure,
+    room expiration, and player kicks more cleanly.
+  - Improved player join error messages for blocked names and invalid room
+    codes in the hosted flow.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after adding hosted settings controls.
+  - `cargo check` passes after player-side hosted lifecycle polish.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

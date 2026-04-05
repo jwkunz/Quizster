@@ -501,6 +501,29 @@
       el("helpFooterWrap").classList.toggle("hidden", !isJoined);
     }
 
+    function leaveRoom(message) {
+      try {
+        ws?.close();
+      } catch (_) {}
+      ws = null;
+      playerId = "";
+      state = null;
+      mixedMode = false;
+      clearBetweenRoundCountdown();
+      el("joinStatus").textContent = message;
+      el("answerStatus").textContent = "";
+      el("options").innerHTML = "";
+      el("leaderboard").innerHTML = "";
+      el("events").innerHTML = "";
+      el("roundFeedback").classList.add("hidden");
+      el("resultFlash").classList.add("hidden");
+      el("powerupFlash").classList.add("hidden");
+      el("impactAlert").classList.add("hidden");
+      el("wizardPanel").classList.add("hidden");
+      setPanelsJoined(false);
+      renderRoundCountdown();
+    }
+
     function renderPowerups() {
       if (!state?.powerups_enabled) {
         el("powerupPanel").classList.add("hidden");
@@ -692,6 +715,12 @@
               clearBetweenRoundCountdown();
               renderRoundCountdown();
             }
+          } else if (msg.event === "room_closed") {
+            leaveRoom("The host closed this room.");
+          } else if (msg.event === "room_expired") {
+            leaveRoom("This room expired due to inactivity.");
+          } else if (msg.event === "player_kicked") {
+            leaveRoom("The host removed you from this room.");
           }
         } catch (_e) {}
       };
@@ -713,11 +742,17 @@
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ room_code: roomCode, display_name: displayName })
         });
+        const data = await res.json().catch(() => ({}));
         if (!res.ok) {
-          el("joinStatus").textContent = "Join failed.";
+          if (data?.error === "player_blocked") {
+            el("joinStatus").textContent = "Join failed: this player name is blocked in the room.";
+          } else if (data?.error === "invalid_room_code") {
+            el("joinStatus").textContent = "Join failed: room code not found.";
+          } else {
+            el("joinStatus").textContent = "Join failed.";
+          }
           return;
         }
-        const data = await res.json();
         playerId = data.player_id;
         setPanelsJoined(true);
         connectWs();
