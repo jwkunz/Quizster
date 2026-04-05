@@ -685,6 +685,8 @@
     so the public hosted APIs reject blank or oversized inputs consistently.
   - Updated the hosted homepage and player page inputs to match those server
     limits directly in the browser.
+  - Expanded the hosted smoke script to assert the new public validation paths
+    for blank and oversized room titles plus oversized player display names.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -693,6 +695,8 @@
   - `cargo check` passes after hosted input-validation hardening.
   - `scripts/smoke_hosted_flow.sh` still passes after hosted input-validation
     hardening.
+  - `scripts/smoke_hosted_flow.sh` passes with explicit hosted validation-path
+    assertions.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

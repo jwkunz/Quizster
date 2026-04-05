@@ -100,6 +100,26 @@ if [[ -z "${ROOM_CODE}" || -z "${OWNER_TOKEN}" ]]; then
   exit 1
 fi
 
+echo "Verifying hosted room title validation"
+empty_room_result="$(post_json "/api/rooms/create" '{"room_title":"   "}')"
+empty_room_status="$(printf '%s' "${empty_room_result}" | sed -n '1p')"
+empty_room_body="$(printf '%s' "${empty_room_result}" | sed -n '2p')"
+expect_status "${empty_room_status}" "400" "empty room title"
+if [[ "$(printf '%s' "${empty_room_body}" | json_get error)" != "room_title_required" ]]; then
+  echo "FAIL: empty room title did not return room_title_required"
+  exit 1
+fi
+
+long_room_title="$(python3 -c 'print("X" * 81)')"
+long_room_result="$(post_json "/api/rooms/create" "{\"room_title\":\"${long_room_title}\"}")"
+long_room_status="$(printf '%s' "${long_room_result}" | sed -n '1p')"
+long_room_body="$(printf '%s' "${long_room_result}" | sed -n '2p')"
+expect_status "${long_room_status}" "400" "oversized room title"
+if [[ "$(printf '%s' "${long_room_body}" | json_get error)" != "room_title_too_long" ]]; then
+  echo "FAIL: oversized room title did not return room_title_too_long"
+  exit 1
+fi
+
 echo "Resuming hosted room ${ROOM_CODE}"
 resume_result="$(post_json "/api/rooms/resume" "{\"room_code\":\"${ROOM_CODE}\",\"owner_token\":\"${OWNER_TOKEN}\"}")"
 resume_status="$(printf '%s' "${resume_result}" | sed -n '1p')"
@@ -138,6 +158,17 @@ expect_status "${join_status}" "200" "join player"
 PLAYER_ID="$(printf '%s' "${join_body}" | json_get player_id)"
 if [[ -z "${PLAYER_ID}" ]]; then
   echo "FAIL: player join did not return a player id"
+  exit 1
+fi
+
+echo "Verifying player-name validation"
+long_player_name="$(python3 -c 'print("Y" * 33)')"
+long_name_join_result="$(post_json "/api/join" "{\"room_code\":\"${ROOM_CODE}\",\"display_name\":\"${long_player_name}\"}")"
+long_name_join_status="$(printf '%s' "${long_name_join_result}" | sed -n '1p')"
+long_name_join_body="$(printf '%s' "${long_name_join_result}" | sed -n '2p')"
+expect_status "${long_name_join_status}" "400" "oversized player name"
+if [[ "$(printf '%s' "${long_name_join_body}" | json_get error)" != "display_name_too_long" ]]; then
+  echo "FAIL: oversized player name did not return display_name_too_long"
   exit 1
 fi
 
