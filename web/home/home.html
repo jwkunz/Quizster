@@ -240,7 +240,7 @@
     </section>
 
     <section class="grid">
-      <div class="panel">
+      <div id="createPanel" class="panel">
         <h2>Create Room</h2>
         <div class="stack">
           <label>
@@ -252,7 +252,7 @@
         </div>
       </div>
 
-      <div class="panel">
+      <div id="resumePanel" class="panel hidden">
         <h2>Resume Room</h2>
         <div class="stack">
           <button id="resumeRoomBtn" class="alt">Resume Saved Room</button>
@@ -400,10 +400,12 @@
 
     function saveRoom(room) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(room));
+      syncLandingActions();
     }
 
     function clearRoom() {
       localStorage.removeItem(STORAGE_KEY);
+      syncLandingActions();
     }
 
     function stopRoomPolling() {
@@ -427,6 +429,20 @@
 
     function currentRoom() {
       return loadSavedRoom();
+    }
+
+    function syncLandingActions() {
+      const saved = currentRoom();
+      const hasSavedRoom = Boolean(saved?.room_code && saved?.owner_token);
+      el("resumePanel").classList.toggle("hidden", !hasSavedRoom);
+      el("createRoomBtn").disabled = hasSavedRoom;
+      if (hasSavedRoom) {
+        setStatus("createStatus", `This browser already owns room ${saved.room_code}. Resume or close it before creating another room.`);
+        setStatus("resumeStatus", `Saved room ${saved.room_code} is ready to resume.`);
+      } else {
+        setStatus("createStatus", "Creates a hosted room and stores the owner token in this browser.");
+        setStatus("resumeStatus", "No saved hosted room yet.");
+      }
     }
 
     function resetHostedRoomUi(message = "") {
@@ -904,10 +920,7 @@
     el("startGameBtn").onclick = startGame;
     el("endGameBtn").onclick = endGame;
 
-    const saved = loadSavedRoom();
-    if (saved?.room_code) {
-      setStatus("resumeStatus", `Saved room ${saved.room_code} is ready to resume.`);
-    }
+    syncLandingActions();
   </script>
 </body>
 </html>

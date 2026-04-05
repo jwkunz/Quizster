@@ -678,6 +678,9 @@
     room close against a live local server.
   - Updated developer and acceptance docs to include the hosted smoke script as
     a repeatable validation step.
+  - Updated the hosted landing page so browser ownership state hides or shows
+    the resume action and disables room creation proactively instead of only
+    rejecting a duplicate create request after click.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
