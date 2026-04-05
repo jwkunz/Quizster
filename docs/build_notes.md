@@ -607,11 +607,13 @@
     rooms into the in-memory registry.
   - Added room titles to room state and to the serialized state snapshot for
     future hosted UI work.
+  - Updated `start_game` to resolve the admin's actual room membership so
+    independently created rooms can run their own game loop instead of only the
+    legacy default room being startable.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after backend multi-room creation primitives were
-    added.
+  - `cargo check` passes after room-scoping the game start path.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

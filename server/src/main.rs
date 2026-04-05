@@ -1158,16 +1158,15 @@ async fn start_game(
     if !is_admin(&state, &req.admin_id).await {
         return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
     }
+    let Some(room_code) = room_code_for_known_client(&state, &req.admin_id).await else {
+        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
+    };
 
-    {
-        let mut rooms = state.rooms.lock().await;
-        let room = rooms
-            .get_mut(DEFAULT_ROOM_CODE)
-            .expect("default room missing");
+    let startable = with_room_mut(&state, &room_code, |room| {
         room.last_activity_at = Instant::now();
         let game = &mut room.game;
         if game.questions.is_empty() {
-            return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
+            return false;
         }
 
         game.total_rounds = req.total_rounds.max(1).min(game.questions.len());
@@ -1183,9 +1182,21 @@ async fn start_game(
 
         game.shuffled_question_ids = game.questions.iter().map(|q| q.id.clone()).collect();
         game.shuffled_question_ids.shuffle(&mut rand::thread_rng());
+        true
+    })
+    .await;
+
+    match startable {
+        Some(true) => {}
+        Some(false) => {
+            return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
+        }
+        None => {
+            return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+        }
     }
 
-    start_next_round_in_room(state.clone(), DEFAULT_ROOM_CODE).await;
+    start_next_round_in_room(state.clone(), &room_code).await;
     (axum::http::StatusCode::OK, Json(json!({"ok": true})))
 }
 
