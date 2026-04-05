@@ -662,10 +662,13 @@
     codes in the hosted flow.
   - Enforced the one-active-room-per-browser hosted UX rule in the landing page
     by blocking new room creation while a saved owned room still exists.
+  - Centralized hosted room reset behavior in the landing page so stale,
+    expired, resumed-invalid, and explicitly closed hosted rooms clear browser
+    ownership state and monitoring UI consistently.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after hosted browser-ownership guardrails.
+  - `cargo check` passes after hosted stale-room cleanup polish.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

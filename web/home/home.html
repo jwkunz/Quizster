@@ -428,6 +428,25 @@
       return loadSavedRoom();
     }
 
+    function resetHostedRoomUi(message = "") {
+      clearRoom();
+      stopRoomPolling();
+      el("roomPanel").classList.add("hidden");
+      el("activeRoomTitle").textContent = "";
+      el("activeRoomCode").textContent = "";
+      el("playerLinkBox").textContent = "";
+      el("joinQr").src = "";
+      el("bankList").innerHTML = "";
+      el("packSummary").textContent = "No packs loaded yet.";
+      el("playerMonitor").innerHTML = '<div class="mini">No players joined yet.</div>';
+      el("leaderMonitor").innerHTML = '<div class="mini">No scores yet.</div>';
+      el("blockedMonitor").innerHTML = '<div class="mini">No blocked names.</div>';
+      if (message) {
+        setStatus("resumeStatus", message);
+        setStatus("roomStatus", message);
+      }
+    }
+
     function selectedPackFiles() {
       return Array.from(document.querySelectorAll("[data-pack-file]:checked")).map((node) => node.getAttribute("data-pack-file"));
     }
@@ -559,11 +578,12 @@
       const res = await fetch(url);
       const payload = await res.json();
       if (!res.ok) {
+        if (res.status === 401 || res.status === 400) {
+          resetHostedRoomUi(`Saved room is no longer available: ${payload.error || res.status}.`);
+          return;
+        }
         if (!silent) {
           setStatus("roomStatus", `Refresh failed: ${payload.error || res.status}`);
-        }
-        if (res.status === 401 || res.status === 400) {
-          stopRoomPolling();
         }
         return;
       }
@@ -788,10 +808,7 @@
       });
       const payload = await res.json();
       if (!res.ok) {
-        clearRoom();
-        stopRoomPolling();
-        setStatus("resumeStatus", `Resume failed: ${payload.error || res.status}. Saved token was cleared.`);
-        el("roomPanel").classList.add("hidden");
+        resetHostedRoomUi(`Resume failed: ${payload.error || res.status}. Saved token was cleared.`);
         return;
       }
       renderRoom(payload);
@@ -816,14 +833,7 @@
         setStatus("roomStatus", `Close failed: ${payload.error || res.status}`);
         return;
       }
-      clearRoom();
-      stopRoomPolling();
-      el("roomPanel").classList.add("hidden");
-      el("bankList").innerHTML = "";
-      el("playerMonitor").innerHTML = '<div class="mini">No players joined yet.</div>';
-      el("leaderMonitor").innerHTML = '<div class="mini">No scores yet.</div>';
-      el("blockedMonitor").innerHTML = '<div class="mini">No blocked names.</div>';
-      setStatus("resumeStatus", `Closed room ${payload.room_code}.`);
+      resetHostedRoomUi(`Closed room ${payload.room_code}.`);
     }
 
     async function copyPlayerLink() {
