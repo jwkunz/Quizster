@@ -4,6 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PORT="${1:-18080}"
 BASE_URL="http://127.0.0.1:${PORT}"
+PUBLIC_BASE_URL="${QUIZTER_PUBLIC_BASE_URL:-}"
 SERVER_LOG="$(mktemp)"
 SERVER_PID=""
 
@@ -180,7 +181,16 @@ fi
 echo "Launching hosted room"
 launch_result="$(post_json "/api/rooms/launch" "{\"room_code\":\"${ROOM_CODE}\",\"owner_token\":\"${OWNER_TOKEN}\"}")"
 launch_status="$(printf '%s' "${launch_result}" | sed -n '1p')"
+launch_body="$(printf '%s' "${launch_result}" | sed -n '2p')"
 expect_status "${launch_status}" "200" "launch room"
+if [[ -n "${PUBLIC_BASE_URL}" ]]; then
+  EXPECTED_PLAYER_URL="${PUBLIC_BASE_URL%/}/player?room=${ROOM_CODE}"
+  ACTUAL_PLAYER_URL="$(printf '%s' "${launch_body}" | json_get player_url)"
+  if [[ "${ACTUAL_PLAYER_URL}" != "${EXPECTED_PLAYER_URL}" ]]; then
+    echo "FAIL: launch room returned player_url '${ACTUAL_PLAYER_URL}' instead of '${EXPECTED_PLAYER_URL}'"
+    exit 1
+  fi
+fi
 
 echo "Joining player SmokePlayer"
 join_result="$(post_json "/api/join" "{\"room_code\":\"${ROOM_CODE}\",\"display_name\":\"SmokePlayer\"}")"
