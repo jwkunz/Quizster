@@ -590,10 +590,6 @@ async fn touch_room(state: &AppState, room_code: &str) {
     }
 }
 
-async fn touch_default_room(state: &AppState) {
-    touch_room(state, DEFAULT_ROOM_CODE).await;
-}
-
 async fn with_room_mut<T>(
     state: &AppState,
     room_code: &str,
@@ -618,13 +614,37 @@ async fn with_default_room_mut<T>(state: &AppState, f: impl FnOnce(&mut RoomStat
         .expect("default room missing")
 }
 
+async fn room_code_for_admin_login(state: &AppState, room_code: &str) -> Option<String> {
+    with_room(state, room_code, |_| room_code.to_string()).await
+}
+
+async fn room_code_for_join_request(state: &AppState, room_code: &str) -> Option<String> {
+    with_room(state, room_code, |_| room_code.to_string()).await
+}
+
+async fn room_code_for_known_client(state: &AppState, client_id: &str) -> Option<String> {
+    {
+        let clients = state.clients.lock().await;
+        if let Some(client) = clients.get(client_id) {
+            return Some(client.room_code.clone());
+        }
+    }
+
+    let rooms = state.rooms.lock().await;
+    for (room_code, room) in rooms.iter() {
+        if room.game.admin_id.as_deref() == Some(client_id) {
+            return Some(room_code.clone());
+        }
+        if room.game.players.contains_key(client_id) {
+            return Some(room_code.clone());
+        }
+    }
+    None
+}
+
 async fn room_code_for_client(state: &AppState, client_id: &str) -> String {
-    state
-        .clients
-        .lock()
+    room_code_for_known_client(state, client_id)
         .await
-        .get(client_id)
-        .map(|client| client.room_code.clone())
         .unwrap_or_else(|| DEFAULT_ROOM_CODE.to_string())
 }
 
@@ -689,8 +709,15 @@ async fn admin_login(
     State(state): State<AppState>,
     Json(req): Json<AdminLoginRequest>,
 ) -> impl IntoResponse {
+    let Some(room_code) = room_code_for_admin_login(&state, &req.room_code).await else {
+        return (
+            axum::http::StatusCode::UNAUTHORIZED,
+            Json(json!({"error": "invalid_credentials"})),
+        );
+    };
     let admin_id = {
-        with_default_room_mut(&state, |room| {
+        with_room_mut(&state, &room_code, |room| {
+            room.last_activity_at = Instant::now();
             let game = &mut room.game;
             if req.room_code != game.room_code || req.admin_passcode != game.admin_passcode {
                 return Err((
@@ -705,16 +732,28 @@ async fn admin_login(
         .await
     };
     let admin_id = match admin_id {
-        Ok(admin_id) => admin_id,
-        Err(err) => return err,
+        Some(Ok(admin_id)) => admin_id,
+        Some(Err(err)) => return err,
+        None => {
+            return (
+                axum::http::StatusCode::UNAUTHORIZED,
+                Json(json!({"error": "invalid_credentials"})),
+            )
+        }
     };
-    broadcast_state(&state).await;
+    broadcast_room_state(&state, &room_code).await;
     (axum::http::StatusCode::OK, Json(json!({"admin_id": admin_id})))
 }
 
 async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) -> impl IntoResponse {
+    let Some(room_code) = room_code_for_join_request(&state, &req.room_code).await else {
+        return (
+            axum::http::StatusCode::BAD_REQUEST,
+            Json(json!({"error": "invalid_room_code"})),
+        );
+    };
     let player_id = {
-        with_default_room_mut(&state, |room| {
+        with_room_mut(&state, &room_code, |room| {
             room.last_activity_at = Instant::now();
             let game = &mut room.game;
             if req.room_code != game.room_code {
@@ -755,10 +794,16 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
         .await
     };
     let player_id = match player_id {
-        Ok(player_id) => player_id,
-        Err(err) => return err,
+        Some(Ok(player_id)) => player_id,
+        Some(Err(err)) => return err,
+        None => {
+            return (
+                axum::http::StatusCode::BAD_REQUEST,
+                Json(json!({"error": "invalid_room_code"})),
+            )
+        }
     };
-    broadcast_state(&state).await;
+    broadcast_room_state(&state, &room_code).await;
     (axum::http::StatusCode::OK, Json(json!({"player_id": player_id})))
 }
 
@@ -1092,15 +1137,18 @@ async fn ws_handler(
 async fn handle_socket(stream: axum::extract::ws::WebSocket, state: AppState, client_id: String) {
     let (mut sender, mut receiver) = stream.split();
     let (tx, mut rx) = mpsc::unbounded_channel::<Message>();
+    let room_code = room_code_for_known_client(&state, &client_id)
+        .await
+        .unwrap_or_else(|| DEFAULT_ROOM_CODE.to_string());
 
     state.clients.lock().await.insert(
         client_id.clone(),
         ClientConnection {
-            room_code: DEFAULT_ROOM_CODE.to_string(),
+            room_code: room_code.clone(),
             tx,
         },
     );
-    touch_default_room(&state).await;
+    touch_room(&state, &room_code).await;
 
     let init = build_state_snapshot(&state, &client_id).await;
     let _ = send_to_client(&state, &client_id, json!({"event": "state", "payload": init})).await;
@@ -1125,17 +1173,16 @@ async fn handle_socket(stream: axum::extract::ws::WebSocket, state: AppState, cl
     state.clients.lock().await.remove(&client_id);
 
     {
-        let mut rooms = state.rooms.lock().await;
-        let room = rooms
-            .get_mut(DEFAULT_ROOM_CODE)
-            .expect("default room missing");
-        room.last_activity_at = Instant::now();
-        let game = &mut room.game;
-        if let Some(player) = game.players.get_mut(&client_id) {
-            player.connected = false;
-        }
+        let _ = with_room_mut(&state, &room_code, |room| {
+            room.last_activity_at = Instant::now();
+            let game = &mut room.game;
+            if let Some(player) = game.players.get_mut(&client_id) {
+                player.connected = false;
+            }
+        })
+        .await;
     }
-    broadcast_state(&state).await;
+    broadcast_room_state(&state, &room_code).await;
 }
 
 async fn handle_client_action(state: &AppState, client_id: &str, msg: WsClientMessage) {

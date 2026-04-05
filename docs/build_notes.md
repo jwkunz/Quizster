@@ -599,10 +599,14 @@
   - Moved round progression, timer dispatch, and round finalization onto
     explicit room-code-based functions so the gameplay engine no longer hard
     codes the legacy default room path internally.
+  - Updated admin login, player join, and websocket client attachment to resolve
+    room membership by room code or known client identity instead of always
+    binding connections to the compatibility default room.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after room-scoping round progression and timer logic.
+  - `cargo check` passes after room-aware login, join, and websocket attachment
+    changes.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
