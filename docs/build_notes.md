@@ -648,10 +648,14 @@
     legacy admin page.
   - Added automatic hosted room status polling on the landing page so the host
     monitor refreshes without requiring manual reload actions.
+  - Added room-level blocked-name moderation state plus owner-token kick and
+    unban endpoints.
+  - Extended the hosted landing page so the host can kick players and manage the
+    blocked-name list from the hosted control surface.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after adding hosted room polling.
+  - `cargo check` passes after adding hosted moderation controls.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

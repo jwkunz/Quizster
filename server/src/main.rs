@@ -49,6 +49,7 @@ struct AppState {
 struct RoomState {
     room_title: String,
     owner_token: String,
+    blocked_names: HashSet<String>,
     last_activity_at: Instant,
     game: GameState,
 }
@@ -391,6 +392,7 @@ fn room_from_template(
     RoomState {
         room_title,
         owner_token,
+        blocked_names: HashSet::new(),
         last_activity_at: Instant::now(),
         game,
     }
@@ -487,6 +489,20 @@ struct OwnerEndGameRequest {
 }
 
 #[derive(Deserialize)]
+struct OwnerKickPlayerRequest {
+    room_code: String,
+    owner_token: String,
+    player_id: String,
+}
+
+#[derive(Deserialize)]
+struct OwnerUnbanNameRequest {
+    room_code: String,
+    owner_token: String,
+    player_name: String,
+}
+
+#[derive(Deserialize)]
 struct SetBankSelectionRequest {
     admin_id: String,
     selected_files: Vec<String>,
@@ -578,6 +594,7 @@ async fn main() {
         RoomState {
             room_title: "Quizter Legacy Room".to_string(),
             owner_token: "legacy-default-room".to_string(),
+            blocked_names: HashSet::new(),
             last_activity_at: Instant::now(),
             game: default_game,
         },
@@ -616,6 +633,8 @@ async fn main() {
         .route("/api/rooms/question_banks/selection", post(set_owner_question_bank_selection))
         .route("/api/rooms/start", post(start_owner_game))
         .route("/api/rooms/end_game", post(end_owner_game))
+        .route("/api/rooms/kick", post(kick_owner_player))
+        .route("/api/rooms/unban", post(unban_owner_name))
         .route("/api/admin/create_room", post(create_room))
         .route("/api/admin/login", post(admin_login))
         .route("/api/join", post(join_room))
@@ -863,6 +882,8 @@ async fn owner_room_payload(state: &AppState, room_code: &str) -> Option<Value> 
                 })
             })
             .collect::<Vec<_>>();
+        let mut blocked_names = room.blocked_names.iter().cloned().collect::<Vec<_>>();
+        blocked_names.sort();
         json!({
             "room_code": room.game.room_code,
             "room_title": room.room_title,
@@ -872,6 +893,7 @@ async fn owner_room_payload(state: &AppState, room_code: &str) -> Option<Value> 
             "total_rounds": room.game.total_rounds,
             "completed_rounds": room.game.completed_rounds,
             "players": players,
+            "blocked_names": blocked_names,
             "leaderboard": room.game.leaderboard(),
             "player_url": format!("{}?room={}", state.player_join_url, room.game.room_code),
         })
@@ -1244,6 +1266,81 @@ async fn end_owner_game(
     )
 }
 
+async fn kick_owner_player(
+    State(state): State<AppState>,
+    Json(req): Json<OwnerKickPlayerRequest>,
+) -> impl IntoResponse {
+    let Some(room_code) =
+        validate_owner_room_access(&state, &req.room_code, &req.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+
+    let kicked = with_room_mut(&state, &room_code, |room| {
+        room.last_activity_at = Instant::now();
+        let game = &mut room.game;
+        let Some(player) = game.players.remove(&req.player_id) else {
+            return None;
+        };
+        room.blocked_names.insert(player.name.clone());
+        Some(player.name)
+    })
+    .await;
+
+    let Some(Some(player_name)) = kicked else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_player_id"})));
+    };
+
+    let _ = send_to_client(
+        &state,
+        &req.player_id,
+        json!({"event": "player_kicked", "payload": {"room_code": room_code, "player_name": player_name}}),
+    )
+    .await;
+
+    {
+        let mut clients = state.clients.lock().await;
+        clients.remove(&req.player_id);
+    }
+
+    broadcast_room_state(&state, &room_code).await;
+    (StatusCode::OK, Json(json!({"ok": true, "player_name": player_name})))
+}
+
+async fn unban_owner_name(
+    State(state): State<AppState>,
+    Json(req): Json<OwnerUnbanNameRequest>,
+) -> impl IntoResponse {
+    let Some(room_code) =
+        validate_owner_room_access(&state, &req.room_code, &req.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+
+    let removed = with_room_mut(&state, &room_code, |room| {
+        room.last_activity_at = Instant::now();
+        let existing = room
+            .blocked_names
+            .iter()
+            .find(|name| name.eq_ignore_ascii_case(req.player_name.trim()))
+            .cloned();
+        if let Some(name) = existing {
+            room.blocked_names.remove(&name);
+            Some(name)
+        } else {
+            None
+        }
+    })
+    .await;
+
+    let Some(unbanned_name) = removed.flatten() else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "player_name_not_blocked"})));
+    };
+
+    broadcast_room_state(&state, &room_code).await;
+    (StatusCode::OK, Json(json!({"ok": true, "player_name": unbanned_name})))
+}
+
 async fn admin_login(
     State(state): State<AppState>,
     Json(req): Json<AdminLoginRequest>,
@@ -1306,6 +1403,17 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
                 .players
                 .values_mut()
                 .find(|p| p.name.eq_ignore_ascii_case(req.display_name.trim()));
+
+            if room
+                .blocked_names
+                .iter()
+                .any(|name| name.eq_ignore_ascii_case(req.display_name.trim()))
+            {
+                return Err((
+                    axum::http::StatusCode::BAD_REQUEST,
+                    Json(json!({"error": "player_blocked"})),
+                ));
+            }
 
             let player_id = if let Some(player) = existing {
                 player.connected = true;

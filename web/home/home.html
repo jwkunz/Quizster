@@ -215,6 +215,10 @@
     .disconnected {
       color: #ff9b9b;
     }
+    .tiny-btn {
+      padding: 0.25rem 0.45rem;
+      font-size: 0.78rem;
+    }
     @media (max-width: 920px) {
       .hero, .grid, .room-card, .control-grid, .monitor-grid {
         grid-template-columns: 1fr;
@@ -335,6 +339,13 @@
           </div>
         </div>
       </div>
+
+      <div class="panel" style="margin-top:1rem;">
+        <h2>Blocked Names</h2>
+        <div id="blockedMonitor" class="monitor-list">
+          <div class="mini">No blocked names.</div>
+        </div>
+      </div>
     </section>
   </div>
 
@@ -435,9 +446,15 @@
       wrap.innerHTML = players.map((player) => `
         <div class="monitor-item">
           <span>${player.name}</span>
-          <span class="${player.connected ? "connected" : "disconnected"}">${player.connected ? "connected" : "disconnected"}</span>
+          <span>
+            <span class="${player.connected ? "connected" : "disconnected"}">${player.connected ? "connected" : "disconnected"}</span>
+            <button class="tiny-btn warn" data-kick-player="${player.id}" data-kick-name="${player.name}">Kick</button>
+          </span>
         </div>
       `).join("");
+      Array.from(document.querySelectorAll("[data-kick-player]")).forEach((btn) => {
+        btn.onclick = () => kickPlayer(btn.getAttribute("data-kick-player"), btn.getAttribute("data-kick-name"));
+      });
     }
 
     function renderLeaderboard(room) {
@@ -453,6 +470,24 @@
           <span>${Number(entry.score || 0).toFixed(2)}</span>
         </div>
       `).join("");
+    }
+
+    function renderBlockedNames(room) {
+      const wrap = el("blockedMonitor");
+      const blockedNames = room.blocked_names || [];
+      if (!blockedNames.length) {
+        wrap.innerHTML = '<div class="mini">No blocked names.</div>';
+        return;
+      }
+      wrap.innerHTML = blockedNames.map((name) => `
+        <div class="monitor-item">
+          <span>${name}</span>
+          <span><button class="tiny-btn alt" data-unban-name="${name}">Unban</button></span>
+        </div>
+      `).join("");
+      Array.from(document.querySelectorAll("[data-unban-name]")).forEach((btn) => {
+        btn.onclick = () => unbanName(btn.getAttribute("data-unban-name"));
+      });
     }
 
     async function loadQuestionBanks() {
@@ -578,6 +613,56 @@
       await refreshRoomStatus();
     }
 
+    async function kickPlayer(playerId, playerName) {
+      const room = currentRoom();
+      if (!room?.room_code || !room?.owner_token) {
+        setStatus("roomStatus", "No saved room to manage.");
+        return;
+      }
+      setStatus("roomStatus", `Kicking ${playerName}...`);
+      const res = await fetch("/api/rooms/kick", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          room_code: room.room_code,
+          owner_token: room.owner_token,
+          player_id: playerId
+        })
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        setStatus("roomStatus", `Kick failed: ${payload.error || res.status}`);
+        return;
+      }
+      setStatus("roomStatus", `${payload.player_name} was kicked and blocked from rejoining.`);
+      await refreshRoomStatus(true);
+    }
+
+    async function unbanName(playerName) {
+      const room = currentRoom();
+      if (!room?.room_code || !room?.owner_token) {
+        setStatus("roomStatus", "No saved room to manage.");
+        return;
+      }
+      setStatus("roomStatus", `Unbanning ${playerName}...`);
+      const res = await fetch("/api/rooms/unban", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          room_code: room.room_code,
+          owner_token: room.owner_token,
+          player_name: playerName
+        })
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        setStatus("roomStatus", `Unban failed: ${payload.error || res.status}`);
+        return;
+      }
+      setStatus("roomStatus", `${payload.player_name} was removed from the blocked list.`);
+      await refreshRoomStatus(true);
+    }
+
     function renderRoom(room) {
       el("roomPanel").classList.remove("hidden");
       el("activeRoomTitle").textContent = room.room_title || "";
@@ -590,6 +675,7 @@
       );
       renderPlayers(room);
       renderLeaderboard(room);
+      renderBlockedNames(room);
     }
 
     async function createRoom() {
@@ -665,6 +751,7 @@
       el("bankList").innerHTML = "";
       el("playerMonitor").innerHTML = '<div class="mini">No players joined yet.</div>';
       el("leaderMonitor").innerHTML = '<div class="mini">No scores yet.</div>';
+      el("blockedMonitor").innerHTML = '<div class="mini">No blocked names.</div>';
       setStatus("resumeStatus", `Closed room ${payload.room_code}.`);
     }
 
