@@ -738,6 +738,9 @@
   - Added hosted lifecycle tests for owner-token validation and room-removal
     cleanup so token ownership, room eviction, and client cleanup regressions
     are now covered by unit tests.
+  - Removed the old hard-coded `QUIZTER` default from the player join screen and
+    updated the README so the hosted homepage is described as the primary entry
+    point while `/admin` is treated as legacy fallback only.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -777,6 +780,7 @@
   alignment.
 - `cargo test` passes after hosted review-and-launch wizard polish.
 - `cargo test` passes with hosted owner-token cleanup lifecycle coverage.
+- `cargo test` passes after hosted README and player-entry cleanup.
 - Known issues:
   - Hosted deployment still relies on in-memory room state in a single running
     server instance.

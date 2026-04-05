@@ -36,7 +36,6 @@ This server zip already includes:
 
 - the server executable
 - hosted home page
-- legacy admin web page
 - player web page
 - images and question banks
 
@@ -72,11 +71,8 @@ If you are running Quizter from your own computer for a local gathering:
 - If browser does not auto-open, manually visit:
   - `http://127.0.0.1:8080/` (on host computer)
 
-The legacy admin console still exists at:
-
-- `http://127.0.0.1:8080/admin`
-
-Use it only if you specifically want the older admin-login workflow.
+The legacy admin console still exists at `http://127.0.0.1:8080/admin`, but
+the intended host flow starts at `/`.
 
 ## First-Time Hosted Walkthrough
 
@@ -246,8 +242,10 @@ If Quizter could not relaunch itself into a separate terminal window on your pla
 
 ### Admin page says missing files
 
-- Make sure you are running the executable from the extracted server zip contents.
+- Make sure you are running the executable from the extracted server zip
+  contents.
 - Keep `web/` and `assets/` folders next to the executable.
+- If you are using the normal hosted flow, start from `/` instead of `/admin`.
 
 ### Port 8080 already in use
 
@@ -257,7 +255,7 @@ Run with a different port:
 - `set QUIZTER_PORT=9090 && quizter-server.exe` (Windows cmd)
 
 Then open `http://127.0.0.1:9090/admin`.
-Or open `http://127.0.0.1:9090/` for the hosted homepage.
+For the normal hosted flow, open `http://127.0.0.1:9090/`.
 
 ### Hosted Deployment Base URL
 
