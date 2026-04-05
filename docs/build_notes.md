@@ -744,6 +744,9 @@
   - Expanded the hosted smoke script so `QUIZTER_PUBLIC_BASE_URL` is now
     verified against the launched room join URL, giving the managed-deployment
     path real end-to-end coverage.
+  - Cleaned the remaining user-facing legacy-console guidance so the admin page
+    now points people back to `/` as the normal host entry point even when they
+    intentionally visit `/admin`.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -786,6 +789,7 @@
 - `cargo test` passes after hosted README and player-entry cleanup.
 - `scripts/smoke_hosted_flow.sh` passes with `QUIZTER_PUBLIC_BASE_URL` set to a
   public-origin test value.
+- `cargo test` passes after the final legacy-console copy cleanup.
 - Known issues:
   - Hosted deployment still relies on in-memory room state in a single running
     server instance.
