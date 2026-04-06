@@ -9,7 +9,7 @@ domains:
 services:
   - name: quizster-web
     github:
-      repo: jwkunz/Quizter
+      repo: jwkunz/Quizster
       branch: main
       deploy_on_push: true
     source_dir: /
