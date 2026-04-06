@@ -848,10 +848,19 @@ async fn remove_room_and_clients(
 
     {
         let mut clients = state.clients.lock().await;
-        for client_id in client_ids {
-            clients.remove(&client_id);
+        for client_id in &client_ids {
+            clients.remove(client_id);
         }
     }
+
+    tracing::info!(
+        event = %event_name,
+        room_code = %room_code,
+        room_title = %removed_room.room_title,
+        players_total = removed_room.game.players.len(),
+        clients_removed = client_ids.len(),
+        "Hosted room removed"
+    );
 
     Some(removed_room.room_title)
 }
@@ -990,6 +999,15 @@ async fn create_hosted_room(
         return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
     };
 
+    tracing::info!(
+        event = "room_created",
+        room_code = %room_info.0,
+        room_title = %room_info.1,
+        available_questions = payload.get("available_questions").and_then(|value| value.as_u64()).unwrap_or(0),
+        available_packs = load_file_question_banks(&state.runtime_root).len(),
+        "Hosted room created"
+    );
+
     if let Some(object) = payload.as_object_mut() {
         object.insert("owner_token".to_string(), json!(room_info.2));
     }
@@ -1017,6 +1035,18 @@ async fn resume_hosted_room(
     let Some(payload) = owner_room_payload(&state, &valid_room_code).await else {
         return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
     };
+
+    let room_title = payload
+        .get("room_title")
+        .and_then(|value| value.as_str())
+        .unwrap_or_default()
+        .to_string();
+    tracing::info!(
+        event = "room_resumed",
+        room_code = %valid_room_code,
+        room_title = %room_title,
+        "Hosted room resumed"
+    );
 
     (StatusCode::OK, Json(payload))
 }
@@ -1219,6 +1249,15 @@ async fn launch_owner_room(
         return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
     };
 
+    tracing::info!(
+        event = "room_launched",
+        room_code = %room_code,
+        room_title = %payload.get("room_title").and_then(|value| value.as_str()).unwrap_or_default(),
+        questions_in_play = payload.get("questions_in_play").and_then(|value| value.as_u64()).unwrap_or(0),
+        total_rounds = payload.get("total_rounds").and_then(|value| value.as_u64()).unwrap_or(0),
+        "Hosted room launched"
+    );
+
     broadcast_room_state(&state, &room_code).await;
     (StatusCode::OK, Json(payload))
 }
@@ -1373,6 +1412,14 @@ async fn kick_owner_player(
         return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_player_id"})));
     };
 
+    tracing::info!(
+        event = "player_kicked",
+        room_code = %room_code,
+        player_id = %req.player_id,
+        player_name = %player_name,
+        "Player kicked from hosted room"
+    );
+
     let _ = send_to_client(
         &state,
         &req.player_id,
@@ -1419,6 +1466,13 @@ async fn unban_owner_name(
         return (StatusCode::BAD_REQUEST, Json(json!({"error": "player_name_not_blocked"})));
     };
 
+    tracing::info!(
+        event = "player_unbanned",
+        room_code = %room_code,
+        player_name = %unbanned_name,
+        "Player name unbanned in hosted room"
+    );
+
     broadcast_room_state(&state, &room_code).await;
     (StatusCode::OK, Json(json!({"ok": true, "player_name": unbanned_name})))
 }
@@ -1439,20 +1493,26 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
             Json(json!({"error": "invalid_room_code"})),
         );
     };
-    let player_id = {
+    let player_join = {
         with_room_mut(&state, &room_code, |room| {
             room.last_activity_at = Instant::now();
             if !room.launched {
                 return Err((
-                    axum::http::StatusCode::BAD_REQUEST,
-                    Json(json!({"error": "room_not_open"})),
+                    "room_not_open",
+                    (
+                        axum::http::StatusCode::BAD_REQUEST,
+                        Json(json!({"error": "room_not_open"})),
+                    ),
                 ));
             }
             let game = &mut room.game;
             if req.room_code != game.room_code {
                 return Err((
-                    axum::http::StatusCode::BAD_REQUEST,
-                    Json(json!({"error": "invalid_room_code"})),
+                    "invalid_room_code",
+                    (
+                        axum::http::StatusCode::BAD_REQUEST,
+                        Json(json!({"error": "invalid_room_code"})),
+                    ),
                 ));
             }
 
@@ -1467,14 +1527,17 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
                 .any(|name| name.eq_ignore_ascii_case(&display_name))
             {
                 return Err((
-                    axum::http::StatusCode::BAD_REQUEST,
-                    Json(json!({"error": "player_blocked"})),
+                    "player_blocked",
+                    (
+                        axum::http::StatusCode::BAD_REQUEST,
+                        Json(json!({"error": "player_blocked"})),
+                    ),
                 ));
             }
 
-            let player_id = if let Some(player) = existing {
+            let (player_id, rejoined) = if let Some(player) = existing {
                 player.connected = true;
-                player.id.clone()
+                (player.id.clone(), true)
             } else {
                 let id = format!("player-{}", Uuid::new_v4());
                 game.players.insert(
@@ -1491,23 +1554,48 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
                         tutorial_seen: false,
                     },
                 );
-                id
+                (id, false)
             };
 
-            Ok(player_id)
+            Ok((player_id, rejoined, room.room_title.clone(), game.players.len()))
         })
         .await
     };
-    let player_id = match player_id {
-        Some(Ok(player_id)) => player_id,
-        Some(Err(err)) => return err,
+    let (player_id, rejoined, room_title, players_total) = match player_join {
+        Some(Ok(player_join)) => player_join,
+        Some(Err((reason, err))) => {
+            tracing::warn!(
+                event = "join_rejected",
+                room_code = %room_code,
+                player_name = %display_name,
+                reason = %reason,
+                "Player join rejected"
+            );
+            return err;
+        }
         None => {
+            tracing::warn!(
+                event = "join_rejected",
+                room_code = %room_code,
+                player_name = %display_name,
+                reason = "invalid_room_code",
+                "Player join rejected"
+            );
             return (
                 axum::http::StatusCode::BAD_REQUEST,
                 Json(json!({"error": "invalid_room_code"})),
-            )
+            );
         }
     };
+    tracing::info!(
+        event = if rejoined { "player_rejoined" } else { "player_joined" },
+        room_code = %room_code,
+        room_title = %room_title,
+        player_id = %player_id,
+        player_name = %display_name,
+        players_total,
+        "Player joined hosted room"
+    );
     broadcast_room_state(&state, &room_code).await;
     (axum::http::StatusCode::OK, Json(json!({"player_id": player_id})))
 }
@@ -1562,15 +1650,29 @@ async fn handle_socket(stream: axum::extract::ws::WebSocket, state: AppState, cl
     write_task.abort();
     state.clients.lock().await.remove(&client_id);
 
-    {
-        let _ = with_room_mut(&state, &room_code, |room| {
+    let disconnected_player = {
+        with_room_mut(&state, &room_code, |room| {
             room.last_activity_at = Instant::now();
             let game = &mut room.game;
             if let Some(player) = game.players.get_mut(&client_id) {
                 player.connected = false;
+                Some((room.room_title.clone(), player.name.clone()))
+            } else {
+                None
             }
         })
-        .await;
+        .await
+        .flatten()
+    };
+    if let Some((room_title, player_name)) = disconnected_player {
+        tracing::info!(
+            event = "player_disconnected",
+            room_code = %room_code,
+            room_title = %room_title,
+            player_id = %client_id,
+            player_name = %player_name,
+            "Player disconnected from hosted room"
+        );
     }
     broadcast_room_state(&state, &room_code).await;
 }
@@ -1726,10 +1828,41 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
     }
 
     if let Some(message) = activation_message {
+        if let Some(payload) = message.get("payload") {
+            let affected_count = payload
+                .get("affected_players")
+                .and_then(|value| value.as_array())
+                .map(|value| value.len())
+                .unwrap_or(0);
+            let player_name = payload
+                .get("player_name")
+                .and_then(|value| value.as_str())
+                .unwrap_or(client_id);
+            let powerup_name = payload
+                .get("powerup")
+                .and_then(|value| value.as_str())
+                .unwrap_or("unknown");
+            tracing::info!(
+                event = "powerup_activated",
+                room_code = %room_code,
+                player_id = %client_id,
+                player_name = %player_name,
+                powerup = %powerup_name,
+                affected_players = affected_count,
+                "Powerup activated"
+            );
+        }
         broadcast_room_json(state, &room_code, message).await;
     }
 
     if queued {
+        tracing::info!(
+            event = "powerup_queued",
+            room_code = %room_code,
+            player_id = %client_id,
+            powerup = ?powerup,
+            "Powerup queued for next round"
+        );
         let queued_notice = json!({
             "event": "powerup_queued",
             "payload": {
