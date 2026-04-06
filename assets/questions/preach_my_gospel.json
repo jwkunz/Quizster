@@ -240,6 +240,850 @@
       "correct_index": 0,
       "points": 100,
       "image_url": null
-    }
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about the importance of setting baptismal dates?",
+      "options": [
+        "They are optional and rarely used",
+        "They help individuals prepare and act in faith",
+        "They replace teaching",
+        "They are only for experienced missionaries"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the role of the Spirit in conversion?",
+      "options": [
+        "It entertains listeners",
+        "It confirms truth to the heart",
+        "It replaces commandments",
+        "It removes the need for effort"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel emphasize about teaching people versus teaching lessons?",
+      "options": [
+        "Lessons are more important",
+        "People\u2019s needs should guide teaching",
+        "Memorization is required",
+        "Teaching should follow a script"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the purpose of daily companionship inventory?",
+      "options": [
+        "To assign blame",
+        "To improve unity and effectiveness",
+        "To reduce planning time",
+        "To evaluate investigators"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about using scriptures in lessons?",
+      "options": [
+        "Avoid them",
+        "Use them to teach doctrine and invite the Spirit",
+        "Memorize only",
+        "Read without explanation"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the purpose of planning sessions for missionaries?",
+      "options": [
+        "To relax",
+        "To organize efforts and focus on individuals",
+        "To avoid teaching",
+        "To reduce study time"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel say about handling rejection?",
+      "options": [
+        "Stop teaching",
+        "Remain patient and continue with faith",
+        "Avoid people",
+        "Change doctrine"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is one way missionaries demonstrate love for those they teach?",
+      "options": [
+        "Speaking more",
+        "Listening and understanding their needs",
+        "Shortening lessons",
+        "Avoiding questions"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about accountability?",
+      "options": [
+        "It is unnecessary",
+        "Missionaries are accountable to God for their efforts",
+        "Only leaders are accountable",
+        "It applies only to planning"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the importance of unity in companionships?",
+      "options": [
+        "It is optional",
+        "It invites the Spirit and increases effectiveness",
+        "It reduces teaching time",
+        "It replaces planning"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about the importance of obedience?",
+      "options": [
+        "It is optional",
+        "It invites blessings and spiritual power",
+        "It replaces faith",
+        "It applies only to leaders"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the purpose of extending invitations during lessons?",
+      "options": [
+        "To conclude quickly",
+        "To help individuals act on faith",
+        "To test understanding",
+        "To fill time"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel emphasize about teaching simply?",
+      "options": [
+        "Use complex language",
+        "Focus on clarity and understanding",
+        "Avoid doctrine",
+        "Teach quickly"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What role does hope play as a Christlike attribute?",
+      "options": [
+        "It replaces faith",
+        "It provides confidence in God’s promises",
+        "It avoids challenges",
+        "It limits growth"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about using time effectively?",
+      "options": [
+        "Focus only on study",
+        "Balance study, planning, and teaching",
+        "Avoid planning",
+        "Work without rest"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Why is it important to follow up on commitments?",
+      "options": [
+        "To shorten lessons",
+        "To support progress and accountability",
+        "To test memory",
+        "To avoid teaching"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel say about asking questions during teaching?",
+      "options": [
+        "Avoid them",
+        "Use them to invite reflection and the Spirit",
+        "Ask only yes/no questions",
+        "Ask to test knowledge"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the benefit of working with ward members?",
+      "options": [
+        "It replaces missionary work",
+        "It strengthens teaching and fellowship",
+        "It reduces effort",
+        "It limits teaching opportunities"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about perseverance?",
+      "options": [
+        "Stop when it is difficult",
+        "Continue faithfully despite challenges",
+        "Avoid difficult situations",
+        "Delegate hard work"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the role of gratitude in missionary work?",
+      "options": [
+        "It is unnecessary",
+        "It helps missionaries recognize God’s blessings",
+        "It replaces prayer",
+        "It reduces effort"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about the importance of goals in missionary work?",
+      "options": [
+        "They are optional",
+        "They help guide planning and focus efforts",
+        "They replace prayer",
+        "They are only for leaders"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the primary purpose of weekly planning?",
+      "options": [
+        "To relax",
+        "To organize efforts to help individuals progress",
+        "To reduce teaching time",
+        "To avoid study"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about the Sabbath day?",
+      "options": [
+        "It is optional",
+        "It is a day to worship and renew covenants",
+        "It replaces study",
+        "It is only for leaders"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What role does humility play in missionary work?",
+      "options": [
+        "It limits confidence",
+        "It allows missionaries to rely on God",
+        "It replaces effort",
+        "It avoids responsibility"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about finding people to teach?",
+      "options": [
+        "Wait for referrals only",
+        "Actively seek and pray for opportunities",
+        "Avoid contacting people",
+        "Teach only members"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the purpose of the Restoration message?",
+      "options": [
+        "To teach history only",
+        "To show that Christ’s Church has been restored",
+        "To replace commandments",
+        "To avoid doctrine"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about commitment patterns?",
+      "options": [
+        "They are unnecessary",
+        "They invite, follow up, and help individuals act",
+        "They replace teaching",
+        "They shorten lessons only"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the benefit of daily personal study?",
+      "options": [
+        "It replaces teaching",
+        "It strengthens testimony and understanding",
+        "It reduces work",
+        "It is optional"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about the use of silence in teaching?",
+      "options": [
+        "Avoid silence",
+        "Use it to allow the Spirit to teach",
+        "It wastes time",
+        "It confuses people"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What role does the Savior play in missionary work?",
+      "options": [
+        "He is not involved",
+        "He is the central focus of the message",
+        "He replaces effort",
+        "He only guides leaders"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+
+    {
+      "prompt": "What does Preach My Gospel teach about patience?",
+      "options": [
+        "It is unnecessary",
+        "It helps missionaries trust God’s timing",
+        "It avoids effort",
+        "It delays progress"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the importance of listening during lessons?",
+      "options": [
+        "It slows teaching",
+        "It helps understand needs and invite the Spirit",
+        "It replaces speaking",
+        "It is optional"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about boldness?",
+      "options": [
+        "Avoid it",
+        "Teach with confidence and clarity",
+        "Be aggressive",
+        "Speak loudly only"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the role of covenants in the gospel?",
+      "options": [
+        "They are optional",
+        "They are sacred promises between God and individuals",
+        "They replace commandments",
+        "They apply only to leaders"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about service?",
+      "options": [
+        "It is unnecessary",
+        "It shows love and builds relationships",
+        "It replaces teaching",
+        "It is optional"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the benefit of using lesson outlines?",
+      "options": [
+        "To memorize word-for-word",
+        "To guide flexible, Spirit-led teaching",
+        "To avoid thinking",
+        "To shorten lessons"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about spiritual preparation?",
+      "options": [
+        "It is optional",
+        "It is essential for effective teaching",
+        "It replaces planning",
+        "It only involves prayer"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the role of love in missionary work?",
+      "options": [
+        "It is secondary",
+        "It motivates and strengthens teaching",
+        "It replaces doctrine",
+        "It is optional"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about using member referrals?",
+      "options": [
+        "Avoid them",
+        "They are an effective way to find people",
+        "They replace teaching",
+        "They are optional"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the importance of consistency in missionary work?",
+      "options": [
+        "It is unnecessary",
+        "It builds trust and effectiveness",
+        "It limits flexibility",
+        "It reduces effort"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+
+    {
+      "prompt": "What does Preach My Gospel teach about accountability to leaders?",
+      "options": [
+        "It is optional",
+        "Missionaries report and receive guidance",
+        "It replaces personal responsibility",
+        "It is unnecessary"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What role does enthusiasm play in teaching?",
+      "options": [
+        "It is unnecessary",
+        "It helps convey sincerity and conviction",
+        "It replaces doctrine",
+        "It confuses people"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about simplicity in doctrine?",
+      "options": [
+        "Avoid simple teaching",
+        "Teach clear and understandable principles",
+        "Use complex terms only",
+        "Teach quickly"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the purpose of reviewing lessons after teaching?",
+      "options": [
+        "To criticize",
+        "To improve future teaching",
+        "To reduce effort",
+        "To avoid planning"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about trust in God?",
+      "options": [
+        "It is optional",
+        "It strengthens faith and guides decisions",
+        "It replaces effort",
+        "It limits agency"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about the importance of planning with purpose?",
+      "options": [
+        "Planning is optional",
+        "Planning helps missionaries focus on individuals and outcomes",
+        "Planning replaces teaching",
+        "Planning is only for leaders"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the role of faith in finding people to teach?",
+      "options": [
+        "It is unnecessary",
+        "It motivates action and trust in God",
+        "It replaces effort",
+        "It avoids planning"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about using the name of Jesus Christ in teaching?",
+      "options": [
+        "Avoid it",
+        "Use it with reverence and purpose",
+        "Use it casually",
+        "Only leaders use it"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the benefit of being organized as a missionary?",
+      "options": [
+        "It reduces effort",
+        "It increases effectiveness and focus",
+        "It replaces planning",
+        "It limits flexibility"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about developing habits?",
+      "options": [
+        "Habits are unimportant",
+        "Good habits lead to consistent spiritual growth",
+        "Habits replace agency",
+        "Habits are optional"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the importance of following the Spirit when teaching?",
+      "options": [
+        "It is optional",
+        "It guides what to say and do",
+        "It replaces preparation",
+        "It avoids doctrine"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about adapting lessons?",
+      "options": [
+        "Never adapt",
+        "Adjust based on needs and guidance of the Spirit",
+        "Follow scripts only",
+        "Avoid planning"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What role does commitment play in conversion?",
+      "options": [
+        "It is unnecessary",
+        "It leads to action and spiritual growth",
+        "It replaces faith",
+        "It limits agency"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about maintaining focus?",
+      "options": [
+        "Focus is optional",
+        "Stay focused on purpose and individuals",
+        "Focus on numbers only",
+        "Avoid planning"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the importance of unity with companions?",
+      "options": [
+        "It is optional",
+        "It strengthens teaching and invites the Spirit",
+        "It reduces effort",
+        "It limits independence"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+
+    {
+      "prompt": "What does Preach My Gospel teach about responding to questions?",
+      "options": [
+        "Avoid answering",
+        "Respond with clarity and the Spirit",
+        "Ignore questions",
+        "Change topics"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the benefit of reviewing goals regularly?",
+      "options": [
+        "It wastes time",
+        "It helps adjust efforts and stay accountable",
+        "It replaces planning",
+        "It is optional"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about working hard?",
+      "options": [
+        "Work occasionally",
+        "Work diligently with purpose",
+        "Avoid effort",
+        "Delegate work"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What role does kindness play in missionary work?",
+      "options": [
+        "It is unnecessary",
+        "It builds trust and relationships",
+        "It replaces doctrine",
+        "It is optional"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about using time wisely?",
+      "options": [
+        "Time management is optional",
+        "Use time to focus on meaningful activities",
+        "Avoid planning",
+        "Focus only on study"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the purpose of setting daily goals?",
+      "options": [
+        "To reduce effort",
+        "To guide daily actions and priorities",
+        "To replace planning",
+        "To avoid teaching"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about courage?",
+      "options": [
+        "Avoid challenges",
+        "Act in faith despite fear",
+        "Be aggressive",
+        "Ignore concerns"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the benefit of preparation before lessons?",
+      "options": [
+        "It is unnecessary",
+        "It improves clarity and effectiveness",
+        "It replaces the Spirit",
+        "It reduces effort"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about using testimony?",
+      "options": [
+        "Avoid it",
+        "Share sincere testimony to invite the Spirit",
+        "Use it rarely",
+        "Only leaders share testimony"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What role does consistency play in daily missionary work?",
+      "options": [
+        "It is unnecessary",
+        "It builds habits and effectiveness",
+        "It limits flexibility",
+        "It replaces planning"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+
+    {
+      "prompt": "What does Preach My Gospel teach about respect for others?",
+      "options": [
+        "It is optional",
+        "Treat all people with dignity and love",
+        "It replaces teaching",
+        "It is unnecessary"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the importance of preparation day (P-day)?",
+      "options": [
+        "It is for rest only",
+        "It supports physical and mental renewal",
+        "It replaces study",
+        "It is optional"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about being teachable?",
+      "options": [
+        "Avoid feedback",
+        "Be willing to learn and improve",
+        "Ignore leaders",
+        "Teach only"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the benefit of prayer before teaching?",
+      "options": [
+        "It is unnecessary",
+        "It invites guidance and the Spirit",
+        "It replaces planning",
+        "It shortens lessons"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about focusing on individuals?",
+      "options": [
+        "Focus on numbers",
+        "Care for each person’s needs and progress",
+        "Avoid planning",
+        "Teach quickly"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }  
   ]
 }
