@@ -1,0 +1,50 @@
+name: quizter
+region: nyc
+
+domains:
+  - domain: quizster.live
+    type: PRIMARY
+    minimum_tls_version: "1.2"
+
+services:
+  - name: quizter-web
+    github:
+      repo: jwkunz/Quizter
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    dockerfile_path: Dockerfile
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: apps-s-1vcpu-0.5gb
+    health_check:
+      http_path: /health
+      initial_delay_seconds: 10
+      period_seconds: 10
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 3
+    envs:
+      - key: QUIZTER_HOST
+        value: "0.0.0.0"
+        scope: RUN_TIME
+        type: GENERAL
+      - key: QUIZTER_PORT
+        value: "8080"
+        scope: RUN_TIME
+        type: GENERAL
+      - key: QUIZTER_PUBLIC_BASE_URL
+        value: https://quizster.live
+        scope: RUN_TIME
+        type: GENERAL
+      - key: QUIZTER_OPEN_BROWSER
+        value: "0"
+        scope: RUN_TIME
+        type: GENERAL
+      - key: QUIZTER_SPAWN_TERMINAL
+        value: "0"
+        scope: RUN_TIME
+        type: GENERAL
+
+alerts:
+  - rule: DEPLOYMENT_FAILED
