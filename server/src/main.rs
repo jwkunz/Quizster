@@ -18,6 +18,7 @@ use std::{
     net::{SocketAddr, UdpSocket},
     path::{Path as FsPath, PathBuf},
     process::Command,
+    sync::atomic::{AtomicU64, Ordering},
     sync::Arc,
     time::{Duration, Instant},
 };
@@ -41,6 +42,7 @@ struct AppState {
     rooms: Arc<Mutex<HashMap<String, RoomState>>>,
     owner_index: Arc<Mutex<HashMap<String, String>>>,
     clients: Arc<Mutex<HashMap<String, ClientConnection>>>,
+    games_started_since_launch: Arc<AtomicU64>,
     data_dir: Arc<PathBuf>,
     public_base_url: Arc<String>,
     player_join_url: Arc<String>,
@@ -654,6 +656,7 @@ async fn main() {
         rooms: Arc::new(Mutex::new(HashMap::new())),
         owner_index: Arc::new(Mutex::new(HashMap::new())),
         clients: Arc::new(Mutex::new(HashMap::new())),
+        games_started_since_launch: Arc::new(AtomicU64::new(0)),
         data_dir: Arc::new(data_dir),
         public_base_url: Arc::new(public_base_url.clone()),
         player_join_url: Arc::new(player_join_url),
@@ -1239,17 +1242,39 @@ async fn start_owner_game(
         if room.clear_blocked_names_on_new_game {
             room.blocked_names.clear();
         }
-        prepare_game_for_start(game, req.total_rounds)
+        prepare_game_for_start(game, req.total_rounds).map(|_| {
+            (
+                room.room_title.clone(),
+                game.players.values().filter(|player| player.connected).count(),
+                game.questions.len(),
+                game.total_rounds,
+            )
+        })
     })
     .await;
 
-    match startable {
-        Some(Ok(())) => {}
+    let start_log = match startable {
+        Some(Ok(log)) => log,
         Some(Err(error)) => return (StatusCode::BAD_REQUEST, Json(json!({"error": error}))),
         None => {
             return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
         }
-    }
+    };
+
+    let games_since_launch = state
+        .games_started_since_launch
+        .fetch_add(1, Ordering::Relaxed)
+        + 1;
+    tracing::info!(
+        event = "game_started",
+        room_code = %room_code,
+        room_title = %start_log.0,
+        games_since_launch,
+        players_connected = start_log.1,
+        questions_in_play = start_log.2,
+        total_rounds = start_log.3,
+        "Hosted game started"
+    );
 
     start_next_round_in_room(state.clone(), &room_code).await;
     (StatusCode::OK, Json(json!({"ok": true})))
