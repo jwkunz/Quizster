@@ -236,6 +236,14 @@ impl GameState {
         }
     }
 
+    fn largest_selected_pack_size(&self) -> usize {
+        self.selected_bank_files
+            .iter()
+            .filter_map(|file| self.file_question_banks.get(file).map(|questions| questions.len()))
+            .max()
+            .unwrap_or(0)
+    }
+
     fn available_bank_files(&self) -> Vec<String> {
         let mut files: Vec<String> = self.file_question_banks.keys().cloned().collect();
         files.sort();
@@ -282,9 +290,14 @@ impl GameState {
                     .iter()
                     .map(|file| file["question_count"].as_u64().unwrap_or(0) as usize)
                     .sum();
+                let selected_count = files
+                    .iter()
+                    .filter(|file| file["selected"].as_bool().unwrap_or(false))
+                    .count();
                 json!({
                     "name": name,
                     "question_count": question_count,
+                    "selected_count": selected_count,
                     "files": files,
                 })
             })
@@ -661,6 +674,7 @@ async fn main() {
         .route("/api/rooms/settings", post(update_owner_room_settings))
         .route("/api/rooms/launch", post(launch_owner_room))
         .route("/api/rooms/start", post(start_owner_game))
+        .route("/api/rooms/issue_next", post(issue_next_owner_round))
         .route("/api/rooms/end_game", post(end_owner_game))
         .route("/api/rooms/kick", post(kick_owner_player))
         .route("/api/rooms/unban", post(unban_owner_name))
@@ -1064,6 +1078,7 @@ async fn get_owner_question_banks(
             "category_tree": game.question_bank_tree(),
             "effective_question_count": game.questions.len(),
             "available_question_count": game.total_available_questions(),
+            "largest_selected_pack_size": game.largest_selected_pack_size(),
         })
     })
     .await
@@ -1225,6 +1240,44 @@ async fn start_owner_game(
     .await;
 
     match startable {
+        Some(Ok(())) => {}
+        Some(Err(error)) => return (StatusCode::BAD_REQUEST, Json(json!({"error": error}))),
+        None => {
+            return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+        }
+    }
+
+    start_next_round_in_room(state.clone(), &room_code).await;
+    (StatusCode::OK, Json(json!({"ok": true})))
+}
+
+async fn issue_next_owner_round(
+    State(state): State<AppState>,
+    Json(req): Json<OwnerLaunchRoomRequest>,
+) -> impl IntoResponse {
+    let Some(room_code) =
+        validate_owner_room_access(&state, &req.room_code, &req.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+
+    let can_issue = with_room_mut(&state, &room_code, |room| {
+        room.last_activity_at = Instant::now();
+        if !room.launched {
+            return Err("room_not_open");
+        }
+        let game = &mut room.game;
+        if game.auto_issue_enabled {
+            return Err("auto_issue_enabled");
+        }
+        if game.status != GameStatus::RoundResult || game.current_round.is_some() {
+            return Err("manual_issue_unavailable");
+        }
+        Ok(())
+    })
+    .await;
+
+    match can_issue {
         Some(Ok(())) => {}
         Some(Err(error)) => return (StatusCode::BAD_REQUEST, Json(json!({"error": error}))),
         None => {

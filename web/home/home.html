@@ -485,6 +485,7 @@
               <input id="roundCount" type="number" min="1" max="200" value="10" />
             </label>
             <button id="startGameBtn">Start Game</button>
+            <button id="issueNextBtn" class="alt">Issue Next Question</button>
             <button id="endGameBtn" class="warn">End Game</button>
             <div class="status" id="startStatus">Launch the room first, then start the game when players are ready.</div>
           </div>
@@ -523,6 +524,15 @@
 
     function el(id) {
       return document.getElementById(id);
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#39;");
     }
 
     function setStatus(id, text) {
@@ -614,34 +624,76 @@
       return Array.from(document.querySelectorAll("[data-pack-file]:checked")).map((node) => node.getAttribute("data-pack-file"));
     }
 
+    function suggestedRoundCount(payload) {
+      const largestPack = Number(payload.largest_selected_pack_size || 0);
+      const effective = Number(payload.effective_question_count || 0);
+      return Math.max(1, Math.min(largestPack || effective || 1, effective || largestPack || 1));
+    }
+
     function renderBankList(payload) {
       const wrap = el("bankList");
       wrap.innerHTML = "";
       const selected = new Set(payload.selected_files || []);
-      const available = payload.available_files || [];
-      if (!available.length) {
+      const categoryTree = payload.category_tree || [];
+      if (!categoryTree.length) {
         wrap.innerHTML = '<div class="mini">No question packs are currently available on the server.</div>';
       } else {
-        available.forEach((file) => {
-          const line = document.createElement("label");
-          line.className = "bank-item";
-          line.innerHTML = `
-            <input type="checkbox" data-pack-file="${file}" ${selected.has(file) ? "checked" : ""} />
-            <span>
-              <span>${file}</span>
-              <span class="bank-meta">${selected.has(file) ? "selected" : "not selected"}</span>
-            </span>
+        categoryTree.forEach((category) => {
+          const section = document.createElement("div");
+          const categoryName = category.name || "Uncategorized";
+          const categoryFiles = category.files || [];
+          const selectedCount = Number(category.selected_count || 0);
+          section.className = "stack";
+          section.innerHTML = `
+            <div class="monitor-item">
+              <span>
+                <strong>${escapeHtml(categoryName)}</strong>
+                <span class="bank-meta">${selectedCount}/${categoryFiles.length} packs selected | ${Number(category.question_count || 0)} questions</span>
+              </span>
+              <span>
+                <button type="button" class="tiny-btn alt" data-category-add-all="${escapeHtml(categoryName)}">Add all</button>
+                <button type="button" class="tiny-btn alt" data-category-clear="${escapeHtml(categoryName)}">Clear</button>
+              </span>
+            </div>
           `;
-          wrap.appendChild(line);
+          categoryFiles.forEach((fileInfo) => {
+            const file = fileInfo.file || "";
+            const line = document.createElement("label");
+            line.className = "bank-item";
+            line.innerHTML = `
+              <input type="checkbox" data-pack-file="${escapeHtml(file)}" data-pack-category="${escapeHtml(categoryName)}" ${selected.has(file) ? "checked" : ""} />
+              <span>
+                <span>${escapeHtml(file)}</span>
+                <span class="bank-meta">${selected.has(file) ? "selected" : "not selected"} | ${Number(fileInfo.question_count || 0)} questions</span>
+              </span>
+            `;
+            section.appendChild(line);
+          });
+          wrap.appendChild(section);
+        });
+        Array.from(document.querySelectorAll("[data-category-add-all]")).forEach((btn) => {
+          btn.onclick = () => {
+            const category = btn.getAttribute("data-category-add-all");
+            Array.from(document.querySelectorAll(`[data-pack-category="${CSS.escape(category)}"]`)).forEach((box) => {
+              box.checked = true;
+            });
+          };
+        });
+        Array.from(document.querySelectorAll("[data-category-clear]")).forEach((btn) => {
+          btn.onclick = () => {
+            const category = btn.getAttribute("data-category-clear");
+            Array.from(document.querySelectorAll(`[data-pack-category="${CSS.escape(category)}"]`)).forEach((box) => {
+              box.checked = false;
+            });
+          };
         });
       }
       el("packSummary").textContent =
         `Selected packs: ${(payload.selected_files || []).length} | Questions in play: ${payload.effective_question_count ?? 0} | Questions available on server: ${payload.available_question_count ?? 0}`;
-      const suggestedRounds = Math.max(1, Math.min(10, payload.effective_question_count || 1));
-      el("roundCount").max = Math.max(1, payload.effective_question_count || 1);
-      if (!(Number(el("roundCount").value) > 0)) {
-        el("roundCount").value = suggestedRounds;
-      }
+      const suggestedRounds = suggestedRoundCount(payload);
+      const maxRounds = Math.max(1, payload.effective_question_count || 1);
+      el("roundCount").max = maxRounds;
+      el("roundCount").value = Math.min(suggestedRounds, maxRounds);
     }
 
     function renderSettings(room) {
@@ -657,7 +709,7 @@
     function renderReview(room) {
       const selectedPacks = Number(room.selected_bank_files?.length || 0);
       const questionsInPlay = Number(room.questions_in_play || 0);
-      const totalRounds = Math.max(1, Number(room.total_rounds || 1));
+      const totalRounds = Math.max(1, Number(el("roundCount").value || room.total_rounds || 1));
       const launched = Boolean(room.launched);
       el("reviewPackCount").textContent = `${selectedPacks} selected`;
       el("reviewQuestionCount").textContent = `${questionsInPlay} questions`;
@@ -740,15 +792,21 @@
       const launched = Boolean(room.launched);
       const questionsInPlay = Number(room.questions_in_play || 0);
       const completedRounds = Number(room.completed_rounds || 0);
-      const totalRounds = Math.max(1, Number(room.total_rounds || 1));
       const maxRounds = Math.max(1, questionsInPlay || 1);
-      const currentRounds = Math.max(1, Math.min(totalRounds, maxRounds));
+      const currentValue = Math.max(1, Number(el("roundCount").value || room.total_rounds || 1));
+      const currentRounds = Math.max(1, Math.min(currentValue, maxRounds));
+      const canIssueNext = launched
+        && !Boolean(room.auto_issue_enabled)
+        && room.status === "round_result"
+        && completedRounds < Math.max(1, Number(room.total_rounds || 1));
 
       el("roundCount").max = maxRounds;
       el("roundCount").value = currentRounds;
       el("launchRoomBtn").disabled = launched || questionsInPlay < 1;
       el("reviewLaunchRoomBtn").disabled = launched || questionsInPlay < 1;
       el("startGameBtn").disabled = !launched || questionsInPlay < 1;
+      el("issueNextBtn").disabled = !canIssueNext;
+      el("issueNextBtn").classList.toggle("hidden", Boolean(room.auto_issue_enabled));
       el("endGameBtn").disabled = room.status === "ended" || completedRounds < 1;
       el("copyPlayerLinkBtn").disabled = !launched;
       el("openPlayerBtn").disabled = !launched;
@@ -974,6 +1032,30 @@
       await refreshRoomStatus();
     }
 
+    async function issueNextQuestion() {
+      const room = currentRoom();
+      if (!room?.room_code || !room?.owner_token) {
+        setStatus("startStatus", "No saved room to control.");
+        return;
+      }
+      setStatus("startStatus", "Issuing next question...");
+      const res = await fetch("/api/rooms/issue_next", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          room_code: room.room_code,
+          owner_token: room.owner_token
+        })
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        setStatus("startStatus", `Issue failed: ${payload.error || res.status}`);
+        return;
+      }
+      setStatus("startStatus", "Next question issued.");
+      await refreshRoomStatus(true);
+    }
+
     async function launchRoom() {
       const room = currentRoom();
       if (!room?.room_code || !room?.owner_token) {
@@ -1068,6 +1150,8 @@
       );
       if (!launched) {
         setStatus("startStatus", "Finish setup and launch the room before starting the game.");
+      } else if (!room.auto_issue_enabled && room.status === "round_result") {
+        setStatus("startStatus", "Auto issue is off. Use Issue Next Question to continue.");
       } else if (room.status === "ended") {
         setStatus("startStatus", "Game ended. Adjust packs or rounds, then start another game in this room.");
       }
@@ -1200,6 +1284,7 @@
     el("saveBanksBtn").onclick = saveQuestionBanks;
     el("saveSettingsBtn").onclick = saveSettings;
     el("startGameBtn").onclick = startGame;
+    el("issueNextBtn").onclick = issueNextQuestion;
     el("endGameBtn").onclick = endGame;
 
     syncLandingActions();
