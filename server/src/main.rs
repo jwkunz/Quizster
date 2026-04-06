@@ -1766,14 +1766,11 @@ fn apply_powerup_to_current_round(
                 .filter(|i| *i != round.question.correct_index)
                 .collect();
             let random_incorrect = *incorrects.choose(&mut rng).unwrap_or(&incorrects[0]);
-            for target_id in &connected_other_players {
-                round
-                    .super_spliter_targets
-                    .insert(target_id.clone(), (round.question.correct_index, random_incorrect));
-            }
-            powerup_payload = Some(json!({"targets": connected_other_players}));
-            affected_players = connected_other_players;
-            alert_message = Some("Super Spliter activated: your choices were reduced this round.".to_string());
+            round.super_spliter_targets.insert(
+                client_id.to_string(),
+                (round.question.correct_index, random_incorrect),
+            );
+            powerup_payload = Some(json!({"target": client_id}));
         }
         PowerUp::GreatGambler => {
             if round.great_gambler_factor.is_none() {
