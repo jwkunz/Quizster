@@ -305,6 +305,28 @@
       padding: 0.25rem 0.45rem;
       font-size: 0.78rem;
     }
+    .footer-actions {
+      display: flex;
+      justify-content: center;
+      margin: 1.25rem 0 0.5rem;
+    }
+    .legal-btn {
+      padding: 0.45rem 0.8rem;
+      font-size: 0.82rem;
+      border-color: #3b3b3b;
+      box-shadow: none;
+      color: var(--muted);
+    }
+    .legal-panel {
+      max-width: 860px;
+      margin: 0 auto 1rem;
+      line-height: 1.5;
+    }
+    .legal-panel ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.1rem;
+      color: var(--muted);
+    }
     @media (max-width: 920px) {
       .hero, .grid, .room-card, .control-grid, .monitor-grid {
         grid-template-columns: 1fr;
@@ -519,6 +541,24 @@
         </div>
       </div>
     </section>
+
+    <div class="footer-actions">
+      <button id="legalBtn" class="legal-btn alt">Legal</button>
+    </div>
+
+    <section id="legalPanel" class="panel legal-panel hidden">
+      <h2>Legal</h2>
+      <p>Copyright 2026 Numerius Engineering LLC. For support contact numerius.engineering@gmail.com.</p>
+      <p><strong>Privacy Policy</strong></p>
+      <ul>
+        <li>Quizster does not require user accounts, email signups, or profile creation.</li>
+        <li>Quizster does not intentionally collect personal data such as real names, addresses, phone numbers, or payment information.</li>
+        <li>Player display names are only used inside the live room for gameplay and are not intended as personal identity records.</li>
+        <li>Room and game state are held in server memory for active play and are cleared when rooms are closed or expire.</li>
+        <li>Question packs are loaded from files on the server; player devices do not upload personal documents or media.</li>
+        <li>If a host deploys Quizster on their own infrastructure, they are responsible for any server logs or hosting-provider data outside the app itself.</li>
+      </ul>
+    </section>
   </div>
 
   <script>
@@ -543,6 +583,10 @@
 
     function setStatus(id, text) {
       el(id).textContent = text;
+    }
+
+    function toggleLegalPanel() {
+      el("legalPanel").classList.toggle("hidden");
     }
 
     function loadSavedRoom() {
@@ -1290,6 +1334,7 @@
     el("reviewLaunchRoomBtn").onclick = launchRoom;
     el("copyPlayerLinkBtn").onclick = copyPlayerLink;
     el("openPlayerBtn").onclick = openPlayer;
+    el("legalBtn").onclick = toggleLegalPanel;
     el("refreshRoomBtn").onclick = refreshRoomStatus;
     el("closeRoomBtn").onclick = closeRoom;
     el("refreshBanksBtn").onclick = loadQuestionBanks;
