@@ -269,6 +269,37 @@ public hosted address instead of the detected LAN IP.
 See [docs/managed_hosting_checklist.md](/home/jwkunz/repos/Quizter/docs/managed_hosting_checklist.md)
 for the recommended hosted preflight and first-deploy smoke checks.
 
+### Docker
+
+Quizter can also run inside a Docker container.
+
+Build the image from the repository root:
+
+```bash
+docker build -t quizter:v4.0.0 .
+```
+
+Run it locally:
+
+```bash
+docker run --rm -p 8080:8080 \
+  -e QUIZTER_PUBLIC_BASE_URL=http://localhost:8080 \
+  quizter:v4.0.0
+```
+
+Then open:
+
+- `http://127.0.0.1:8080/` for the host homepage
+- `http://127.0.0.1:8080/player` for the player page
+
+Notes:
+
+- The container already disables browser auto-open and terminal relaunch.
+- For a real hosted deployment, set `QUIZTER_PUBLIC_BASE_URL` to your public
+  HTTPS domain.
+- The image includes the server binary plus the runtime `web/` and `assets/`
+  directories required by Quizter.
+
 ## For Developers
 
 Build and package locally:
