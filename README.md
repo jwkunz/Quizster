@@ -283,6 +283,17 @@ For managed hosting or any public deployment behind a real domain, set:
 This makes Quizster generate the correct player join URLs and QR codes for the
 public hosted address instead of the detected LAN IP.
 
+For DigitalOcean App Platform, keep these runtime values in the repo-root
+`.env` file:
+
+```text
+QUIZSTER_HOST=0.0.0.0
+QUIZSTER_PORT=8080
+QUIZSTER_PUBLIC_BASE_URL=https://quizster.live
+QUIZSTER_OPEN_BROWSER=0
+QUIZSTER_SPAWN_TERMINAL=0
+```
+
 See [docs/managed_hosting_checklist.md](/home/jwkunz/repos/Quizter/docs/managed_hosting_checklist.md)
 for the recommended hosted preflight and first-deploy smoke checks.
 

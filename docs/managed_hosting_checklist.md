@@ -31,6 +31,19 @@ Quizster needs:
 
 ## Required Environment Variables
 
+Repo root:
+
+- `.env`
+  - store the DigitalOcean App Platform runtime values here
+  - current expected contents:
+    - `QUIZSTER_HOST=0.0.0.0`
+    - `QUIZSTER_PORT=8080`
+    - `QUIZSTER_PUBLIC_BASE_URL=https://quizster.live`
+    - `QUIZSTER_OPEN_BROWSER=0`
+    - `QUIZSTER_SPAWN_TERMINAL=0`
+
+Runtime variables:
+
 - `QUIZSTER_PUBLIC_BASE_URL`
   - example: `https://quizster.example.com`
   - required for correct player join links and QR codes in hosted mode
